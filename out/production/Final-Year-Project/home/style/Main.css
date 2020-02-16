@@ -1,0 +1,15 @@
+.parent{
+    -fx-background-color: #6abf6c;
+}
+.sidebar{
+    -fx-background-color: #297b24;
+}
+.mainLabel{
+    -fx-background-color: #000000;
+}
+.btns{
+    -fx-background-color: transparent;
+}
+.btns:hover{
+    -fx-background-color: #1b3b1b;
+}

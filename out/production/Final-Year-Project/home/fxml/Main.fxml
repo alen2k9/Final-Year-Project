@@ -1,11 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
 <GridPane alignment="center" hgap="10" vgap="10" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="home.controllers.Controller">
    <columnConstraints>
@@ -17,59 +23,60 @@
    <children>
       <AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="720.0" prefWidth="1080.0">
          <children>
-            <VBox alignment="TOP_CENTER" prefHeight="576.0" prefWidth="256.0" style="-fx-background-color: #6abf6c;" AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <VBox prefHeight="720.0" prefWidth="198.0" styleClass="sidebar" stylesheets="@../style/Main.css">
                <children>
-
-                  <Button fx:id="btnOverview" alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="259.0" stylesheets="@style.css" text="HOME" textFill="#e7e5e5">
-                     
-                  </Button>
-                  <Button fx:id="btnOrders" alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="259.0" stylesheets="@style.css" text="Dashboard">
-                     <graphic>
-                        <ImageView fitHeight="23.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-
-                           </image>
-                        </ImageView>
-                     </graphic>
+                  <Label prefHeight="44.0" prefWidth="201.0" styleClass="mainLabel" stylesheets="@../style/Main.css" text="Main Panel" textFill="WHITE" textOverrun="CENTER_WORD_ELLIPSIS">
+                     <font>
+                        <Font name="Cera PROModern Medium" size="18.0" />
+                     </font>
                      <padding>
-                        <Insets left="50.0" />
+                        <Insets left="10.0" />
                      </padding>
-                  </Button>
-                  <Button fx:id="btnCustomers" alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="259.0" stylesheets="@style.css" text="Calendar">
-                     <graphic>
-
-                     </graphic>
-                     <padding>
-                        <Insets left="50.0" />
-                     </padding>
-                  </Button>
-                  <Button fx:id="btnMenus" alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="259.0" stylesheets="@style.css" text="Help Center">
-                     <graphic>
-                        <ImageView fitHeight="23.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-
-                           </image>
-                        </ImageView>
-                     </graphic>
-                     <padding>
-                        <Insets left="50.0" />
-                     </padding>
-                  </Button>
-                  <Button fx:id="btnPackages" alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="259.0" stylesheets="@style.css" text="Settings">
-                     <graphic>
-                        <ImageView fitHeight="23.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-
-                           </image>
-                        </ImageView>
-                     </graphic>
-                     <padding>
-                        <Insets left="50.0" />
-                     </padding>
-                  </Button>
+                  </Label>
+                  <HBox prefHeight="50.0" prefWidth="198.0" styleClass="btns" stylesheets="@../style/Main.css">
+                     <children>
+                        <TextField prefHeight="23.0" prefWidth="199.0" text="Search">
+                           <HBox.margin>
+                              <Insets left="5.0" right="5.0" top="10.0" />
+                           </HBox.margin>
+                           <font>
+                              <Font name="Calibri Light" size="14.0" />
+                           </font>
+                        </TextField>
+                     </children>
+                  </HBox>
+                  <HBox prefHeight="50.0" prefWidth="198.0" styleClass="btns" stylesheets="@../style/Main.css">
+                     <children>
+                        <Label alignment="CENTER" contentDisplay="CENTER" graphicTextGap="5.0" prefHeight="30.0" prefWidth="274.0" text="Dashboard" textAlignment="CENTER" textFill="WHITE">
+                           <font>
+                              <Font name="Calibri Light" size="16.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                           </HBox.margin>
+                        </Label>
+                     </children>
+                  </HBox>
+                  <HBox prefHeight="50.0" prefWidth="198.0" styleClass="btns" stylesheets="@../style/Main.css">
+                     <children>
+                        <Button mnemonicParsing="false" prefHeight="50.0" prefWidth="198.0" styleClass="btns" text="Settings" />
+                     </children>
+                  </HBox>
                </children>
             </VBox>
-
+            <VBox layoutX="198.0" prefHeight="720.0" prefWidth="882.0" styleClass="parent" stylesheets="@../style/Main.css">
+               <children>
+                  <Pane prefHeight="85.0" prefWidth="882.0">
+                     <children>
+                        <Label layoutX="108.0" layoutY="34.0" text="Dashboard" textFill="WHITE">
+                           <font>
+                              <Font size="19.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </Pane>
+               </children>
+            </VBox>
          </children>
       </AnchorPane>
    </children>
