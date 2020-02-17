@@ -5,72 +5,58 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.Pane?>
-<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<GridPane alignment="center" hgap="10" vgap="10" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="home.controllers.Controller">
-   <columnConstraints>
-      <ColumnConstraints />
-   </columnConstraints>
-   <rowConstraints>
-      <RowConstraints />
-   </rowConstraints>
-   <children>
-      <AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="720.0" prefWidth="1080.0">
-         <children>
-            <VBox prefHeight="720.0" prefWidth="198.0" styleClass="sidebar" stylesheets="@../style/Main.css">
-               <children>
-                  <Label prefHeight="44.0" prefWidth="201.0" styleClass="mainLabel" stylesheets="@../style/Main.css" text="Main Panel" textFill="WHITE" textOverrun="CENTER_WORD_ELLIPSIS">
-                     <font>
-                        <Font name="Cera PROModern Medium" size="18.0" />
-                     </font>
-                     <padding>
-                        <Insets left="10.0" />
-                     </padding>
-                  </Label>
-                  <HBox prefHeight="50.0" prefWidth="198.0" styleClass="btns" stylesheets="@../style/Main.css">
-                     <children>
-                        <TextField prefHeight="23.0" prefWidth="199.0" text="Search">
-                           <HBox.margin>
-                              <Insets left="5.0" right="5.0" top="10.0" />
-                           </HBox.margin>
-                           <font>
-                              <Font name="Calibri Light" size="14.0" />
-                           </font>
-                        </TextField>
-                     </children>
-                  </HBox>
-                  <Button mnemonicParsing="false" prefHeight="50.0" prefWidth="198.0" styleClass="btns" text="Dashboard" textFill="WHITE">
-                     <font>
-                        <Font name="Calibri Light" size="18.0" />
-                     </font>
-                  </Button>
-                  <Button mnemonicParsing="false" prefHeight="50.0" prefWidth="198.0" styleClass="btns" text="Settings" textFill="WHITE">
-                     <font>
-                        <Font name="Calibri Light" size="18.0" />
-                     </font>
-                  </Button>
-               </children>
-            </VBox>
-            <VBox layoutX="198.0" prefHeight="720.0" prefWidth="882.0" styleClass="parent" stylesheets="@../style/Main.css">
-               <children>
-                  <Pane prefHeight="85.0" prefWidth="882.0">
-                     <children>
-                        <Label layoutX="108.0" layoutY="34.0" text="Dashboard" textFill="WHITE">
-                           <font>
-                              <Font size="19.0" />
-                           </font>
-                        </Label>
-                     </children>
-                  </Pane>
-               </children>
-            </VBox>
-         </children>
-      </AnchorPane>
-   </children>
-</GridPane>
+
+<BorderPane fx:controller="home.controllers.MainController" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1080.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+   <left>
+      <VBox prefHeight="720.0" prefWidth="155.0" styleClass="sidebar" stylesheets="@../style/Main.css"
+            BorderPane.alignment="CENTER">
+         <Label prefHeight="44.0" prefWidth="201.0" styleClass="mainLabel" stylesheets="@../style/Main.css"
+                text="Main Panel" textFill="WHITE" textOverrun="CENTER_WORD_ELLIPSIS">
+            <font>
+               <Font name="Cera PROModern Medium" size="18.0"/>
+            </font>
+            <padding>
+               <Insets left="10.0"/>
+            </padding>
+         </Label>
+         <HBox prefHeight="50.0" prefWidth="198.0" styleClass="btns" stylesheets="@../style/Main.css">
+            <children>
+               <TextField prefHeight="23.0" prefWidth="199.0" text="Search">
+                  <HBox.margin>
+                     <Insets left="5.0" right="5.0" top="10.0"/>
+                  </HBox.margin>
+                  <font>
+                     <Font name="Calibri Light" size="14.0"/>
+                  </font>
+               </TextField>
+            </children>
+         </HBox>
+         <Button mnemonicParsing="false" onMouseClicked="#home" prefHeight="50.0" prefWidth="198.0" styleClass="btns"
+                 text="Home" textFill="WHITE">
+            <font>
+               <Font name="Calibri Light" size="18.0"/>
+            </font>
+         </Button>
+         <Button mnemonicParsing="false" onMouseClicked="#dashboard" prefHeight="50.0" prefWidth="198.0"
+                 styleClass="btns" text="Dashboard" textFill="WHITE">
+            <font>
+               <Font name="Calibri Light" size="18.0"/>
+            </font>
+         </Button>
+         <Button mnemonicParsing="false" onMouseClicked="#settings" prefHeight="50.0" prefWidth="198.0"
+                 styleClass="btns" text="Settings" textFill="WHITE">
+            <font>
+               <Font name="Calibri Light" size="18.0"/>
+            </font>
+         </Button>
+      </VBox>
+   </left>
+   <center>
+      <AnchorPane prefHeight="714.0" prefWidth="924.0" BorderPane.alignment="CENTER" />
+   </center>
+</BorderPane>
