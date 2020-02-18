@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane fx:controller="home.controllers.MainController" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1080.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane fx:id="borderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1080.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="home.controllers.MainController">
    <left>
       <VBox prefHeight="720.0" prefWidth="155.0" styleClass="sidebar" stylesheets="@../style/Main.css" BorderPane.alignment="CENTER">
          <children>
@@ -34,17 +34,17 @@
                   </TextField>
                </children>
             </HBox>
-            <Button mnemonicParsing="false" onMouseClicked="#home" prefHeight="50.0" prefWidth="198.0" styleClass="btns" text="Home" textFill="WHITE">
+            <Button mnemonicParsing="false" onMouseClicked="#homeClicked" prefHeight="50.0" prefWidth="198.0" styleClass="btns" text="Home" textFill="WHITE">
                <font>
                   <Font name="Calibri Light" size="18.0" />
                </font>
             </Button>
-            <Button mnemonicParsing="false" onMouseClicked="#dashboard" prefHeight="50.0" prefWidth="198.0" styleClass="btns" text="Dashboard" textFill="WHITE">
+            <Button mnemonicParsing="false" onMouseClicked="#dashboardClicked" prefHeight="50.0" prefWidth="198.0" styleClass="btns" text="Dashboard" textFill="WHITE">
                <font>
                   <Font name="Calibri Light" size="18.0" />
                </font>
             </Button>
-            <Button mnemonicParsing="false" onMouseClicked="#settings" prefHeight="50.0" prefWidth="198.0" styleClass="btns" text="Settings" textFill="WHITE">
+            <Button mnemonicParsing="false" onMouseClicked="#settingsClicked" prefHeight="50.0" prefWidth="198.0" styleClass="btns" text="Settings" textFill="WHITE">
                <font>
                   <Font name="Calibri Light" size="18.0" />
                </font>
