@@ -4,7 +4,6 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
@@ -52,7 +51,4 @@
          </children>
       </VBox>
    </left>
-   <center>
-      <AnchorPane prefHeight="714.0" prefWidth="924.0" BorderPane.alignment="CENTER" />
-   </center>
 </BorderPane>
