@@ -25,9 +25,11 @@ public class MainController {
         Parent root = null;
         try {
             root = FXMLLoader.load(getClass().getResource("../fxml/"+tab+".fxml"));
+
         } catch (Exception e) {
             e.printStackTrace();
         }
+
         borderPane.setCenter(root);
     }
 }
