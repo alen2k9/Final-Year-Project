@@ -4,45 +4,83 @@
 <?import javafx.scene.chart.CategoryAxis?>
 <?import javafx.scene.chart.LineChart?>
 <?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
-<VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefWidth="1080.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="home.controllers.DashboardController">
    <children>
-      <Label alignment="CENTER" contentDisplay="CENTER" text="Dashboard" textAlignment="CENTER">
-         <font>
-            <Font size="30.0" />
-         </font>
-         <VBox.margin>
-            <Insets left="10.0" right="10.0" top="10.0" />
-         </VBox.margin>
-      </Label>
-      <HBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity">
+      <VBox layoutX="4.0" layoutY="37.0" spacing="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <LineChart maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308">
-              <xAxis>
-                <CategoryAxis side="BOTTOM" />
-              </xAxis>
-              <yAxis>
-                <NumberAxis side="LEFT" />
-              </yAxis>
-            </LineChart>
+            <Label text="Dashboard">
+               <font>
+                  <Font size="20.0" />
+               </font>
+               <padding>
+                  <Insets left="20.0" top="20.0" />
+               </padding>
+            </Label>
+            <Button mnemonicParsing="false" onMouseClicked="#dashboardClicked" prefHeight="50.0" prefWidth="198.0" styleClass="btns" text="Dashboard" textFill="WHITE">
+               <font>
+                  <Font name="Calibri Light" size="18.0" />
+               </font>
+            </Button>
+            <HBox VBox.vgrow="ALWAYS">
+               <children>
+                  <Label text="Cost">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                     <padding>
+                        <Insets left="20.0" top="20.0" />
+                     </padding>
+                  </Label>
+                  <LineChart fx:id="costChart">
+                     <xAxis>
+                        <CategoryAxis label="Month" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" side="BOTTOM" snapToPixel="false" />
+                     </xAxis>
+                     <yAxis>
+                        <NumberAxis label="Cost €" side="LEFT" />
+                     </yAxis>
+                     <HBox.margin>
+                        <Insets left="50.0" />
+                     </HBox.margin>
+                  </LineChart>
+               </children>
+            </HBox>
+            <HBox VBox.vgrow="ALWAYS">
+               <children>
+                  <Label text="Carbon">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                     <padding>
+                        <Insets left="20.0" top="20.0" />
+                     </padding>
+                  </Label>
+                  <LineChart fx:id="carbonChart">
+                    <xAxis>
+                      <CategoryAxis label="Month" side="BOTTOM" />
+                    </xAxis>
+                    <yAxis>
+                      <NumberAxis label="Emission €" side="LEFT" />
+                    </yAxis>
+                     <HBox.margin>
+                        <Insets left="50.0" />
+                     </HBox.margin>
+                  </LineChart>
+               </children>
+            </HBox>
          </children>
-      </HBox>
-      <HBox prefHeight="282.0" prefWidth="737.0">
-         <children>
-            <LineChart>
-              <xAxis>
-                <CategoryAxis side="BOTTOM" />
-              </xAxis>
-              <yAxis>
-                <NumberAxis side="LEFT" />
-              </yAxis>
-            </LineChart>
-         </children>
-      </HBox>
+      </VBox>
    </children>
-</VBox>
+</AnchorPane>

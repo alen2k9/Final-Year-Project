@@ -2,12 +2,15 @@ package home.controllers;
 
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
+import javafx.scene.chart.LineChart;
+import javafx.scene.chart.XYChart;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 
 public class MainController {
 
     public BorderPane borderPane;
+    public LineChart costChart;
 
     public void homeClicked(MouseEvent mouseEvent) {
         loadUI("Home");
