@@ -13,7 +13,7 @@
    <left>
       <VBox prefHeight="1080.0" prefWidth="160.0" styleClass="sidebar" stylesheets="@../style/Main.css" BorderPane.alignment="CENTER">
          <children>
-            <Label prefHeight="44.0" prefWidth="201.0" styleClass="mainLabel" stylesheets="@../style/Main.css" text="Main Panel" textFill="WHITE" textOverrun="CENTER_WORD_ELLIPSIS">
+            <Label prefHeight="44.0" prefWidth="201.0" styleClass="mainLabel" stylesheets="@../style/Main.css" text="System" textFill="WHITE" textOverrun="CENTER_WORD_ELLIPSIS">
                <font>
                   <Font name="Cera PROModern Medium" size="18.0" />
                </font>

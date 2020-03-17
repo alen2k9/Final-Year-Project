@@ -6,13 +6,14 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 
 public class DashboardController {
+
     public VBox mainVbox;
     public LineChart costChart;
     public LineChart carbonChart;
 
     private void setupLinechart(){
 
-       //costChart.getData();
+        //costChart.getData();
         XYChart.Series series1 = new XYChart.Series();
         series1.setName("Portfolio 1");
 
@@ -44,13 +45,11 @@ public class DashboardController {
         series2.getData().add(new XYChart.Data("Nov", 37));
         series2.getData().add(new XYChart.Data("Dec", 29));
 
-
         costChart.getData().addAll(series1);
         carbonChart.getData().addAll(series2);
     }
 
     public void dashboardClicked(MouseEvent mouseEvent) {
         setupLinechart();
-        //costChart.getData();
     }
 }
