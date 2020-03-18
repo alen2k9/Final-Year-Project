@@ -27,7 +27,7 @@
             </Label>
             <HBox prefHeight="54.0" prefWidth="1128.0">
                <children>
-                  <ChoiceBox prefWidth="150.0" />
+                  <ChoiceBox fx:id="choice1" onMouseClicked="#initialise1" onMouseEntered="#initialise" prefWidth="150.0" />
                   <ChoiceBox prefWidth="150.0" />
                   <ChoiceBox prefWidth="150.0" />
                   <ChoiceBox prefWidth="150.0" />

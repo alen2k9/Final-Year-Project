@@ -1,15 +1,23 @@
 package home.controllers;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.XYChart;
+import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.Separator;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class DashboardController {
 
     public VBox mainVbox;
     public LineChart costChart;
     public LineChart carbonChart;
+    public ChoiceBox choice1;
 
     private void setupLinechart(){
 
@@ -51,5 +59,21 @@ public class DashboardController {
 
     public void dashboardClicked(MouseEvent mouseEvent) {
         setupLinechart();
+    }
+
+    public void initialise1(MouseEvent mouseEvent) {
+       
+
+
+        //choice1.getItems().addAll("Alen", "Thomas");
+    }
+
+    public void populate(){
+        choice1.setItems(FXCollections.observableArrayList("Alen", "Thomas"));
+
+    }
+
+    public void initialise(MouseEvent mouseEvent) {
+        populate();
     }
 }
