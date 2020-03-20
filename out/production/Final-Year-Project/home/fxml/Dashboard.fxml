@@ -26,14 +26,41 @@
             </Label>
             <HBox prefHeight="54.0" prefWidth="1128.0">
                <children>
-                  <ChoiceBox fx:id="choice1" prefWidth="150.0" />
-                  <ChoiceBox fx:id="choice2" prefWidth="150.0" />
-                  <ChoiceBox fx:id="choice3" prefWidth="150.0" />
-                  <ChoiceBox fx:id="choice4" prefWidth="150.0" />
-                  <Button mnemonicParsing="false" onMouseClicked="#dashboardClicked" prefHeight="50.0" prefWidth="198.0" styleClass="btns" text="Dashboard" textFill="WHITE">
+                  <ChoiceBox fx:id="choice1">
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                     <HBox.margin>
+                        <Insets left="20.0" top="15.0" />
+                     </HBox.margin></ChoiceBox>
+                  <ChoiceBox fx:id="choice2">
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                     <HBox.margin>
+                        <Insets left="20.0" top="15.0" />
+                     </HBox.margin></ChoiceBox>
+                  <ChoiceBox fx:id="choice3">
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                     <HBox.margin>
+                        <Insets left="20.0" top="15.0" />
+                     </HBox.margin></ChoiceBox>
+                  <ChoiceBox fx:id="choice4">
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                     <HBox.margin>
+                        <Insets left="20.0" top="15.0" />
+                     </HBox.margin></ChoiceBox>
+                  <Button alignment="CENTER" mnemonicParsing="false" onMouseClicked="#dashboardClicked" prefHeight="34.0" prefWidth="111.0" styleClass="btns" text="Dashboard" textFill="WHITE">
                      <font>
                         <Font name="Calibri Light" size="18.0" />
                      </font>
+                     <HBox.margin>
+                        <Insets left="100.0" top="10.0" />
+                     </HBox.margin>
                   </Button>
                </children>
             </HBox>

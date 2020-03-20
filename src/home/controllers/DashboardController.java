@@ -1,7 +1,5 @@
 package home.controllers;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.Initializable;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.XYChart;
@@ -31,7 +29,7 @@ public class DashboardController implements Initializable {
     // Graph Setup
     private void setupLinechart(){
 
-        // Tests
+        // Tests for graph
         XYChart.Series series1 = new XYChart.Series();
         series1.setName("Portfolio 1");
 
@@ -67,19 +65,25 @@ public class DashboardController implements Initializable {
         carbonChart.getData().addAll(series2);
     }
 
+    // Functionality for button pressed
+    // TODO : Check items in drop down box and get Information
     public void dashboardClicked(MouseEvent mouseEvent) {
         setupLinechart();
     }
 
+    // Method to get data from Current User who is logged in
     public void populate(PersonTest personTest){
         //Adding Drop Down Values
         choice1.getItems().addAll(personTest.choice1);
         choice2.getItems().addAll(personTest.choice2);
         choice3.getItems().addAll(personTest.choice3);
         choice4.getItems().addAll(personTest.choice4);
+
+        choice1.getSelectionModel().selectFirst();
+        choice2.getSelectionModel().selectFirst();
+        choice3.getSelectionModel().selectFirst();
+        choice4.getSelectionModel().selectFirst();
     }
-
-
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
