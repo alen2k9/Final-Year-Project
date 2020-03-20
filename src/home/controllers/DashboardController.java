@@ -1,6 +1,7 @@
 package home.controllers;
 
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.Initializable;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.XYChart;
@@ -70,14 +71,18 @@ public class DashboardController implements Initializable {
         setupLinechart();
     }
 
-    private void populate(){
+    public void populate(PersonTest personTest){
         //Adding Drop Down Values
-        choice1.setItems(FXCollections.observableArrayList("Alen", "Thomas"));
+        choice1.getItems().addAll(personTest.choice1);
+        choice2.getItems().addAll(personTest.choice2);
+        choice3.getItems().addAll(personTest.choice3);
+        choice4.getItems().addAll(personTest.choice4);
     }
+
+
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         setupLinechart();
-        populate();
     }
 }
