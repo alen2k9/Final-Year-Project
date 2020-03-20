@@ -7,6 +7,8 @@ import javafx.scene.chart.XYChart;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 
+import java.io.IOException;
+
 public class MainController {
 
     public BorderPane borderPane;
@@ -25,14 +27,18 @@ public class MainController {
     }
 
     private void loadUI(String tab){
-        Parent root = null;
+        FXMLLoader loader = null;
+        DashboardController controller = null;
         try {
-            root = FXMLLoader.load(getClass().getResource("../fxml/"+tab+".fxml"));
+            loader = new FXMLLoader(getClass().getResource("../fxml/"+tab+".fxml"));
+            controller = loader.getController();
+            borderPane.setCenter(loader.load());
 
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-        borderPane.setCenter(root);
     }
+
+
+
 }

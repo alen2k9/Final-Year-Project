@@ -1,27 +1,36 @@
 package home.controllers;
 
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
+import javafx.fxml.Initializable;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.Separator;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.VBox;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.net.URL;
+import java.util.ResourceBundle;
 
-public class DashboardController {
+/**
+ * Class for handling Dashboard Scene : Dashboard.fxml
+ * */
 
-    public VBox mainVbox;
+public class DashboardController implements Initializable {
+
+    // Line Charts
     public LineChart costChart;
     public LineChart carbonChart;
-    public ChoiceBox choice1;
 
+    // Drop down boxes for choosing stats
+    public ChoiceBox choice1;
+    public ChoiceBox choice2;
+    public ChoiceBox choice3;
+    public ChoiceBox choice4;
+
+
+    // Graph Setup
     private void setupLinechart(){
 
-        //costChart.getData();
+        // Tests
         XYChart.Series series1 = new XYChart.Series();
         series1.setName("Portfolio 1");
 
@@ -61,19 +70,14 @@ public class DashboardController {
         setupLinechart();
     }
 
-    public void initialise1(MouseEvent mouseEvent) {
-       
-
-
-        //choice1.getItems().addAll("Alen", "Thomas");
-    }
-
-    public void populate(){
+    private void populate(){
+        //Adding Drop Down Values
         choice1.setItems(FXCollections.observableArrayList("Alen", "Thomas"));
-
     }
 
-    public void initialise(MouseEvent mouseEvent) {
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        setupLinechart();
         populate();
     }
 }
