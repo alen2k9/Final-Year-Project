@@ -16,19 +16,24 @@ public class LoginScreenController {
     public Button signUpButton;
 
     public void loginUser(MouseEvent mouseEvent) throws Exception{
-        Parent root = FXMLLoader.load(getClass().getResource("../fxml/Main.fxml"));
-        Stage primaryStage = new Stage();
-        primaryStage.setMaximized(true);
-        primaryStage.setScene(new Scene(root));
-        primaryStage.show();
+        if(usernameField.getText().equals("Alen") && passwordField.getText().equals("password")) {
+            Parent root = FXMLLoader.load(getClass().getResource("../fxml/Main.fxml"));
+            Stage primaryStage = new Stage();
+            primaryStage.setMaximized(true);
+            primaryStage.setScene(new Scene(root));
+            primaryStage.show();
 
-        closeLogin();
+            closeLogin();
+        }
+        else{
+
+        }
+
     }
 
     private void closeLogin() {
         Stage stage = (Stage) loginButton.getScene().getWindow();
         stage.close();
-
     }
 
     public void signUpUser(MouseEvent mouseEvent) {
