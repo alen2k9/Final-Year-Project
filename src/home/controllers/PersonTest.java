@@ -15,6 +15,12 @@ class PersonTest{
     List<String> choice3;
     List<String> choice4;
 
+    // User details
+    String firstName;
+    String lastName;
+    String userName;
+    String password;
+
     // constructor
     PersonTest(List<String> choice1, List<String> choice2, List<String> choice3, List<String> choice4){
         this.choice1 = choice1;
