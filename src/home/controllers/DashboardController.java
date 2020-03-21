@@ -72,7 +72,7 @@ public class DashboardController implements Initializable {
     }
 
     // Method to get data from Current User who is logged in
-    public void populate(PersonTest personTest){
+    void populate(PersonTest personTest){
         //Adding Drop Down Values
         choice1.getItems().addAll(personTest.choice1);
         choice2.getItems().addAll(personTest.choice2);
