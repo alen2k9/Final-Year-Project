@@ -61,8 +61,8 @@ public class DashboardController implements Initializable {
         series2.getData().add(new XYChart.Data("Nov", 37));
         series2.getData().add(new XYChart.Data("Dec", 29));
 
-        costChart.getData().addAll(series1);
-        carbonChart.getData().addAll(series2);
+        costChart.getData().setAll(series1);
+        carbonChart.getData().setAll(series2);
     }
 
     // Functionality for button pressed

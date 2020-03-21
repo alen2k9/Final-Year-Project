@@ -1,22 +1,28 @@
 package home.controllers;
 
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
+import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.XYChart;
+import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 
 import java.io.IOException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.ResourceBundle;
 
-public class MainController {
+public class MainController implements Initializable {
 
     public BorderPane borderPane;
     public LineChart costChart;
 
     public PersonTest currentUser;
+    public Label userName;
 
     public void homeClicked(MouseEvent mouseEvent) {
         loadUI("Home");
@@ -48,5 +54,15 @@ public class MainController {
         this.currentUser = personTest;
     }
 
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+
+    }
+
+    public void openProfile(MouseEvent mouseEvent) {
+    }
+
+    public void logoutUser(MouseEvent mouseEvent) {
+    }
 }
 

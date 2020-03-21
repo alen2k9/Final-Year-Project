@@ -26,5 +26,6 @@
       </TextField>
       <Button fx:id="loginButton" layoutX="233.0" layoutY="297.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#loginUser" prefHeight="25.0" prefWidth="60.0" text="Login" />
       <Button fx:id="signUpButton" layoutX="307.0" layoutY="297.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#signUpUser" prefHeight="25.0" prefWidth="60.0" text="Sign Up" />
+      <Label fx:id="loginPrompt" layoutX="209.0" layoutY="105.0" text="Invalid Username/Password entered. " textFill="#ee1e1e" visible="false" />
    </children>
 </AnchorPane>

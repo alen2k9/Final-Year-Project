@@ -2,30 +2,38 @@ package home.controllers;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.ResourceBundle;
 
-public class LoginScreenController {
+public class LoginScreenController implements Initializable {
+
+    // FXML values to edit application
     public TextField usernameField;
     public TextField passwordField;
     public Button loginButton;
     public Button signUpButton;
+    public Label loginPrompt;
 
+    //List of all Users
     List<PersonTest> people;
 
+    //When Login button is pressed
     public void loginUser(MouseEvent mouseEvent) throws Exception{
 
-        people = new LinkedList<>();
-        getUsers();
-
+        // Traverse through user
         for(PersonTest personTest : people){
             if(usernameField.getText().equals(personTest.userName) && passwordField.getText().equals(personTest.password)) {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("../fxml/Main.fxml"));
@@ -41,7 +49,7 @@ public class LoginScreenController {
                 closeLogin();
             }
             else{
-
+                loginPrompt.setVisible(true);
             }
         }
 
@@ -49,6 +57,9 @@ public class LoginScreenController {
     }
 
     private void getUsers() {
+
+        people = new LinkedList<>();
+
         List<String> choice1 = new ArrayList<>();
         choice1.add("School of Computer Science");
         choice1.add("School of Science");
@@ -85,5 +96,11 @@ public class LoginScreenController {
     }
 
     public void signUpUser(MouseEvent mouseEvent) {
+    }
+
+    // Get User Data
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        getUsers();
     }
 }
