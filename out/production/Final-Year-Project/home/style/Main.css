@@ -2,13 +2,14 @@
     -fx-background-color: #6abf6c;
 }
 .sidebar{
-    -fx-background-color: #297b24;
+    -fx-background-color: #2a3c80;
 }
 .mainLabel{
     -fx-background-color: #000000;
 }
 .btns{
-    -fx-background-color: transparent;
+    -fx-background-color: #282e5c;
+    -fx-background-radius: 30;
 }
 .btns:hover{
     -fx-background-color: #1b3b1b;

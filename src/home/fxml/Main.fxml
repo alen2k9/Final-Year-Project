@@ -25,35 +25,37 @@
                   <Insets left="10.0" />
                </padding>
             </Label>
-            <HBox prefHeight="50.0" prefWidth="198.0" styleClass="btns" stylesheets="@../style/Main.css">
-               <children>
-                  <TextField prefHeight="23.0" prefWidth="199.0" text="Search">
-                     <HBox.margin>
-                        <Insets left="5.0" right="5.0" top="10.0" />
-                     </HBox.margin>
-                     <font>
-                        <Font name="Calibri Light" size="14.0" />
-                     </font>
-                  </TextField>
-               </children>
-            </HBox>
-            <Button mnemonicParsing="false" onMouseClicked="#homeClicked" prefHeight="50.0" prefWidth="198.0" styleClass="btns" text="Home" textFill="WHITE">
+            <TextField prefHeight="23.0" prefWidth="199.0" text="Search">
+               <font>
+                  <Font name="Calibri Light" size="14.0" />
+               </font>
+            </TextField>
+            <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" onMouseClicked="#homeClicked" prefHeight="50.0" prefWidth="166.0" styleClass="btns" text="Home" textFill="WHITE">
                <font>
                   <Font name="Calibri Light" size="18.0" />
                </font>
+               <VBox.margin>
+                  <Insets top="10.0" />
+               </VBox.margin>
             </Button>
-            <Button mnemonicParsing="false" onMouseClicked="#dashboardClicked" prefHeight="50.0" prefWidth="198.0" styleClass="btns" text="Dashboard" textFill="WHITE">
+            <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" onMouseClicked="#dashboardClicked" prefHeight="50.0" prefWidth="198.0" styleClass="btns" text="Dashboard" textFill="WHITE">
                <font>
                   <Font name="Calibri Light" size="18.0" />
                </font>
+               <VBox.margin>
+                  <Insets top="10.0" />
+               </VBox.margin>
             </Button>
-            <Button mnemonicParsing="false" onMouseClicked="#settingsClicked" prefHeight="50.0" prefWidth="198.0" styleClass="btns" text="Settings" textFill="WHITE">
+            <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" onMouseClicked="#settingsClicked" prefHeight="50.0" prefWidth="198.0" styleClass="btns" text="Settings" textFill="WHITE">
                <font>
                   <Font name="Calibri Light" size="18.0" />
                </font>
+               <VBox.margin>
+                  <Insets top="10.0" />
+               </VBox.margin>
             </Button>
             <Pane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" VBox.vgrow="ALWAYS" />
-            <ImageView fitHeight="160.0" fitWidth="160.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="159.0" fitWidth="170.0" pickOnBounds="true" preserveRatio="true">
                <VBox.margin>
                   <Insets />
                </VBox.margin>
@@ -68,12 +70,27 @@
                <opaqueInsets>
                   <Insets />
                </opaqueInsets>
+               <padding>
+                  <Insets bottom="10.0" top="10.0" />
+               </padding>
             </Label>
-            <HBox prefHeight="35.0" prefWidth="160.0">
+            <HBox spacing="5.0">
                <children>
-                  <Button contentDisplay="CENTER" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onMouseClicked="#openProfile" prefHeight="40.0" prefWidth="87.0" styleClass="btns" text="View Profile" />
-                  <Button contentDisplay="CENTER" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onMouseClicked="#logoutUser" prefHeight="40.0" prefWidth="71.0" styleClass="btns" text="Logout" />
+                  <Button contentDisplay="CENTER" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onMouseClicked="#openProfile" prefHeight="35.0" styleClass="btns" text="Profile" HBox.hgrow="ALWAYS">
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin></Button>
+                  <Button contentDisplay="CENTER" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minWidth="53.0" mnemonicParsing="false" onMouseClicked="#logoutUser" prefHeight="35.0" styleClass="btns" text="Logout" HBox.hgrow="ALWAYS">
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin></Button>
                </children>
+               <padding>
+                  <Insets bottom="5.0" />
+               </padding>
+               <VBox.margin>
+                  <Insets left="5.0" right="5.0" top="5.0" />
+               </VBox.margin>
             </HBox>
          </children>
       </VBox>
