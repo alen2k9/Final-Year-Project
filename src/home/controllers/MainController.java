@@ -22,7 +22,7 @@ public class MainController implements Initializable {
     public LineChart costChart;
 
     public PersonTest currentUser;
-    public Label userName;
+    public Label userLabel;
 
     public void homeClicked(MouseEvent mouseEvent) {
         loadUI("Home");
@@ -52,6 +52,8 @@ public class MainController implements Initializable {
 
     public void setUser(PersonTest personTest){
         this.currentUser = personTest;
+        userLabel.textProperty().setValue(currentUser.firstName + " " + currentUser.lastName);
+
     }
 
     @Override

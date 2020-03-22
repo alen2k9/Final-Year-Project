@@ -33,9 +33,9 @@ public class LoginScreenController implements Initializable {
     //When Login button is pressed
     public void loginUser(MouseEvent mouseEvent) throws Exception{
 
-        // Traverse through user
+        // Traverse through use
         for(PersonTest personTest : people){
-            if(usernameField.getText().equals(personTest.userName) && passwordField.getText().equals(personTest.password)) {
+            //if(usernameField.getText().equals(personTest.userName) && passwordField.getText().equals(personTest.password)) {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("../fxml/Main.fxml"));
                 Parent root = loader.load();
                 Stage primaryStage = new Stage();
@@ -47,10 +47,10 @@ public class LoginScreenController implements Initializable {
                 primaryStage.show();
 
                 closeLogin();
-            }
+           /* }
             else{
                 loginPrompt.setVisible(true);
-            }
+            } */
         }
 
 

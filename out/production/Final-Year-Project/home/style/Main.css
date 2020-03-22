@@ -13,3 +13,7 @@
 .btns:hover{
     -fx-background-color: #1b3b1b;
 }
+.usernamelabel{
+    -fx-alignment: center;
+    -fx-text-fill: #bff2f5;
+}
