@@ -5,16 +5,24 @@
     -fx-background-color: #2a3c80;
 }
 .mainLabel{
-    -fx-background-color: #000000;
+    -fx-background-color: #2fbf78;
 }
 .btns{
     -fx-background-color: #282e5c;
     -fx-background-radius: 30;
 }
 .btns:hover{
-    -fx-background-color: #1b3b1b;
+    -fx-background-color: #0e0e29;
 }
 .usernamelabel{
     -fx-alignment: center;
     -fx-text-fill: #bff2f5;
+}
+.logoutBtn{
+    -fx-background-color: #f5343c;
+    -fx-background-radius: 30;
+    -fx-text-fill: #ffffff;
+}
+.logoutBtn:hover{
+    -fx-background-color: #6e1e1e;
 }
