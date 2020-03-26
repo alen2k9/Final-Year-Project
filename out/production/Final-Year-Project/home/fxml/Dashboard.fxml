@@ -54,7 +54,7 @@
                      <HBox.margin>
                         <Insets left="20.0" top="15.0" />
                      </HBox.margin></ChoiceBox>
-                  <Button alignment="CENTER" mnemonicParsing="false" onMouseClicked="#dashboardClicked" prefHeight="34.0" prefWidth="111.0" styleClass="btns" text="Dashboard" textFill="WHITE">
+                  <Button alignment="CENTER" mnemonicParsing="false" onMouseClicked="#dashboardClicked" prefHeight="34.0" prefWidth="111.0" styleClass="dashboardBtn" stylesheets="@../style/Main.css" text="Dashboard" textFill="WHITE">
                      <font>
                         <Font name="Calibri Light" size="18.0" />
                      </font>

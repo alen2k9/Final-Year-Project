@@ -1,6 +1,5 @@
 package home.controllers;
 
-import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
@@ -13,10 +12,7 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.ResourceBundle;
+import java.util.*;
 
 public class LoginScreenController implements Initializable {
 
@@ -59,29 +55,41 @@ public class LoginScreenController implements Initializable {
     private void getUsers() {
 
         people = new LinkedList<>();
-
         List<String> choice1 = new ArrayList<>();
         choice1.add("School of Computer Science");
         choice1.add("School of Science");
         choice1.add("School of Health Science");
 
-        List<String> choice2 = new ArrayList<>();
-        choice2.add("Research Group A");
-        choice2.add("Research Group B");
-        choice2.add("Research Group C");
 
-        List<String> choice3 = new ArrayList<>();
-        choice3.add("Server #1");
-        choice3.add("Server #2");
-        choice3.add("Server #3");
-        choice3.add("Server #4");
-        choice3.add("Server #5");
+        Map<String, List<String>> map = new HashMap<>();
 
-        List<String> choice4 = new ArrayList<>();
-        choice4.add("Server Project");
-        choice4.add("Android Project");
+        map.put("School of Computer Science", new ArrayList<String>());
+        map.get("School of Computer Science").add("Research Group A");
+        map.get("School of Computer Science").add("Research Group B");
 
-        PersonTest personTest = new PersonTest(choice1, choice2, choice3, choice4);
+        map.put("School of Science", new ArrayList<String>());
+        map.get("School of Science").add("Research Group C");
+
+        map.put("Research Group A", new ArrayList<String>());
+        map.get("Research Group A").add("Server Project");
+        map.get("Research Group A").add("Android Project");
+
+        map.put("Research Group B", new ArrayList<String>());
+        map.get("Research Group B").add("Server Project");
+
+        map.put("Server Project", new ArrayList<String>());
+        map.get("Server Project").add("Server #1");
+        map.get("Server Project").add("Server #2");
+        map.get("Server Project").add("Server #3");
+
+        map.put("Android Project", new ArrayList<String>());
+        map.get("Android Project").add("Server #4");
+        map.get("Android Project").add("Server #5");
+
+        // Empty value
+        map.put("", new ArrayList<>());
+
+        PersonTest personTest = new PersonTest(choice1,map);
         personTest.firstName = "Alen";
         personTest.lastName = "Thomas";
         personTest.password = "password";
@@ -103,4 +111,6 @@ public class LoginScreenController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         getUsers();
     }
+
+
 }

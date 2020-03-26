@@ -1,6 +1,7 @@
 package home.controllers;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * Class to pass values for drop down box
@@ -11,9 +12,7 @@ class PersonTest{
 
     // Choices List for drop down box
     List<String> choice1;
-    List<String> choice2;
-    List<String> choice3;
-    List<String> choice4;
+    Map<String, List<String>> map;
 
     // User details
     String firstName;
@@ -22,10 +21,8 @@ class PersonTest{
     String password;
 
     // constructor
-    PersonTest(List<String> choice1, List<String> choice2, List<String> choice3, List<String> choice4){
+    PersonTest(List<String> choice1, Map<String, List<String>> map) {
         this.choice1 = choice1;
-        this.choice2 = choice2;
-        this.choice3 = choice3;
-        this.choice4 = choice4;
+        this.map = map;
     }
 }

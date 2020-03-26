@@ -1,5 +1,7 @@
 package home.controllers;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.fxml.Initializable;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.XYChart;
@@ -74,15 +76,47 @@ public class DashboardController implements Initializable {
     // Method to get data from Current User who is logged in
     void populate(PersonTest personTest){
         //Adding Drop Down Values
-        choice1.getItems().addAll(personTest.choice1);
-        choice2.getItems().addAll(personTest.choice2);
-        choice3.getItems().addAll(personTest.choice3);
-        choice4.getItems().addAll(personTest.choice4);
-
+        choice1.getItems().setAll(personTest.choice1);
         choice1.getSelectionModel().selectFirst();
-        choice2.getSelectionModel().selectFirst();
-        choice3.getSelectionModel().selectFirst();
-        choice4.getSelectionModel().selectFirst();
+        choice1.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            choice2.getSelectionModel().clearSelection();
+            choice3.getSelectionModel().clearSelection();
+            choice4.getSelectionModel().clearSelection();
+            if(personTest.map.containsKey(newValue)){
+                choice2.getItems().setAll(personTest.map.get(newValue));
+            }
+            else{
+                choice2.getItems().setAll(personTest.map.get(""));
+            }
+            choice2.getSelectionModel().selectFirst();
+            choice2.getSelectionModel().selectedItemProperty().addListener((observable1, oldValue1, newValue1) -> {
+                choice3.getSelectionModel().clearSelection();
+                choice4.getSelectionModel().clearSelection();
+                if(personTest.map.containsKey(newValue1)){
+                    choice3.getItems().setAll(personTest.map.get(newValue1));
+                }
+                else{
+                    choice3.getItems().setAll(personTest.map.get(""));
+                }
+                choice3.getSelectionModel().selectFirst();
+                choice3.getSelectionModel().selectedItemProperty().addListener((observable2, oldValue2, newValue2) -> {
+                    choice4.getSelectionModel().clearSelection();
+                    if(personTest.map.containsKey(newValue2)){
+                        choice4.getItems().setAll(personTest.map.get(newValue2));
+                    }
+                    else{
+                        choice4.getItems().setAll(personTest.map.get(""));
+                    }
+                    choice4.getSelectionModel().selectFirst();
+                });
+            });
+        });
+
+
+
+
+
+
     }
 
     @Override

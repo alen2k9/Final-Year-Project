@@ -26,3 +26,12 @@
 .logoutBtn:hover{
     -fx-background-color: #6e1e1e;
 }
+.dashboardBtn{
+    -fx-background-color: #40ac4e;
+    -fx-background-radius: 30;
+    -fx-text-fill: #ffffff;
+}
+.dashboardBtn:hover{
+    -fx-background-color: #25632d;
+}
+

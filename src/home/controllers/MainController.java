@@ -88,8 +88,6 @@ public class MainController implements Initializable {
         }
     }
 
-
-
     // Exit application
     public void logoutUser(MouseEvent mouseEvent) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("../fxml/LoginScreen.fxml"));
@@ -99,8 +97,6 @@ public class MainController implements Initializable {
         primaryStage.show();
         Stage stage = (Stage) userLabel.getScene().getWindow();
         stage.close();
-
-
     }
 
     // UI methods to alter view
