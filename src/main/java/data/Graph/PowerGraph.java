@@ -11,6 +11,7 @@ import java.time.ZonedDateTime;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.TreeMap;
 
 public class PowerGraph {
     public Map<String, Double> powerMap;
@@ -20,12 +21,13 @@ public class PowerGraph {
     }
 
     public void doMapping(MainPower mainPower){
+        powerMap = new TreeMap<>();
         for (Power power : mainPower.getPower() ) {
             // Europe/Dublin
             long secondsSinceEpoch = Long.parseLong(power.getTimeStamp());
             Instant instant = Instant.ofEpochSecond(secondsSinceEpoch);
             LocalDateTime ldt = LocalDateTime.ofInstant(instant, ZoneId.of("Europe/Dublin"));
-            String month = ldt.getMonth().toString();
+            String month = ldt.getDayOfMonth() + "-" + ldt.getMonth().toString();
 
             Double powerValue = Double.valueOf(power.getPower());
             if(powerMap.containsKey(month)) {
@@ -36,6 +38,7 @@ public class PowerGraph {
             }
 
         }
+
     }
 
 }

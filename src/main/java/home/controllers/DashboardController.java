@@ -1,13 +1,20 @@
 package home.controllers;
 
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
+import com.google.gson.Gson;
+import data.Graph.PowerGraph;
+import data.power.MainPower;
+import data.power.Power;
 import javafx.fxml.Initializable;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.input.MouseEvent;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -30,12 +37,22 @@ public class DashboardController implements Initializable {
 
     // Graph Setup
     private void setupLinechart(){
+        PowerGraph powerGraph = null;
+        try {
+            powerGraph = test();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
         // Tests for graph
         XYChart.Series series1 = new XYChart.Series();
         series1.setName("Portfolio 1");
 
-        series1.getData().add(new XYChart.Data("Jan", 23));
+        for (String month: powerGraph.powerMap.keySet() ) {
+            series1.getData().add(new XYChart.Data(month, powerGraph.powerMap.get(month)));
+        }
+
+        /*series1.getData().add(new XYChart.Data("Jan", 23));
         series1.getData().add(new XYChart.Data("Feb", 14));
         series1.getData().add(new XYChart.Data("Mar", 15));
         series1.getData().add(new XYChart.Data("Apr", 24));
@@ -46,7 +63,7 @@ public class DashboardController implements Initializable {
         series1.getData().add(new XYChart.Data("Sep", 43));
         series1.getData().add(new XYChart.Data("Oct", 17));
         series1.getData().add(new XYChart.Data("Nov", 29));
-        series1.getData().add(new XYChart.Data("Dec", 25));
+        series1.getData().add(new XYChart.Data("Dec", 25));*/
 
         XYChart.Series series2 = new XYChart.Series();
         series2.setName("Portfolio 2");
@@ -84,6 +101,8 @@ public class DashboardController implements Initializable {
         else if(!choice1.getSelectionModel().isEmpty()){
             System.out.println(choice1.getSelectionModel().getSelectedItem());
         }
+
+        setupLinechart();
 
     }
 
@@ -130,6 +149,33 @@ public class DashboardController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        setupLinechart();
+        //setupLinechart();
+    }
+
+    public PowerGraph test() throws IOException {
+        URL url = new URL("http://192.168.67.4:8080/papillonserver/rest/datacenters/266/floors/290/racks/293/hosts/286/power?starttime=0&endtime=1585427363");
+        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+        connection.setRequestMethod("GET");
+        connection.setRequestProperty("Accept", "application/json");
+
+        if (connection.getResponseCode() != 200) {
+            throw new RuntimeException("Failed : HTTP error code : "
+                    + connection.getResponseCode());
+        }
+
+        BufferedReader br = new BufferedReader(new InputStreamReader(
+                (connection.getInputStream())));
+
+        String output = br.readLine();
+
+        Gson gson = new Gson();
+
+        MainPower mainPower = gson.fromJson(output, MainPower.class);
+
+        PowerGraph powerGraph = new PowerGraph();
+        powerGraph.doMapping(mainPower);
+
+        System.out.println("Output from Server .... \n");
+        return powerGraph;
     }
 }
