@@ -22,10 +22,10 @@ public class DashboardController implements Initializable {
     public LineChart carbonChart;
 
     // Drop down boxes for choosing stats
-    public ChoiceBox choice1;
-    public ChoiceBox choice2;
-    public ChoiceBox choice3;
-    public ChoiceBox choice4;
+    public ChoiceBox<String> choice1;
+    public ChoiceBox<String> choice2;
+    public ChoiceBox<String> choice3;
+    public ChoiceBox<String> choice4;
 
 
     // Graph Setup
@@ -70,14 +70,28 @@ public class DashboardController implements Initializable {
     // Functionality for button pressed
     // TODO : Check items in drop down box and get Information
     public void dashboardClicked(MouseEvent mouseEvent) {
-        setupLinechart();
+
+        //setupLinechart();
+        if(!choice1.getSelectionModel().isEmpty() && !choice2.getSelectionModel().isEmpty() && !choice3.getSelectionModel().isEmpty() && !choice4.getSelectionModel().isEmpty()){
+            System.out.println(choice1.getSelectionModel().getSelectedItem() + "->" + choice2.getSelectionModel().getSelectedItem() + "->" + choice3.getSelectionModel().getSelectedItem() + "->" + choice4.getSelectionModel().getSelectedItem());
+        }
+        else if(!choice1.getSelectionModel().isEmpty() && !choice2.getSelectionModel().isEmpty() && !choice3.getSelectionModel().isEmpty()){
+            System.out.println(choice1.getSelectionModel().getSelectedItem() + "->" + choice2.getSelectionModel().getSelectedItem() + "->" + choice3.getSelectionModel().getSelectedItem());
+        }
+        else if(!choice1.getSelectionModel().isEmpty() && !choice2.getSelectionModel().isEmpty()){
+            System.out.println(choice1.getSelectionModel().getSelectedItem() + "->" + choice2.getSelectionModel().getSelectedItem());
+        }
+        else if(!choice1.getSelectionModel().isEmpty()){
+            System.out.println(choice1.getSelectionModel().getSelectedItem());
+        }
+
     }
 
     // Method to get data from Current User who is logged in
-    void populate(PersonTest personTest){
+    void populate(PersonTest personTest) {
+
         //Adding Drop Down Values
         choice1.getItems().setAll(personTest.choice1);
-        choice1.getSelectionModel().selectFirst();
         choice1.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             choice2.getSelectionModel().clearSelection();
             choice3.getSelectionModel().clearSelection();
@@ -88,7 +102,7 @@ public class DashboardController implements Initializable {
             else{
                 choice2.getItems().setAll(personTest.map.get(""));
             }
-            choice2.getSelectionModel().selectFirst();
+            //choice2.getSelectionModel().selectFirst();
             choice2.getSelectionModel().selectedItemProperty().addListener((observable1, oldValue1, newValue1) -> {
                 choice3.getSelectionModel().clearSelection();
                 choice4.getSelectionModel().clearSelection();
@@ -98,7 +112,7 @@ public class DashboardController implements Initializable {
                 else{
                     choice3.getItems().setAll(personTest.map.get(""));
                 }
-                choice3.getSelectionModel().selectFirst();
+                //choice3.getSelectionModel().selectFirst();
                 choice3.getSelectionModel().selectedItemProperty().addListener((observable2, oldValue2, newValue2) -> {
                     choice4.getSelectionModel().clearSelection();
                     if(personTest.map.containsKey(newValue2)){
@@ -107,15 +121,10 @@ public class DashboardController implements Initializable {
                     else{
                         choice4.getItems().setAll(personTest.map.get(""));
                     }
-                    choice4.getSelectionModel().selectFirst();
+                    //choice4.getSelectionModel().selectFirst();
                 });
             });
         });
-
-
-
-
-
 
     }
 

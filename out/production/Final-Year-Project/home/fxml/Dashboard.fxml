@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.chart.BarChart?>
 <?import javafx.scene.chart.CategoryAxis?>
 <?import javafx.scene.chart.LineChart?>
 <?import javafx.scene.chart.NumberAxis?>
@@ -14,7 +15,7 @@
 
 <AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="home.controllers.DashboardController">
    <children>
-      <VBox layoutX="4.0" layoutY="37.0" spacing="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <VBox layoutX="4.0" layoutY="37.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" spacing="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
             <Label text="Dashboard">
                <font>
@@ -26,47 +27,47 @@
             </Label>
             <HBox prefHeight="54.0" prefWidth="1128.0">
                <children>
-                  <ChoiceBox fx:id="choice1">
+                  <ChoiceBox fx:id="choice1" minWidth="80.0">
                      <opaqueInsets>
                         <Insets />
                      </opaqueInsets>
                      <HBox.margin>
-                        <Insets left="20.0" top="15.0" />
+                        <Insets left="40.0" top="15.0" />
                      </HBox.margin></ChoiceBox>
-                  <ChoiceBox fx:id="choice2">
+                  <ChoiceBox fx:id="choice2" minWidth="80.0">
                      <opaqueInsets>
                         <Insets />
                      </opaqueInsets>
                      <HBox.margin>
-                        <Insets left="20.0" top="15.0" />
+                        <Insets left="40.0" top="15.0" />
                      </HBox.margin></ChoiceBox>
-                  <ChoiceBox fx:id="choice3">
+                  <ChoiceBox fx:id="choice3" minWidth="80.0">
                      <opaqueInsets>
                         <Insets />
                      </opaqueInsets>
                      <HBox.margin>
-                        <Insets left="20.0" top="15.0" />
+                        <Insets left="40.0" top="15.0" />
                      </HBox.margin></ChoiceBox>
-                  <ChoiceBox fx:id="choice4">
+                  <ChoiceBox fx:id="choice4" minWidth="80.0">
                      <opaqueInsets>
                         <Insets />
                      </opaqueInsets>
                      <HBox.margin>
-                        <Insets left="20.0" top="15.0" />
+                        <Insets left="40.0" top="15.0" />
                      </HBox.margin></ChoiceBox>
                   <Button alignment="CENTER" mnemonicParsing="false" onMouseClicked="#dashboardClicked" prefHeight="34.0" prefWidth="111.0" styleClass="dashboardBtn" stylesheets="@../style/Main.css" text="Dashboard" textFill="WHITE">
                      <font>
                         <Font name="Calibri Light" size="18.0" />
                      </font>
                      <HBox.margin>
-                        <Insets left="100.0" top="10.0" />
+                        <Insets left="60.0" top="10.0" />
                      </HBox.margin>
                   </Button>
                </children>
             </HBox>
             <HBox VBox.vgrow="ALWAYS">
                <children>
-                  <Label text="Cost">
+                  <Label prefWidth="100.0" text="Cost">
                      <font>
                         <Font size="18.0" />
                      </font>
@@ -88,11 +89,22 @@
                         <Insets left="50.0" />
                      </HBox.margin>
                   </LineChart>
+                  <BarChart>
+                    <xAxis>
+                      <CategoryAxis side="BOTTOM" />
+                    </xAxis>
+                    <yAxis>
+                      <NumberAxis side="LEFT" />
+                    </yAxis>
+                     <HBox.margin>
+                        <Insets left="50.0" />
+                     </HBox.margin>
+                  </BarChart>
                </children>
             </HBox>
             <HBox VBox.vgrow="ALWAYS">
                <children>
-                  <Label text="Carbon">
+                  <Label prefWidth="100.0" text="Carbon">
                      <font>
                         <Font size="18.0" />
                      </font>
@@ -114,6 +126,17 @@
                         <Insets left="50.0" />
                      </HBox.margin>
                   </LineChart>
+                  <BarChart>
+                    <xAxis>
+                      <CategoryAxis side="BOTTOM" />
+                    </xAxis>
+                    <yAxis>
+                      <NumberAxis side="LEFT" />
+                    </yAxis>
+                     <HBox.margin>
+                        <Insets left="50.0" />
+                     </HBox.margin>
+                  </BarChart>
                </children>
             </HBox>
          </children>

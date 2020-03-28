@@ -20,6 +20,13 @@ class PersonTest{
     String userName;
     String password;
 
+    //database information
+    String datacenterId;
+    String floorId;
+    String rackId;
+    String hostId;
+    String restService;
+
     // constructor
     PersonTest(List<String> choice1, Map<String, List<String>> map) {
         this.choice1 = choice1;
