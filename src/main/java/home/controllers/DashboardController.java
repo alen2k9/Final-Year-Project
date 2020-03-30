@@ -1,7 +1,6 @@
 package home.controllers;
 
 import com.google.gson.Gson;
-import data.Graph.PowerGraph;
 import data.power.MainPower;
 import data.power.Power;
 import javafx.fxml.Initializable;
@@ -14,9 +13,13 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.ResourceBundle;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.util.*;
 
 /**
  * Class for handling Dashboard Scene : Dashboard.fxml
@@ -35,22 +38,35 @@ public class DashboardController implements Initializable {
     public ChoiceBox<String> choice4;
 
 
+    // current User
+    private PersonTest currentUser;
+
+
     // Graph Setup
-    private void setupLinechart(){
-        PowerGraph powerGraph = null;
-        try {
-            powerGraph = test();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    private void setupLinechart() throws IOException {
+
+
+        Map<String, Double> powerGraph = test();
 
         // Tests for graph
         XYChart.Series series1 = new XYChart.Series();
         series1.setName("Portfolio 1");
 
-        for (String month: powerGraph.powerMap.keySet() ) {
-            series1.getData().add(new XYChart.Data(month, powerGraph.powerMap.get(month)));
+
+
+        List<String> months = new ArrayList<>();
+        for (String month: powerGraph.keySet() ) {
+            months.add(month);
+            //series1.getData().add(new XYChart.Data(month, powerGraph.get(month)));
         }
+
+        Collections.sort(months, dateCompare);
+
+        for(String month:months){
+            series1.getData().add(new XYChart.Data(month, powerGraph.get(month)));
+        }
+
+
 
         /*series1.getData().add(new XYChart.Data("Jan", 23));
         series1.getData().add(new XYChart.Data("Feb", 14));
@@ -64,6 +80,8 @@ public class DashboardController implements Initializable {
         series1.getData().add(new XYChart.Data("Oct", 17));
         series1.getData().add(new XYChart.Data("Nov", 29));
         series1.getData().add(new XYChart.Data("Dec", 25));*/
+        costChart.getXAxis().setAnimated(false);
+        costChart.getData().setAll(series1);
 
         XYChart.Series series2 = new XYChart.Series();
         series2.setName("Portfolio 2");
@@ -80,7 +98,7 @@ public class DashboardController implements Initializable {
         series2.getData().add(new XYChart.Data("Nov", 37));
         series2.getData().add(new XYChart.Data("Dec", 29));
 
-        costChart.getData().setAll(series1);
+
         carbonChart.getData().setAll(series2);
     }
 
@@ -102,12 +120,19 @@ public class DashboardController implements Initializable {
             System.out.println(choice1.getSelectionModel().getSelectedItem());
         }
 
-        setupLinechart();
+        try {
+            setupLinechart();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
     }
 
     // Method to get data from Current User who is logged in
     void populate(PersonTest personTest) {
+
+        // Set Current User
+        this.currentUser = personTest;
 
         //Adding Drop Down Values
         choice1.getItems().setAll(personTest.choice1);
@@ -152,8 +177,8 @@ public class DashboardController implements Initializable {
         //setupLinechart();
     }
 
-    public PowerGraph test() throws IOException {
-        URL url = new URL("http://192.168.67.4:8080/papillonserver/rest/datacenters/266/floors/290/racks/293/hosts/286/power?starttime=0&endtime=1585427363");
+    private Map<String, Double> test() throws IOException {
+        URL url = new URL(currentUser.restService + "datacenters/266/floors/290/racks/293/hosts/286/power?starttime=15854276363&endtime=1585427363");
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
         connection.setRequestMethod("GET");
         connection.setRequestProperty("Accept", "application/json");
@@ -172,10 +197,43 @@ public class DashboardController implements Initializable {
 
         MainPower mainPower = gson.fromJson(output, MainPower.class);
 
-        PowerGraph powerGraph = new PowerGraph();
-        powerGraph.doMapping(mainPower);
+        Map<String, Double> powerGraph = doMapping(mainPower);
 
         System.out.println("Output from Server .... \n");
         return powerGraph;
     }
+
+    private Map<String, Double> doMapping(MainPower mainPower) {
+        Map<String, Double> powerMap = new TreeMap<>();
+        for (Power power : mainPower.getPower()) {
+            // Europe/Dublin
+            long secondsSinceEpoch = Long.parseLong(power.getTimeStamp());
+            Instant instant = Instant.ofEpochSecond(secondsSinceEpoch);
+            LocalDateTime ldt = LocalDateTime.ofInstant(instant, ZoneId.of("Europe/Dublin"));
+            String month = ldt.getMonth().toString() + " " + ldt.getYear();
+
+            Double powerValue = Double.valueOf(power.getPower());
+            if (powerMap.containsKey(month)) {
+                powerMap.computeIfPresent(month, (key, val) -> val = val + powerValue);
+            } else {
+                powerMap.put(month, powerValue);
+            }
+
+        }
+        return powerMap;
+    }
+
+    private final Comparator<String> dateCompare = (o1, o2) -> {
+
+        SimpleDateFormat s = new SimpleDateFormat("MMM yyyy");
+        Date s1 = null;
+        Date s2 = null;
+        try {
+            s1 = s.parse(o1);
+            s2 = s.parse(o2);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return s1.compareTo(s2);
+    };
 }

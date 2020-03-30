@@ -94,6 +94,14 @@ public class LoginScreenController implements Initializable {
         personTest.password = "password";
         personTest.userName = "alen2k9";
 
+
+        // "http://192.168.67.4:8080/papillonserver/rest/datacenters/266/floors/290/racks/293/hosts/286/power?starttime=0&endtime=1585427363"
+        personTest.restService = "http://192.168.67.4:8080/papillonserver/rest/" ;
+        personTest.datacenterId = "266";
+        personTest.floorId = "290";
+        personTest.rackId = "293";
+        personTest.hostId = "286";
+
         people.add(personTest);
     }
 
