@@ -28,7 +28,7 @@ public class MainController implements Initializable {
     public ImageView userPicture;
 
     // Current User of application
-    private PersonTest currentUser;
+    private User currentUser;
 
     // When home button clicked, load it's UI
     public void homeClicked(MouseEvent mouseEvent) throws Exception {
@@ -72,8 +72,8 @@ public class MainController implements Initializable {
 
     }
 
-    void setUser(PersonTest personTest){
-        this.currentUser = personTest;
+    void setUser(User user){
+        this.currentUser = user;
         userLabel.textProperty().setValue(currentUser.firstName + " " + currentUser.lastName);
 
     }

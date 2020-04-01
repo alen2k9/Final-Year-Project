@@ -1,24 +1,15 @@
 package home.controllers;
 
-import com.google.gson.Gson;
-import data.power.MainPower;
-import data.power.Power;
 import javafx.fxml.Initializable;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.input.MouseEvent;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
 import java.net.URL;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.Instant;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
 import java.util.*;
 
 /**
@@ -37,22 +28,18 @@ public class DashboardController implements Initializable {
     public ChoiceBox<String> choice3;
     public ChoiceBox<String> choice4;
 
-
     // current User
-    private PersonTest currentUser;
-
+    private User currentUser;
 
     // Graph Setup
     private void setupLinechart() throws IOException {
 
-
-        Map<String, Double> powerGraph = test();
+        // Get Graph Details
+        Map<String, Double> powerGraph = currentUser.getPowerData();
 
         // Tests for graph
         XYChart.Series series1 = new XYChart.Series();
         series1.setName("Portfolio 1");
-
-
 
         List<String> months = new ArrayList<>();
         for (String month: powerGraph.keySet() ) {
@@ -65,8 +52,6 @@ public class DashboardController implements Initializable {
         for(String month:months){
             series1.getData().add(new XYChart.Data(month, powerGraph.get(month)));
         }
-
-
 
         /*series1.getData().add(new XYChart.Data("Jan", 23));
         series1.getData().add(new XYChart.Data("Feb", 14));
@@ -106,7 +91,7 @@ public class DashboardController implements Initializable {
     // TODO : Check items in drop down box and get Information
     public void dashboardClicked(MouseEvent mouseEvent) {
 
-        //setupLinechart();
+        // setup Line Chart
         if(!choice1.getSelectionModel().isEmpty() && !choice2.getSelectionModel().isEmpty() && !choice3.getSelectionModel().isEmpty() && !choice4.getSelectionModel().isEmpty()){
             System.out.println(choice1.getSelectionModel().getSelectedItem() + "->" + choice2.getSelectionModel().getSelectedItem() + "->" + choice3.getSelectionModel().getSelectedItem() + "->" + choice4.getSelectionModel().getSelectedItem());
         }
@@ -125,47 +110,42 @@ public class DashboardController implements Initializable {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
     }
 
     // Method to get data from Current User who is logged in
-    void populate(PersonTest personTest) {
-
+    void populate(User currentUser) {
         // Set Current User
-        this.currentUser = personTest;
+        this.currentUser = currentUser;
 
         //Adding Drop Down Values
-        choice1.getItems().setAll(personTest.choice1);
+        choice1.getItems().setAll(currentUser.choice1);
         choice1.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             choice2.getSelectionModel().clearSelection();
             choice3.getSelectionModel().clearSelection();
             choice4.getSelectionModel().clearSelection();
-            if(personTest.map.containsKey(newValue)){
-                choice2.getItems().setAll(personTest.map.get(newValue));
+            if(currentUser.map.containsKey(newValue)){
+                choice2.getItems().setAll(currentUser.map.get(newValue));
             }
             else{
-                choice2.getItems().setAll(personTest.map.get(""));
+                choice2.getItems().setAll(currentUser.map.get(""));
             }
-            //choice2.getSelectionModel().selectFirst();
             choice2.getSelectionModel().selectedItemProperty().addListener((observable1, oldValue1, newValue1) -> {
                 choice3.getSelectionModel().clearSelection();
                 choice4.getSelectionModel().clearSelection();
-                if(personTest.map.containsKey(newValue1)){
-                    choice3.getItems().setAll(personTest.map.get(newValue1));
+                if(currentUser.map.containsKey(newValue1)){
+                    choice3.getItems().setAll(currentUser.map.get(newValue1));
                 }
                 else{
-                    choice3.getItems().setAll(personTest.map.get(""));
+                    choice3.getItems().setAll(currentUser.map.get(""));
                 }
-                //choice3.getSelectionModel().selectFirst();
                 choice3.getSelectionModel().selectedItemProperty().addListener((observable2, oldValue2, newValue2) -> {
                     choice4.getSelectionModel().clearSelection();
-                    if(personTest.map.containsKey(newValue2)){
-                        choice4.getItems().setAll(personTest.map.get(newValue2));
+                    if(currentUser.map.containsKey(newValue2)){
+                        choice4.getItems().setAll(currentUser.map.get(newValue2));
                     }
                     else{
-                        choice4.getItems().setAll(personTest.map.get(""));
+                        choice4.getItems().setAll(currentUser.map.get(""));
                     }
-                    //choice4.getSelectionModel().selectFirst();
                 });
             });
         });
@@ -177,51 +157,6 @@ public class DashboardController implements Initializable {
         //setupLinechart();
     }
 
-    private Map<String, Double> test() throws IOException {
-        URL url = new URL(currentUser.restService + "datacenters/266/floors/290/racks/293/hosts/286/power?starttime=15854276363&endtime=1585427363");
-        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-        connection.setRequestMethod("GET");
-        connection.setRequestProperty("Accept", "application/json");
-
-        if (connection.getResponseCode() != 200) {
-            throw new RuntimeException("Failed : HTTP error code : "
-                    + connection.getResponseCode());
-        }
-
-        BufferedReader br = new BufferedReader(new InputStreamReader(
-                (connection.getInputStream())));
-
-        String output = br.readLine();
-
-        Gson gson = new Gson();
-
-        MainPower mainPower = gson.fromJson(output, MainPower.class);
-
-        Map<String, Double> powerGraph = doMapping(mainPower);
-
-        System.out.println("Output from Server .... \n");
-        return powerGraph;
-    }
-
-    private Map<String, Double> doMapping(MainPower mainPower) {
-        Map<String, Double> powerMap = new TreeMap<>();
-        for (Power power : mainPower.getPower()) {
-            // Europe/Dublin
-            long secondsSinceEpoch = Long.parseLong(power.getTimeStamp());
-            Instant instant = Instant.ofEpochSecond(secondsSinceEpoch);
-            LocalDateTime ldt = LocalDateTime.ofInstant(instant, ZoneId.of("Europe/Dublin"));
-            String month = ldt.getMonth().toString() + " " + ldt.getYear();
-
-            Double powerValue = Double.valueOf(power.getPower());
-            if (powerMap.containsKey(month)) {
-                powerMap.computeIfPresent(month, (key, val) -> val = val + powerValue);
-            } else {
-                powerMap.put(month, powerValue);
-            }
-
-        }
-        return powerMap;
-    }
 
     private final Comparator<String> dateCompare = (o1, o2) -> {
 

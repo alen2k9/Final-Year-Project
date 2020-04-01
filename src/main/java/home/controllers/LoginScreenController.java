@@ -23,13 +23,13 @@ public class LoginScreenController implements Initializable {
     public Label loginPrompt;
 
     //List of all Users
-    List<PersonTest> people;
+    List<User> people;
 
     //When Login button is pressed
     public void loginUser(MouseEvent mouseEvent) throws Exception{
 
         // Traverse through use
-        for(PersonTest personTest : people){
+        for(User user : people){
             //if(usernameField.getText().equals(personTest.userName) && passwordField.getText().equals(personTest.password)) {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("../fxml/Main.fxml"));
                 Parent root = loader.load();
@@ -37,7 +37,7 @@ public class LoginScreenController implements Initializable {
                 primaryStage.setMaximized(true);
                 primaryStage.setScene(new Scene(root));
                 MainController mainController = loader.getController();
-                mainController.setUser(personTest);
+                mainController.setUser(user);
 
                 primaryStage.show();
 
@@ -88,21 +88,20 @@ public class LoginScreenController implements Initializable {
         // Empty value
         map.put("", new ArrayList<>());
 
-        PersonTest personTest = new PersonTest(choice1,map);
-        personTest.firstName = "Alen";
-        personTest.lastName = "Thomas";
-        personTest.password = "password";
-        personTest.userName = "alen2k9";
-
+        User user = new User(choice1,map);
+        user.firstName = "Alen";
+        user.lastName = "Thomas";
+        user.password = "password";
+        user.userName = "alen2k9";
 
         // "http://192.168.67.4:8080/papillonserver/rest/datacenters/266/floors/290/racks/293/hosts/286/power?starttime=0&endtime=1585427363"
-        personTest.restService = "http://192.168.67.4:8080/papillonserver/rest/" ;
-        personTest.datacenterId = "266";
-        personTest.floorId = "290";
-        personTest.rackId = "293";
-        personTest.hostId = "286";
+        user.restService = "http://192.168.67.4:8080/papillonserver/rest/" ;
+        user.datacenterId = "266";
+        user.floorId = "290";
+        user.rackId = "293";
+        user.hostId = "287";
 
-        people.add(personTest);
+        people.add(user);
     }
 
     private void closeLogin() {
