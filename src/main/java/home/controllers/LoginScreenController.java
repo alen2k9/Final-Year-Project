@@ -99,7 +99,7 @@ public class LoginScreenController implements Initializable {
         user.datacenterId = "266";
         user.floorId = "290";
         user.rackId = "293";
-        user.hostId = "287";
+        user.hostId = "286";
 
         people.add(user);
     }

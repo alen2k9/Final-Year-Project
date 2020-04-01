@@ -11,7 +11,6 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
@@ -67,7 +66,6 @@
                         <Insets left="20.0" />
                      </HBox.margin>
                   </DatePicker>
-                  <Pane HBox.hgrow="ALWAYS" />
                   <Button alignment="CENTER" mnemonicParsing="false" onMouseClicked="#dashboardClicked" styleClass="dashboardBtn" stylesheets="@../style/Main.css" text="Display Data" textFill="WHITE">
                      <font>
                         <Font name="Calibri Light" size="18.0" />
@@ -76,6 +74,11 @@
                         <Insets left="40.0" right="40.0" />
                      </HBox.margin>
                   </Button>
+                  <Label fx:id="emptyData" opacity="0.0" text="No available Data" textFill="RED">
+                     <font>
+                        <Font name="Cera PROModern Medium" size="20.0" />
+                     </font>
+                  </Label>
                </children>
             </HBox>
             <HBox VBox.vgrow="ALWAYS">

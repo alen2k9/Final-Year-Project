@@ -12,6 +12,7 @@ import java.net.URL;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
@@ -66,16 +67,20 @@ class User {
         return powerMap;
     }
 
-    Map<String, Double> getPowerData() throws IOException {
-        URL url = new URL(restService + "datacenters/"+ datacenterId+"/floors/"+ floorId+"/racks/"+ rackId+"/hosts/"+ hostId+"/power?starttime=0&endtime=1585698460");
+    Map<String, Double> getPowerData(String start, String end) throws IOException {
+
+        URL url = new URL(restService + "datacenters/"+ datacenterId+"/floors/"+ floorId+"/racks/"+ rackId+"/hosts/"+ hostId+"/power?starttime="+start+"&endtime="+end);
+       // URL url = new URL("http://192.168.67.4:8080/papillonserver/rest/datacenters/266/floors/290/racks/293/hosts/286/power?starttime=0&endtime=1585427363");
+                            //http://192.168.67.4:8080/papillonserver/rest/datacenters/266/floors/290/racks/293/hosts/286/power?starttime=1585785600&endtime=1587081600
+        System.out.println(url.toString());
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
         connection.setRequestMethod("GET");
         connection.setRequestProperty("Accept", "application/json");
 
-        if (connection.getResponseCode() != 200) {
-            throw new RuntimeException("Failed : HTTP error code : "
-                    + connection.getResponseCode());
-        }
+//        if (connection.getResponseCode() != 200) {
+//            throw new RuntimeException("Failed : HTTP error code : "
+//                    + connection.getResponseCode());
+//        }
 
         BufferedReader br = new BufferedReader(new InputStreamReader(
                 (connection.getInputStream())));
@@ -86,9 +91,13 @@ class User {
 
         MainPower mainPower = gson.fromJson(output, MainPower.class);
 
-        Map<String, Double> powerGraph = doMapping(mainPower);
+        if(mainPower == null){
+            return new HashMap<String, Double>();
+        }else{
+            Map<String, Double> powerGraph = doMapping(mainPower);
 
-        System.out.println("Output from Server .... \n");
-        return powerGraph;
+            System.out.println("Output from Server .... \n");
+            return powerGraph;
+        }
     }
 }

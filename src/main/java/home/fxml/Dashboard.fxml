@@ -74,6 +74,11 @@
                         <Insets left="40.0" right="40.0" />
                      </HBox.margin>
                   </Button>
+                  <Label fx:id="emptyData" opacity="0.0" text="No available Data" textFill="RED">
+                     <font>
+                        <Font name="Cera PROModern Medium" size="20.0" />
+                     </font>
+                  </Label>
                </children>
             </HBox>
             <HBox VBox.vgrow="ALWAYS">
