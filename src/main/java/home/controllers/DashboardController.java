@@ -4,12 +4,16 @@ import javafx.fxml.Initializable;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.DatePicker;
 import javafx.scene.input.MouseEvent;
 
 import java.io.IOException;
 import java.net.URL;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.Month;
+import java.time.ZoneOffset;
 import java.util.*;
 
 /**
@@ -27,6 +31,8 @@ public class DashboardController implements Initializable {
     public ChoiceBox<String> choice2;
     public ChoiceBox<String> choice3;
     public ChoiceBox<String> choice4;
+    public DatePicker startDate;
+    public DatePicker endDate;
 
     // current User
     private User currentUser;
@@ -34,8 +40,23 @@ public class DashboardController implements Initializable {
     // Graph Setup
     private void setupLinechart() throws IOException {
 
+        String startDateValue = getStartDate();
+        String endDateValue = getEndDate();
+
+        // TODO check if the values have been chosen by drop down and is valid
+        // If graph empty dont do add to graph  as it would give error
+
+        if(Long.parseLong(startDateValue) > Long.parseLong(endDateValue)) {
+
+            //TODO Error
+            System.out.println("Epoch start time = " + startDateValue);
+        }
+
         // Get Graph Details
         Map<String, Double> powerGraph = currentUser.getPowerData();
+
+
+
 
         // Tests for graph
         XYChart.Series series1 = new XYChart.Series();
@@ -85,6 +106,24 @@ public class DashboardController implements Initializable {
 
 
         carbonChart.getData().setAll(series2);
+    }
+
+    private String getStartDate() {
+        long dps = LocalDate.of(startDate.getValue().getYear(), startDate.getValue().getMonth(),
+                startDate.getValue().getDayOfMonth())
+                .atStartOfDay(ZoneOffset.UTC)
+                .toInstant()
+                .toEpochMilli() / 1000;
+        return Long.toString(dps);
+    }
+
+    private String getEndDate() {
+        long dps = LocalDate.of(endDate.getValue().getYear(), endDate.getValue().getMonth(),
+                endDate.getValue().getDayOfMonth())
+                .atStartOfDay(ZoneOffset.UTC)
+                .toInstant()
+                .toEpochMilli();
+        return Long.toString(dps);
     }
 
     // Functionality for button pressed

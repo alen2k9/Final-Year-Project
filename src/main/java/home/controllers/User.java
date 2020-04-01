@@ -33,7 +33,7 @@ class User {
     String userName;
     String password;
 
-    //database information
+    // database information
     String datacenterId;
     String floorId;
     String rackId;
