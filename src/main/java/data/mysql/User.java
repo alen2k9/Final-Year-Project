@@ -1,4 +1,4 @@
-package home.controllers;
+package data.mysql;
 
 import com.google.gson.Gson;
 import data.power.MainPower;
@@ -22,29 +22,38 @@ import java.util.TreeMap;
  *
  * */
 
-class User {
+public class User {
 
     // Choices List for drop down box
-    List<String> choice1;
-    Map<String, List<String>> map;
+    public List<String> choice1;
+    public Map<String, List<String>> map;
 
     // User details
-    String firstName;
-    String lastName;
-    String userName;
-    String password;
+    public String firstName;
+    public String lastName;
+    public String userName;
+    public String password;
+    public String name;
+    public int userId;
 
     // database information
-    String datacenterId;
-    String floorId;
-    String rackId;
-    String hostId;
-    String restService;
+    public String datacenterId;
+    public String floorId;
+    public String rackId;
+    public String hostId;
+    public String restService;
 
     // constructor
-    User(List<String> choice1, Map<String, List<String>> map) {
+    public User(List<String> choice1, Map<String, List<String>> map) {
         this.choice1 = choice1;
         this.map = map;
+    }
+
+    public User(int userId, String userName, String password, String name){
+        this.userId = userId;
+        this.userName = userName;
+        this.password = password;
+        this.name = name;
     }
 
     private Map<String, Double> doMapping(MainPower mainPower) {
@@ -67,7 +76,7 @@ class User {
         return powerMap;
     }
 
-    Map<String, Double> getPowerData(String start, String end) throws IOException {
+    public Map<String, Double> getPowerData(String start, String end) throws IOException {
 
         URL url = new URL(restService + "datacenters/"+ datacenterId+"/floors/"+ floorId+"/racks/"+ rackId+"/hosts/"+ hostId+"/power?starttime="+start+"&endtime="+end);
        // URL url = new URL("http://192.168.67.4:8080/papillonserver/rest/datacenters/266/floors/290/racks/293/hosts/286/power?starttime=0&endtime=1585427363");
@@ -77,19 +86,17 @@ class User {
         connection.setRequestMethod("GET");
         connection.setRequestProperty("Accept", "application/json");
 
-//        if (connection.getResponseCode() != 200) {
-//            throw new RuntimeException("Failed : HTTP error code : "
-//                    + connection.getResponseCode());
-//        }
+        //        if (connection.getResponseCode() != 200) {
+        //            throw new RuntimeException("Failed : HTTP error code : "
+        //                    + connection.getResponseCode());
+        //        }
 
         BufferedReader br = new BufferedReader(new InputStreamReader(
                 (connection.getInputStream())));
 
         String output = br.readLine();
 
-        Gson gson = new Gson();
-
-        MainPower mainPower = gson.fromJson(output, MainPower.class);
+        MainPower mainPower = new Gson().fromJson(output, MainPower.class);
 
         if(mainPower == null){
             return new HashMap<String, Double>();

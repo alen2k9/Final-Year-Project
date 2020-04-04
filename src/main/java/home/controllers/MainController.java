@@ -1,5 +1,6 @@
 package home.controllers;
 
+import data.mysql.User;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;

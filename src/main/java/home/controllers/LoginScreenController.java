@@ -1,5 +1,7 @@
 package home.controllers;
 
+import data.mysql.MYSQL;
+import data.mysql.User;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
@@ -30,7 +32,7 @@ public class LoginScreenController implements Initializable {
 
         // Traverse through use
         for(User user : people){
-            //if(usernameField.getText().equals(personTest.userName) && passwordField.getText().equals(personTest.password)) {
+           if(usernameField.getText().equals(user.userName) && passwordField.getText().equals(user.password)) {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("../fxml/Main.fxml"));
                 Parent root = loader.load();
                 Stage primaryStage = new Stage();
@@ -42,10 +44,10 @@ public class LoginScreenController implements Initializable {
                 primaryStage.show();
 
                 closeLogin();
-           /* }
+            }
             else{
                 loginPrompt.setVisible(true);
-            } */
+            }
         }
 
 
@@ -115,7 +117,9 @@ public class LoginScreenController implements Initializable {
     // Get User Data
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        getUsers();
+        //getUsers();
+        MYSQL mysql = new MYSQL();
+        people = mysql.getUsers();
     }
 
 
