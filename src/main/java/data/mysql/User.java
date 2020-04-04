@@ -28,9 +28,6 @@ public class User {
     public List<String> choice1;
     public Map<String, List<String>> map;
 
-    // User details
-    public String firstName;
-    public String lastName;
     public String userName;
     public String password;
     public String name;

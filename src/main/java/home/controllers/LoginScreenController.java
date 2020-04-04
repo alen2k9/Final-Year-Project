@@ -91,8 +91,6 @@ public class LoginScreenController implements Initializable {
         map.put("", new ArrayList<>());
 
         User user = new User(choice1,map);
-        user.firstName = "Alen";
-        user.lastName = "Thomas";
         user.password = "password";
         user.userName = "alen2k9";
 
