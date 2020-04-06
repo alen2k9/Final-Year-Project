@@ -66,7 +66,7 @@
                         <Insets left="20.0" />
                      </HBox.margin>
                   </DatePicker>
-                  <Button alignment="CENTER" mnemonicParsing="false" onMouseClicked="#dashboardClicked" styleClass="dashboardBtn" stylesheets="@../style/Main.css" text="Display Data" textFill="WHITE">
+                  <Button fx:id="displayDataButton" alignment="CENTER" mnemonicParsing="false" onMouseClicked="#dashboardClicked" styleClass="dashboardBtn" stylesheets="@../style/Main.css" text="Display Data" textFill="WHITE">
                      <font>
                         <Font name="Calibri Light" size="18.0" />
                      </font>
@@ -74,7 +74,7 @@
                         <Insets left="40.0" right="40.0" />
                      </HBox.margin>
                   </Button>
-                  <Label fx:id="emptyData" opacity="0.0" text="No available Data" textFill="RED">
+                  <Label fx:id="emptyData" maxWidth="1.7976931348623157E308" opacity="0.0" text="No available Data" textFill="RED">
                      <font>
                         <Font name="Cera PROModern Medium" size="20.0" />
                      </font>

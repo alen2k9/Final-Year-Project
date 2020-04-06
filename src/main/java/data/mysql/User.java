@@ -12,10 +12,7 @@ import java.net.URL;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.TreeMap;
+import java.util.*;
 
 /**
  * Class to pass values for drop down box
@@ -51,6 +48,9 @@ public class User {
         this.userName = userName;
         this.password = password;
         this.name = name;
+        this.choice1 = new ArrayList<>();
+        this.map = new HashMap<>();
+
     }
 
     private Map<String, Double> doMapping(MainPower mainPower) {
