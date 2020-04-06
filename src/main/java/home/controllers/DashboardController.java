@@ -184,11 +184,10 @@ public class DashboardController implements Initializable {
         this.currentUser = currentUser;
 
         // disable button if user has empty user details
-        if(currentUser.choice1.isEmpty() ){
+        if(currentUser.choice1.isEmpty() || currentUser.map.isEmpty()){
             emptyData.setText("User Data Empty, please update your server details");
             emptyData.setOpacity(1.0);
             displayDataButton.setDisable(true);
-
         }
         else{
             //Adding Drop Down Values
@@ -230,7 +229,6 @@ public class DashboardController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
 
     }
-
 
     private final Comparator<String> dateCompare = (o1, o2) -> {
 

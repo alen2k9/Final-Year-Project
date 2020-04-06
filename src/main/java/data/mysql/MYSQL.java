@@ -18,9 +18,11 @@ public class MYSQL {
 
     }
 
+    // Method to retrieve list of users in database
     public List<User> getUsers(){
         List<User> users = new ArrayList<>();
 
+        // Connection to mysql server to retrieve user data
         try {
             connection = DriverManager.getConnection(CONNECTIONURL, USERNAME, PASSWORD);
             Statement statement = connection.createStatement();
@@ -28,8 +30,7 @@ public class MYSQL {
 
             while (resultSet.next()){
                 User user = new User(resultSet.getInt(1),  resultSet.getString(2), resultSet.getString(3), resultSet.getString(4));
-                System.out.println(resultSet.getInt(1) + " \t\t" + resultSet.getString(2) + " \t" + resultSet.getString(3) + " \t" + resultSet.getString(4));
-
+                System.out.println(resultSet.getInt(1) + " \t\t" + resultSet.getString(2) + " \t" + resultSet.getString(3) + " \t" + resultSet.getString(4) + " \t" + resultSet.getInt(5));
                 users.add(user);
             }
             System.out.println("It works");

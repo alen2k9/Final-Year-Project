@@ -12,17 +12,24 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.*;
 
 public class LoginScreenController implements Initializable {
 
-    // FXML values to edit application
-    public TextField usernameField;
-    public TextField passwordField;
+    // FXML values for Login application
     public Button loginButton;
-    public Button signUpButton;
     public Label loginPrompt;
+    public TextField loginpPasswordField;
+    public TextField loginUsernameField;
+
+    // FXML values for Sign Up application
+    public TextField signupPassword;
+    public TextField signupUsername;
+    public Label signupPrompt;
+    public TextField signUpName;
+    public Button signUpButton;
 
     //List of all Users
     List<User> people;
@@ -32,19 +39,9 @@ public class LoginScreenController implements Initializable {
 
         // Traverse through use
         for(User user : people){
-           if(usernameField.getText().equals(user.userName) && passwordField.getText().equals(user.password)) {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("../fxml/Main.fxml"));
-                Parent root = loader.load();
-                Stage primaryStage = new Stage();
-                primaryStage.setMaximized(true);
-                primaryStage.setScene(new Scene(root));
-                MainController mainController = loader.getController();
-                mainController.setUser(user);
-
-                primaryStage.show();
-
-                closeLogin();
-            }
+           if(loginUsernameField.getText().equals(user.userName) && loginpPasswordField.getText().equals(user.password)) {
+               loadMain(user);
+           }
             else{
                 loginPrompt.setVisible(true);
             }
@@ -52,6 +49,56 @@ public class LoginScreenController implements Initializable {
 
 
     }
+
+    private void closeLogin() {
+        Stage stage = (Stage) loginButton.getScene().getWindow();
+        stage.close();
+    }
+
+    public void signUpUser(MouseEvent mouseEvent) throws IOException {
+        if(signUpName.getText().isEmpty() || signupUsername.getText().isEmpty() || signupPassword.getText().isEmpty()){
+            signupPrompt.setText("Please fill all values");
+            signupPrompt.setVisible(true);
+        }
+        else{
+            for(User user : people){
+                if(signupUsername.getText().equals(user.userName)) {
+
+                    signupPrompt.setText("Username already in use, please choose another");
+                    signupPrompt.setVisible(true);
+
+                }
+                else{
+                    User newUser = new User(signupUsername.getText(), signupPassword.getText(), signUpName.getText());
+                    loadMain(newUser);
+                }
+            }
+        }
+
+    }
+
+    private void loadMain(User newUser) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("../fxml/Main.fxml"));
+        Parent root = loader.load();
+        Stage primaryStage = new Stage();
+        primaryStage.setMaximized(true);
+        primaryStage.setScene(new Scene(root));
+        MainController mainController = loader.getController();
+        mainController.setUser(newUser);
+
+        primaryStage.show();
+
+        closeLogin();
+    }
+
+    // Get User Data
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        //getUsers();
+        MYSQL mysql = new MYSQL();
+        people = mysql.getUsers();
+    }
+
 
     private void getUsers() {
 
@@ -103,22 +150,5 @@ public class LoginScreenController implements Initializable {
 
         people.add(user);
     }
-
-    private void closeLogin() {
-        Stage stage = (Stage) loginButton.getScene().getWindow();
-        stage.close();
-    }
-
-    public void signUpUser(MouseEvent mouseEvent) {
-    }
-
-    // Get User Data
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
-        //getUsers();
-        MYSQL mysql = new MYSQL();
-        people = mysql.getUsers();
-    }
-
 
 }

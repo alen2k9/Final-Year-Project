@@ -25,10 +25,11 @@ public class User {
     public List<String> choice1;
     public Map<String, List<String>> map;
 
+    public int userId;
     public String userName;
     public String password;
     public String name;
-    public int userId;
+
 
     // database information
     public String datacenterId;
@@ -45,6 +46,16 @@ public class User {
 
     public User(int userId, String userName, String password, String name){
         this.userId = userId;
+        this.userName = userName;
+        this.password = password;
+        this.name = name;
+        this.choice1 = new ArrayList<>();
+        this.map = new HashMap<>();
+
+    }
+
+    public User( String userName, String password, String name){
+        //this.userId = getUserid;
         this.userName = userName;
         this.password = password;
         this.name = name;
