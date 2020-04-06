@@ -16,9 +16,9 @@
    <center>
       <AnchorPane style="-fx-background-color: #1B6280;">
          <children>
-            <TabPane layoutX="-1.0" layoutY="67.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="330.0" prefWidth="600.0" side="BOTTOM" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <TabPane layoutX="-1.0" layoutY="67.0" prefHeight="330.0" prefWidth="600.0" side="BOTTOM" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
               <tabs>
-                <Tab text="Login">
+                <Tab text="Login User">
                      <content>
                         <AnchorPane prefHeight="282.0" prefWidth="600.0">
                            <children>
@@ -32,13 +32,13 @@
                                     <Blend />
                                  </effect>
                               </TextField>
-                              <Label fx:id="loginPrompt" layoutX="202.0" layoutY="26.0" text="Invalid Username/Password entered. " textFill="#ee1e1e" visible="false" AnchorPane.topAnchor="50.0" />
+                              <Label fx:id="loginPrompt" alignment="CENTER" contentDisplay="CENTER" layoutX="202.0" layoutY="26.0" text="Invalid Username/Password entered. " textAlignment="CENTER" textFill="#ee1e1e" visible="false" AnchorPane.topAnchor="50.0" />
                               <Button fx:id="loginButton" layoutX="270.0" layoutY="250.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#loginUser" prefHeight="25.0" prefWidth="60.0" text="Login" AnchorPane.topAnchor="250.0" />
                            </children>
                         </AnchorPane>
                      </content>
                   </Tab>
-                <Tab closable="false" text="Sign Up">
+                <Tab closable="false" text="Sign Up User">
                      <content>
                         <AnchorPane prefHeight="282.0" prefWidth="600.0">
                            <children>
@@ -52,7 +52,7 @@
                                     <Blend />
                                  </effect>
                               </TextField>
-                              <Label fx:id="signupPrompt" layoutX="235.0" layoutY="50.0" text="Username already in use" textFill="#ee1e1e" visible="false" AnchorPane.topAnchor="50.0" />
+                              <Label fx:id="signupPrompt" alignment="CENTER" contentDisplay="CENTER" layoutX="236.0" layoutY="50.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" text="Username already in use" textAlignment="CENTER" textFill="#ee1e1e" AnchorPane.topAnchor="50.0" />
                               <Button fx:id="signUpButton" layoutX="270.0" layoutY="249.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#signUpUser" prefHeight="25.0" prefWidth="60.0" text="Sign Up" AnchorPane.topAnchor="249.0" />
                               <TextField fx:id="signUpName" alignment="TOP_LEFT" cache="true" cacheHint="SPEED" layoutX="226.0" layoutY="104.0" promptText="Name" AnchorPane.topAnchor="100.0">
                                  <effect>

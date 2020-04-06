@@ -15,6 +15,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.net.URL;
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class LoginScreenController implements Initializable {
 
@@ -33,6 +34,7 @@ public class LoginScreenController implements Initializable {
 
     //List of all Users
     List<User> people;
+    List<String> usernames;
 
     //When Login button is pressed
     public void loginUser(MouseEvent mouseEvent) throws Exception{
@@ -61,18 +63,17 @@ public class LoginScreenController implements Initializable {
             signupPrompt.setVisible(true);
         }
         else{
-            for(User user : people){
-                if(signupUsername.getText().equals(user.userName)) {
+            if(usernames.contains(signupUsername.getText())) {
 
-                    signupPrompt.setText("Username already in use, please choose another");
-                    signupPrompt.setVisible(true);
+                signupPrompt.setText("Username already in use");
+                signupPrompt.setVisible(true);
 
-                }
-                else{
-                    User newUser = new User(signupUsername.getText(), signupPassword.getText(), signUpName.getText());
-                    loadMain(newUser);
-                }
             }
+            else{
+                User newUser = new User(signupUsername.getText(), signupPassword.getText(), signUpName.getText());
+                loadMain(newUser);
+            }
+
         }
 
     }
@@ -97,6 +98,7 @@ public class LoginScreenController implements Initializable {
         //getUsers();
         MYSQL mysql = new MYSQL();
         people = mysql.getUsers();
+        usernames = people.stream().map(user -> user.userName).collect(Collectors.toList());
     }
 
 
