@@ -32,6 +32,8 @@ public class LoginScreenController implements Initializable {
     public TextField signUpName;
     public Button signUpButton;
 
+    private MYSQL mysql;
+
     //List of all Users
     List<User> people;
     List<String> usernames;
@@ -70,7 +72,8 @@ public class LoginScreenController implements Initializable {
 
             }
             else{
-                User newUser = new User(signupUsername.getText(), signupPassword.getText(), signUpName.getText());
+                //User newUser = new User(signupUsername.getText(), signupPassword.getText(), signUpName.getText());
+                User newUser = mysql.createNewUser(signupUsername.getText(), signupPassword.getText(), signUpName.getText());
                 loadMain(newUser);
             }
 
@@ -96,7 +99,7 @@ public class LoginScreenController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         //getUsers();
-        MYSQL mysql = new MYSQL();
+        mysql = new MYSQL();
         people = mysql.getUsers();
         usernames = people.stream().map(user -> user.userName).collect(Collectors.toList());
     }

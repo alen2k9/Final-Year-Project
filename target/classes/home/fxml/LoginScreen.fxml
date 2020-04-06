@@ -52,7 +52,7 @@
                                     <Blend />
                                  </effect>
                               </TextField>
-                              <Label fx:id="signupPrompt" alignment="CENTER" contentDisplay="CENTER" layoutX="236.0" layoutY="50.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" text="Username already in use" textAlignment="CENTER" textFill="#ee1e1e" AnchorPane.topAnchor="50.0" />
+                              <Label fx:id="signupPrompt" alignment="CENTER" contentDisplay="CENTER" layoutX="236.0" layoutY="50.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" text="Username already in use" textAlignment="CENTER" textFill="#ee1e1e" visible="false" AnchorPane.topAnchor="50.0" />
                               <Button fx:id="signUpButton" layoutX="270.0" layoutY="249.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#signUpUser" prefHeight="25.0" prefWidth="60.0" text="Sign Up" AnchorPane.topAnchor="249.0" />
                               <TextField fx:id="signUpName" alignment="TOP_LEFT" cache="true" cacheHint="SPEED" layoutX="226.0" layoutY="104.0" promptText="Name" AnchorPane.topAnchor="100.0">
                                  <effect>

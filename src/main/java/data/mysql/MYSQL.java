@@ -40,4 +40,33 @@ public class MYSQL {
 
         return users;
     }
+
+    public User createNewUser(String userName, String password, String name){
+        User user = new User();
+
+        try {
+            connection = DriverManager.getConnection(CONNECTIONURL, USERNAME, PASSWORD);
+            Statement statement = connection.createStatement();
+            statement.executeUpdate("insert into user.users(username, password, name) values ('"+userName+"', '"+password+"', '"+name+"');");
+
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            connection = DriverManager.getConnection(CONNECTIONURL, USERNAME, PASSWORD);
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery("select * from user.users where username = '"+ userName+"';  ");
+            while (resultSet.next()) {
+                user = new User(resultSet.getInt(1),  resultSet.getString(2), resultSet.getString(3), resultSet.getString(4));
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+
+        return user;
+    }
 }

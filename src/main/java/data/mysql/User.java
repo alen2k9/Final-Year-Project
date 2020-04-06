@@ -55,12 +55,15 @@ public class User {
     }
 
     public User( String userName, String password, String name){
-        //this.userId = getUserid;
         this.userName = userName;
         this.password = password;
         this.name = name;
         this.choice1 = new ArrayList<>();
         this.map = new HashMap<>();
+
+    }
+
+    public User() {
 
     }
 
