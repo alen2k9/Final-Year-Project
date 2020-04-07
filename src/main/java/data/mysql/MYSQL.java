@@ -45,6 +45,7 @@ public class MYSQL {
         User user = new User();
 
         try {
+
             connection = DriverManager.getConnection(CONNECTIONURL, USERNAME, PASSWORD);
             Statement statement = connection.createStatement();
             statement.executeUpdate("insert into user.users(username, password, name) values ('"+userName+"', '"+password+"', '"+name+"');");

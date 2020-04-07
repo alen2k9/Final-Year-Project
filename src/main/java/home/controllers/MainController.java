@@ -57,20 +57,21 @@ public class MainController implements Initializable {
         FXMLLoader loader = null;
         loader = new FXMLLoader(getClass().getResource("../fxml/"+tab+".fxml"));
         borderPane.setCenter(loader.load());
-        if(tab.equals(HOME)) {
-            //TODO : Setup Home
+        switch (tab) {
+            case HOME:
+                //TODO : Setup Home
+                break;
+            case DASHBOARD:
+                DashboardController controller = loader.getController();
+                controller.populate(currentUser);
+                break;
+            case SETTINGS:
+                // TODO: Setup Settings
+                break;
+            case PROFILE:
+                // TODO: Setup user profile
+                break;
         }
-        else if(tab.equals(DASHBOARD)){
-            DashboardController controller = loader.getController();
-            controller.populate(currentUser);
-        }
-        else if(tab.equals(SETTINGS)){
-            // TODO: Setup Settings
-        }
-        else if(tab.equals(PROFILE)){
-            // TODO: Setup user profile
-        }
-
     }
 
     void setUser(User user){
