@@ -70,6 +70,8 @@ public class MainController implements Initializable {
                 break;
             case PROFILE:
                 // TODO: Setup user profile
+                ProfileController profileController = loader.getController();
+                profileController.setUser(currentUser);
                 break;
         }
     }

@@ -1,5 +1,8 @@
 package data.mysql;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -30,7 +33,7 @@ public class MYSQL {
 
             while (resultSet.next()){
                 User user = new User(resultSet.getInt(1),  resultSet.getString(2), resultSet.getString(3), resultSet.getString(4));
-                System.out.println(resultSet.getInt(1) + " \t\t" + resultSet.getString(2) + " \t" + resultSet.getString(3) + " \t" + resultSet.getString(4) + " \t" + resultSet.getInt(5));
+                System.out.println(resultSet.getInt(1) + " \t\t" + resultSet.getString(2) + " \t" + resultSet.getString(3) + " \t" + resultSet.getString(4));
                 users.add(user);
             }
             System.out.println("It works");
@@ -66,8 +69,29 @@ public class MYSQL {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
-
         return user;
+    }
+
+    public ObservableList<Server> getTable(int userId){
+        ObservableList<Server> servers = FXCollections.observableArrayList();
+
+        try {
+            connection = DriverManager.getConnection(CONNECTIONURL, USERNAME, PASSWORD);
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery("select school, researchgroup, project, server from user.userserver join (select serverid, school, researchgroup, project, server, floorid, rackid, datacenterid, host " +
+                    "    from user.servers join user.hosts on servers.hostid = hosts.hostid) as `serverhost` on serverhost.serverid = userserver.serverid " +
+                    "where userserver.userid = "+ userId+";");
+
+            while (resultSet.next()){
+                Server user = new Server(resultSet.getString(1),  resultSet.getString(2), resultSet.getString(3), resultSet.getString(4));
+                System.out.println(resultSet.getString(1) + " \t\t" + resultSet.getString(2) + " \t" + resultSet.getString(3) + " \t" + resultSet.getString(4) );
+                servers.add(user);
+            }
+            System.out.println("It works");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return servers;
     }
 }
