@@ -99,7 +99,7 @@
                         <CategoryAxis label="Month" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" side="BOTTOM" snapToPixel="false" />
                      </xAxis>
                      <yAxis>
-                        <NumberAxis label="Cost €" side="LEFT" />
+                        <NumberAxis label="Energy Cost (€)" side="LEFT" />
                      </yAxis>
                      <HBox.margin>
                         <Insets left="50.0" />
@@ -136,7 +136,7 @@
                       <CategoryAxis label="Month" side="BOTTOM" />
                     </xAxis>
                     <yAxis>
-                      <NumberAxis label="Emission €" side="LEFT" />
+                      <NumberAxis label="Carbon Emission (Kg)" side="LEFT" />
                     </yAxis>
                      <HBox.margin>
                         <Insets left="50.0" />

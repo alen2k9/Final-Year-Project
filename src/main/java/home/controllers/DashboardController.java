@@ -41,6 +41,12 @@ public class DashboardController implements Initializable {
     // current User
     private User currentUser;
 
+    // Carbon value calculator
+    private static final double CARBONPERKWH = 0.367;
+
+    // Cost Calculator
+    private static final double COSTPERKWH = 0.1611;
+
     // Graph Setup
     private void setupLinechart() throws IOException {
 
@@ -71,68 +77,32 @@ public class DashboardController implements Initializable {
                 }
                 else{
 
-                    // Tests for graph
-                    XYChart.Series series1 = new XYChart.Series();
-                    series1.setName("Portfolio 1");
+                    // electricity
+                    XYChart.Series energyUsed = new XYChart.Series();
+                    energyUsed.setName("Current Data");
 
+                    XYChart.Series carbonValues = new XYChart.Series();
+                    carbonValues.setName("Carbon Data, value chnages per month");
                     List<String> months = new ArrayList<>();
                     for (String month: powerGraph.keySet() ) {
                         months.add(month);
-                        //series1.getData().add(new XYChart.Data(month, powerGraph.get(month)));
                     }
 
                     Collections.sort(months, dateCompare);
 
                     for(String month:months){
-                        series1.getData().add(new XYChart.Data(month, powerGraph.get(month)));
+                        double kilowatt = (powerGraph.get(month)*60)/1000;
+                        energyUsed.getData().add(new XYChart.Data(month, COSTPERKWH*kilowatt));
+                        carbonValues.getData().add(new XYChart.Data(month, kilowatt*CARBONPERKWH));
                     }
 
-                    /*series1.getData().add(new XYChart.Data("Jan", 23));
-                    series1.getData().add(new XYChart.Data("Feb", 14));
-                    series1.getData().add(new XYChart.Data("Mar", 15));
-                    series1.getData().add(new XYChart.Data("Apr", 24));
-                    series1.getData().add(new XYChart.Data("May", 34));
-                    series1.getData().add(new XYChart.Data("Jun", 36));
-                    series1.getData().add(new XYChart.Data("Jul", 22));
-                    series1.getData().add(new XYChart.Data("Aug", 45));
-                    series1.getData().add(new XYChart.Data("Sep", 43));
-                    series1.getData().add(new XYChart.Data("Oct", 17));
-                    series1.getData().add(new XYChart.Data("Nov", 29));
-                    series1.getData().add(new XYChart.Data("Dec", 25));*/
-                    costChart.getXAxis().setAnimated(false);
-                    costChart.getData().setAll(series1);
+                    costChart.getData().setAll(energyUsed);
 
-                    XYChart.Series series2 = new XYChart.Series();
-                    series2.setName("Portfolio 2");
-                    series2.getData().add(new XYChart.Data("Jan", 33));
-                    series2.getData().add(new XYChart.Data("Feb", 34));
-                    series2.getData().add(new XYChart.Data("Mar", 25));
-                    series2.getData().add(new XYChart.Data("Apr", 44));
-                    series2.getData().add(new XYChart.Data("May", 39));
-                    series2.getData().add(new XYChart.Data("Jun", 16));
-                    series2.getData().add(new XYChart.Data("Jul", 55));
-                    series2.getData().add(new XYChart.Data("Aug", 54));
-                    series2.getData().add(new XYChart.Data("Sep", 48));
-                    series2.getData().add(new XYChart.Data("Oct", 27));
-                    series2.getData().add(new XYChart.Data("Nov", 37));
-                    series2.getData().add(new XYChart.Data("Dec", 29));
-
-
-                    carbonChart.getData().setAll(series2);
+                    carbonChart.getData().setAll(carbonValues);
                 }
 
             }
-            }
-
-            // Get Graph Details
-
-
-
-
-
-
-
-
+        }
     }
 
     private String getStartDate() {
@@ -227,7 +197,8 @@ public class DashboardController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-
+        carbonChart.getXAxis().setAnimated(false);
+        costChart.getXAxis().setAnimated(false);
     }
 
     private final Comparator<String> dateCompare = (o1, o2) -> {

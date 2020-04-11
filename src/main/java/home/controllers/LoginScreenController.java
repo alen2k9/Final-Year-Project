@@ -98,10 +98,10 @@ public class LoginScreenController implements Initializable {
     // Get User Data
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        //getUsers();
+        getUsers();
         mysql = new MYSQL();
-        people = mysql.getUsers();
-        usernames = people.stream().map(user -> user.userName).collect(Collectors.toList());
+        //people = mysql.getUsers();
+        //usernames = people.stream().map(user -> user.userName).collect(Collectors.toList());
     }
 
 
