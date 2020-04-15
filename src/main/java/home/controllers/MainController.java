@@ -78,6 +78,7 @@ public class MainController implements Initializable {
 
     void setUser(User user){
         this.currentUser = user;
+        this.currentUser.setUpUser();
         userLabel.textProperty().setValue(currentUser.name);
 
     }

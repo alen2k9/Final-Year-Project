@@ -98,14 +98,14 @@ public class LoginScreenController implements Initializable {
     // Get User Data
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        getUsers();
+        // getUsers();
         mysql = new MYSQL();
-        //people = mysql.getUsers();
-        //usernames = people.stream().map(user -> user.userName).collect(Collectors.toList());
+        people = mysql.getUsers();
+        usernames = people.stream().map(user -> user.userName).collect(Collectors.toList());
     }
 
 
-    private void getUsers() {
+    /*private void getUsers() {
 
         people = new LinkedList<>();
         List<String> choice1 = new ArrayList<>();
@@ -147,7 +147,7 @@ public class LoginScreenController implements Initializable {
         user.userName = "alen2k9";
 
         // "http://192.168.67.4:8080/papillonserver/rest/datacenters/266/floors/290/racks/293/hosts/286/power?starttime=0&endtime=1585427363"
-        user.restService = "http://192.168.67.4:8080/papillonserver/rest/" ;
+        user.RESTSERVICE = "http://192.168.67.4:8080/papillonserver/rest/" ;
         user.datacenterId = "266";
         user.floorId = "290";
         user.rackId = "293";
@@ -155,5 +155,5 @@ public class LoginScreenController implements Initializable {
 
         people.add(user);
     }
-
+*/
 }

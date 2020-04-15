@@ -22,8 +22,10 @@ import java.util.*;
 public class User {
 
     // Choices List for drop down box
-    public List<String> choice1;
-    public Map<String, List<String>> map;
+    public List<String> firstDropDownChoices;
+    public Map<String, List<String>> dropDownMap;
+    public List<Host> hosts;
+    public Map<String, Server> serverMap;
 
     public int userId;
     public String userName;
@@ -36,32 +38,30 @@ public class User {
     public String floorId;
     public String rackId;
     public String hostId;
-    public String restService;
+    public static final String RESTSERVICE = "http://192.168.67.4:8080/papillonserver/rest/";
 
     // constructor
-    public User(List<String> choice1, Map<String, List<String>> map) {
-        this.choice1 = choice1;
-        this.map = map;
-    }
+    /*public User(List<String> firstDropDownChoices, Map<String, List<String>> dropDownMap) {
+        this.firstDropDownChoices = firstDropDownChoices;
+        this.dropDownMap = dropDownMap;
+    }*/
 
     public User(int userId, String userName, String password, String name){
         this.userId = userId;
         this.userName = userName;
         this.password = password;
         this.name = name;
-        this.choice1 = new ArrayList<>();
-        this.map = new HashMap<>();
-
+        this.firstDropDownChoices = new ArrayList<>();
+        this.dropDownMap = new HashMap<>();
     }
 
-    public User( String userName, String password, String name){
+    /*public User( String userName, String password, String name){
         this.userName = userName;
         this.password = password;
         this.name = name;
-        this.choice1 = new ArrayList<>();
-        this.map = new HashMap<>();
-
-    }
+        this.firstDropDownChoices = new ArrayList<>();
+        this.dropDownMap = new HashMap<>();
+    }*/
 
     public User() {
 
@@ -87,9 +87,9 @@ public class User {
         return powerMap;
     }
 
-    public Map<String, Double> getPowerData(String start, String end) throws IOException {
+    public Map<String, Double> getPowerData(String start, String end, Server server) throws IOException {
 
-        URL url = new URL(restService + "datacenters/"+ datacenterId+"/floors/"+ floorId+"/racks/"+ rackId+"/hosts/"+ hostId+"/power?starttime="+start+"&endtime="+end);
+        URL url = new URL(RESTSERVICE + "datacenters/"+ server.datacenterId+"/floors/"+ server.floorId+"/racks/"+ server.rackId+"/hosts/"+ server.hostId+"/power?starttime="+start+"&endtime="+end);
        // URL url = new URL("http://192.168.67.4:8080/papillonserver/rest/datacenters/266/floors/290/racks/293/hosts/286/power?starttime=0&endtime=1585427363");
                             //http://192.168.67.4:8080/papillonserver/rest/datacenters/266/floors/290/racks/293/hosts/286/power?starttime=1585785600&endtime=1587081600
         System.out.println(url.toString());
@@ -118,4 +118,47 @@ public class User {
             return powerGraph;
         }
     }
+
+    public void setUpUser() {
+
+        hosts = MYSQL.getServers(userId);
+        firstDropDownChoices = new ArrayList<>();
+        dropDownMap = new HashMap<>();
+        serverMap = new HashMap<>();
+
+        for (Host host: hosts) {
+
+            if(!firstDropDownChoices.contains(host.school)) {
+                firstDropDownChoices.add(host.school);
+            }
+
+            if (!dropDownMap.containsKey(host.school)) {
+                dropDownMap.put(host.school, new ArrayList<>());
+            }
+
+            if(!dropDownMap.get(host.school).contains(host.researchGroup)){
+                dropDownMap.get(host.school).add(host.researchGroup);
+            }
+
+            if (!dropDownMap.containsKey(host.researchGroup)) {
+                dropDownMap.put(host.researchGroup, new ArrayList<>());
+            }
+
+            if(!dropDownMap.get(host.researchGroup).contains(host.projectName)){
+                dropDownMap.get(host.researchGroup).add(host.projectName);
+            }
+
+            if (!dropDownMap.containsKey(host.projectName)) {
+                dropDownMap.put(host.projectName, new ArrayList<>());
+            }
+
+            if(!dropDownMap.get(host.projectName).contains(host.serverName)){
+                dropDownMap.get(host.projectName).add(host.serverName);
+            }
+
+            serverMap.put(host.serverName, new Server(host.datacenterId, host.floorId, host.rackId, host.hostId));
+        }
+
+    }
+
 }

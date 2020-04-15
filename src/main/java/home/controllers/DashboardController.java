@@ -69,7 +69,7 @@ public class DashboardController implements Initializable {
                 //TODO Error
                 System.out.println("Epoch start time = " + startDateValue);
             }else{
-                Map<String, Double> powerGraph = currentUser.getPowerData(startDateValue, endDateValue);
+                Map<String, Double> powerGraph = currentUser.getPowerData(startDateValue, endDateValue ,currentUser.serverMap.get(choice4.getValue()));
 
                 if(powerGraph.isEmpty()){
                     emptyData.setText("No available Data");
@@ -154,40 +154,40 @@ public class DashboardController implements Initializable {
         this.currentUser = currentUser;
 
         // disable button if user has empty user details
-        if(currentUser.choice1.isEmpty() || currentUser.map.isEmpty()){
+        if(currentUser.firstDropDownChoices.isEmpty() || currentUser.dropDownMap.isEmpty()){
             emptyData.setText("User Data Empty, please update your server details");
             emptyData.setOpacity(1.0);
             displayDataButton.setDisable(true);
         }
         else{
             //Adding Drop Down Values
-            choice1.getItems().setAll(currentUser.choice1);
+            choice1.getItems().setAll(currentUser.firstDropDownChoices);
             choice1.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
                 choice2.getSelectionModel().clearSelection();
                 choice3.getSelectionModel().clearSelection();
                 choice4.getSelectionModel().clearSelection();
-                if(currentUser.map.containsKey(newValue)){
-                    choice2.getItems().setAll(currentUser.map.get(newValue));
+                if(currentUser.dropDownMap.containsKey(newValue)){
+                    choice2.getItems().setAll(currentUser.dropDownMap.get(newValue));
                 }
                 else{
-                    choice2.getItems().setAll(currentUser.map.get(""));
+                    choice2.getItems().setAll(currentUser.dropDownMap.get(""));
                 }
                 choice2.getSelectionModel().selectedItemProperty().addListener((observable1, oldValue1, newValue1) -> {
                     choice3.getSelectionModel().clearSelection();
                     choice4.getSelectionModel().clearSelection();
-                    if(currentUser.map.containsKey(newValue1)){
-                        choice3.getItems().setAll(currentUser.map.get(newValue1));
+                    if(currentUser.dropDownMap.containsKey(newValue1)){
+                        choice3.getItems().setAll(currentUser.dropDownMap.get(newValue1));
                     }
                     else{
-                        choice3.getItems().setAll(currentUser.map.get(""));
+                        choice3.getItems().setAll(currentUser.dropDownMap.get(""));
                     }
                     choice3.getSelectionModel().selectedItemProperty().addListener((observable2, oldValue2, newValue2) -> {
                         choice4.getSelectionModel().clearSelection();
-                        if(currentUser.map.containsKey(newValue2)){
-                            choice4.getItems().setAll(currentUser.map.get(newValue2));
+                        if(currentUser.dropDownMap.containsKey(newValue2)){
+                            choice4.getItems().setAll(currentUser.dropDownMap.get(newValue2));
                         }
                         else{
-                            choice4.getItems().setAll(currentUser.map.get(""));
+                            choice4.getItems().setAll(currentUser.dropDownMap.get(""));
                         }
                     });
                 });
