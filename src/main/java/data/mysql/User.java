@@ -121,37 +121,48 @@ public class User {
 
     public void setUpUser() {
 
+        // Get List of Hosts from table
         hosts = MYSQL.getServers(userId);
+
+        // initialise lists and maps
         firstDropDownChoices = new ArrayList<>();
         dropDownMap = new HashMap<>();
         serverMap = new HashMap<>();
 
+        // For each host get data
         for (Host host: hosts) {
 
+            // Add the first value for choice
             if(!firstDropDownChoices.contains(host.school)) {
                 firstDropDownChoices.add(host.school);
             }
 
+            // Add key value for school to research group
             if (!dropDownMap.containsKey(host.school)) {
                 dropDownMap.put(host.school, new ArrayList<>());
             }
 
+            // check if the research group is already in the list, if not add it in
             if(!dropDownMap.get(host.school).contains(host.researchGroup)){
                 dropDownMap.get(host.school).add(host.researchGroup);
             }
 
+            // add key for research group if not in map
             if (!dropDownMap.containsKey(host.researchGroup)) {
                 dropDownMap.put(host.researchGroup, new ArrayList<>());
             }
 
+            // add value of it not already in the list
             if(!dropDownMap.get(host.researchGroup).contains(host.projectName)){
                 dropDownMap.get(host.researchGroup).add(host.projectName);
             }
 
+            // add project to map if not there
             if (!dropDownMap.containsKey(host.projectName)) {
                 dropDownMap.put(host.projectName, new ArrayList<>());
             }
 
+            // add server name to group if not in it already
             if(!dropDownMap.get(host.projectName).contains(host.serverName)){
                 dropDownMap.get(host.projectName).add(host.serverName);
             }

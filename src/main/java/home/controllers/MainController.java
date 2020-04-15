@@ -69,7 +69,6 @@ public class MainController implements Initializable {
                 // TODO: Setup Settings
                 break;
             case PROFILE:
-                // TODO: Setup user profile
                 ProfileController profileController = loader.getController();
                 profileController.setUser(currentUser);
                 break;
@@ -77,6 +76,7 @@ public class MainController implements Initializable {
     }
 
     void setUser(User user){
+
         this.currentUser = user;
         this.currentUser.setUpUser();
         userLabel.textProperty().setValue(currentUser.name);
