@@ -15,211 +15,7 @@
    <children>
       <HBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <VBox alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" spacing="10.0">
-               <children>
-                  <Label alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="Add Server" textAlignment="CENTER" VBox.vgrow="ALWAYS">
-                     <VBox.margin>
-                        <Insets />
-                     </VBox.margin>
-                     <padding>
-                        <Insets top="20.0" />
-                     </padding>
-                     <font>
-                        <Font name="System Bold" size="25.0" />
-                     </font>
-                  </Label>
-                  <HBox alignment="CENTER_LEFT" VBox.vgrow="ALWAYS">
-                     <children>
-                        <Label prefWidth="150.0" text="School Name" HBox.hgrow="ALWAYS">
-                           <HBox.margin>
-                              <Insets left="40.0" />
-                           </HBox.margin>
-                           <padding>
-                              <Insets right="40.0" />
-                           </padding>
-                        </Label>
-                        <TextField focusTraversable="false">
-                           <HBox.margin>
-                              <Insets left="20.0" right="20.0" />
-                           </HBox.margin>
-                        </TextField>
-                     </children>
-                     <VBox.margin>
-                        <Insets />
-                     </VBox.margin>
-                     <opaqueInsets>
-                        <Insets />
-                     </opaqueInsets>
-                  </HBox>
-                  <HBox alignment="CENTER_LEFT" VBox.vgrow="ALWAYS">
-                     <children>
-                        <Label prefWidth="150.0" text="Research Group">
-                           <HBox.margin>
-                              <Insets left="40.0" />
-                           </HBox.margin>
-                           <padding>
-                              <Insets right="40.0" />
-                           </padding>
-                        </Label>
-                        <TextField>
-                           <HBox.margin>
-                              <Insets left="20.0" right="20.0" />
-                           </HBox.margin>
-                        </TextField>
-                     </children>
-                     <VBox.margin>
-                        <Insets />
-                     </VBox.margin>
-                     <opaqueInsets>
-                        <Insets />
-                     </opaqueInsets>
-                  </HBox>
-                  <HBox alignment="CENTER_LEFT" VBox.vgrow="ALWAYS">
-                     <children>
-                        <Label prefWidth="150.0" text="Project Group ">
-                           <HBox.margin>
-                              <Insets left="40.0" />
-                           </HBox.margin>
-                           <padding>
-                              <Insets right="40.0" />
-                           </padding>
-                        </Label>
-                        <TextField>
-                           <HBox.margin>
-                              <Insets left="20.0" right="20.0" />
-                           </HBox.margin>
-                        </TextField>
-                     </children>
-                     <VBox.margin>
-                        <Insets />
-                     </VBox.margin>
-                     <opaqueInsets>
-                        <Insets />
-                     </opaqueInsets>
-                  </HBox>
-                  <HBox alignment="CENTER_LEFT" VBox.vgrow="ALWAYS">
-                     <children>
-                        <Label prefWidth="150.0" text="Server Name">
-                           <HBox.margin>
-                              <Insets left="40.0" />
-                           </HBox.margin>
-                           <padding>
-                              <Insets right="40.0" />
-                           </padding>
-                        </Label>
-                        <TextField>
-                           <HBox.margin>
-                              <Insets left="20.0" right="20.0" />
-                           </HBox.margin>
-                        </TextField>
-                     </children>
-                     <VBox.margin>
-                        <Insets />
-                     </VBox.margin>
-                     <opaqueInsets>
-                        <Insets />
-                     </opaqueInsets>
-                  </HBox>
-                  <HBox alignment="CENTER_LEFT" VBox.vgrow="ALWAYS">
-                     <children>
-                        <Label prefWidth="150.0" text="Datacenter ID">
-                           <HBox.margin>
-                              <Insets left="40.0" />
-                           </HBox.margin>
-                           <padding>
-                              <Insets right="40.0" />
-                           </padding>
-                        </Label>
-                        <TextField>
-                           <HBox.margin>
-                              <Insets left="20.0" right="20.0" />
-                           </HBox.margin>
-                        </TextField>
-                     </children>
-                     <VBox.margin>
-                        <Insets />
-                     </VBox.margin>
-                     <opaqueInsets>
-                        <Insets />
-                     </opaqueInsets>
-                  </HBox>
-                  <HBox alignment="CENTER_LEFT" VBox.vgrow="ALWAYS">
-                     <children>
-                        <Label prefWidth="150.0" text="Floor ID">
-                           <HBox.margin>
-                              <Insets left="40.0" />
-                           </HBox.margin>
-                           <padding>
-                              <Insets right="40.0" />
-                           </padding>
-                        </Label>
-                        <TextField>
-                           <HBox.margin>
-                              <Insets left="20.0" right="20.0" />
-                           </HBox.margin>
-                        </TextField>
-                     </children>
-                     <VBox.margin>
-                        <Insets />
-                     </VBox.margin>
-                     <opaqueInsets>
-                        <Insets />
-                     </opaqueInsets>
-                  </HBox>
-                  <HBox alignment="CENTER_LEFT" VBox.vgrow="ALWAYS">
-                     <children>
-                        <Label prefWidth="150.0" text="Rack ID">
-                           <HBox.margin>
-                              <Insets left="40.0" />
-                           </HBox.margin>
-                           <padding>
-                              <Insets right="40.0" />
-                           </padding>
-                        </Label>
-                        <TextField>
-                           <HBox.margin>
-                              <Insets left="20.0" right="20.0" />
-                           </HBox.margin>
-                        </TextField>
-                     </children>
-                     <VBox.margin>
-                        <Insets />
-                     </VBox.margin>
-                     <opaqueInsets>
-                        <Insets />
-                     </opaqueInsets>
-                  </HBox>
-                  <HBox alignment="CENTER_LEFT" VBox.vgrow="ALWAYS">
-                     <children>
-                        <Label prefWidth="150.0" text="Server ID">
-                           <HBox.margin>
-                              <Insets left="40.0" />
-                           </HBox.margin>
-                           <padding>
-                              <Insets right="40.0" />
-                           </padding>
-                        </Label>
-                        <TextField>
-                           <HBox.margin>
-                              <Insets left="20.0" right="20.0" />
-                           </HBox.margin>
-                        </TextField>
-                     </children>
-                     <VBox.margin>
-                        <Insets />
-                     </VBox.margin>
-                     <opaqueInsets>
-                        <Insets />
-                     </opaqueInsets>
-                  </HBox>
-                  <Button mnemonicParsing="false" text="Add Server">
-                     <VBox.margin>
-                        <Insets bottom="40.0" top="20.0" />
-                     </VBox.margin>
-                  </Button>
-               </children>
-            </VBox>
-            <VBox alignment="CENTER" HBox.hgrow="ALWAYS">
+            <VBox alignment="CENTER">
                <children>
                   <Label alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="Servers List" textAlignment="CENTER" VBox.vgrow="ALWAYS">
                      <padding>
@@ -243,6 +39,198 @@
                         <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                      </columnResizePolicy>
                   </TableView>
+                  <VBox alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" spacing="10.0">
+                     <children>
+                        <Label alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="Add Server" textAlignment="CENTER" VBox.vgrow="ALWAYS">
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                           <padding>
+                              <Insets top="20.0" />
+                           </padding>
+                           <font>
+                              <Font name="System Bold" size="25.0" />
+                           </font>
+                        </Label>
+                        <HBox>
+                           <children>
+                              <VBox minWidth="-Infinity" spacing="20.0">
+                                 <children>
+                                    <HBox alignment="CENTER_LEFT">
+                                       <children>
+                                          <Label prefWidth="150.0" text="School Name" HBox.hgrow="ALWAYS">
+                                             <HBox.margin>
+                                                <Insets left="20.0" />
+                                             </HBox.margin>
+                                             <padding>
+                                                <Insets right="40.0" />
+                                             </padding>
+                                          </Label>
+                                          <TextField focusTraversable="false">
+                                             <HBox.margin>
+                                                <Insets left="20.0" right="20.0" />
+                                             </HBox.margin>
+                                          </TextField>
+                                       </children>
+                                       <opaqueInsets>
+                                          <Insets />
+                                       </opaqueInsets>
+                                    </HBox>
+                                    <HBox alignment="CENTER_LEFT">
+                                       <children>
+                                          <Label prefWidth="150.0" text="Research Group">
+                                             <HBox.margin>
+                                                <Insets left="20.0" />
+                                             </HBox.margin>
+                                             <padding>
+                                                <Insets right="40.0" />
+                                             </padding>
+                                          </Label>
+                                          <TextField>
+                                             <HBox.margin>
+                                                <Insets left="20.0" right="20.0" />
+                                             </HBox.margin>
+                                          </TextField>
+                                       </children>
+                                       <opaqueInsets>
+                                          <Insets />
+                                       </opaqueInsets>
+                                    </HBox>
+                                    <HBox alignment="CENTER_LEFT">
+                                       <children>
+                                          <Label prefWidth="150.0" text="Project Group ">
+                                             <HBox.margin>
+                                                <Insets left="20.0" />
+                                             </HBox.margin>
+                                             <padding>
+                                                <Insets right="40.0" />
+                                             </padding>
+                                          </Label>
+                                          <TextField>
+                                             <HBox.margin>
+                                                <Insets left="20.0" right="20.0" />
+                                             </HBox.margin>
+                                          </TextField>
+                                       </children>
+                                       <opaqueInsets>
+                                          <Insets />
+                                       </opaqueInsets>
+                                    </HBox>
+                                    <HBox alignment="CENTER_LEFT">
+                                       <children>
+                                          <Label prefWidth="150.0" text="Server Name">
+                                             <HBox.margin>
+                                                <Insets left="20.0" />
+                                             </HBox.margin>
+                                             <padding>
+                                                <Insets right="40.0" />
+                                             </padding>
+                                          </Label>
+                                          <TextField>
+                                             <HBox.margin>
+                                                <Insets left="20.0" right="20.0" />
+                                             </HBox.margin>
+                                          </TextField>
+                                       </children>
+                                       <opaqueInsets>
+                                          <Insets />
+                                       </opaqueInsets>
+                                    </HBox>
+                                 </children>
+                              </VBox>
+                              <VBox minWidth="-Infinity" spacing="20.0">
+                                 <children>
+                                    <HBox alignment="CENTER_LEFT">
+                                       <children>
+                                          <Label prefWidth="150.0" text="Datacenter ID">
+                                             <HBox.margin>
+                                                <Insets left="20.0" />
+                                             </HBox.margin>
+                                             <padding>
+                                                <Insets right="40.0" />
+                                             </padding>
+                                          </Label>
+                                          <TextField>
+                                             <HBox.margin>
+                                                <Insets left="20.0" right="20.0" />
+                                             </HBox.margin>
+                                          </TextField>
+                                       </children>
+                                       <opaqueInsets>
+                                          <Insets />
+                                       </opaqueInsets>
+                                    </HBox>
+                                    <HBox alignment="CENTER_LEFT">
+                                       <children>
+                                          <Label prefWidth="150.0" text="Floor ID">
+                                             <HBox.margin>
+                                                <Insets left="20.0" />
+                                             </HBox.margin>
+                                             <padding>
+                                                <Insets right="20.0" />
+                                             </padding>
+                                          </Label>
+                                          <TextField>
+                                             <HBox.margin>
+                                                <Insets left="20.0" right="20.0" />
+                                             </HBox.margin>
+                                          </TextField>
+                                       </children>
+                                       <opaqueInsets>
+                                          <Insets />
+                                       </opaqueInsets>
+                                    </HBox>
+                                    <HBox alignment="CENTER_LEFT">
+                                       <children>
+                                          <Label prefWidth="150.0" text="Rack ID">
+                                             <HBox.margin>
+                                                <Insets left="20.0" />
+                                             </HBox.margin>
+                                             <padding>
+                                                <Insets right="20.0" />
+                                             </padding>
+                                          </Label>
+                                          <TextField>
+                                             <HBox.margin>
+                                                <Insets left="20.0" right="20.0" />
+                                             </HBox.margin>
+                                          </TextField>
+                                       </children>
+                                       <opaqueInsets>
+                                          <Insets />
+                                       </opaqueInsets>
+                                    </HBox>
+                                    <HBox alignment="CENTER_LEFT">
+                                       <children>
+                                          <Label prefWidth="150.0" text="Server ID">
+                                             <HBox.margin>
+                                                <Insets left="20.0" />
+                                             </HBox.margin>
+                                             <padding>
+                                                <Insets right="20.0" />
+                                             </padding>
+                                          </Label>
+                                          <TextField>
+                                             <HBox.margin>
+                                                <Insets left="20.0" right="20.0" />
+                                             </HBox.margin>
+                                          </TextField>
+                                       </children>
+                                       <opaqueInsets>
+                                          <Insets />
+                                       </opaqueInsets>
+                                    </HBox>
+                                 </children>
+                              </VBox>
+                           </children>
+                        </HBox>
+                        <Button mnemonicParsing="false" text="Add Server">
+                           <VBox.margin>
+                              <Insets bottom="40.0" top="20.0" />
+                           </VBox.margin>
+                        </Button>
+                     </children>
+                  </VBox>
                </children>
             </VBox>
          </children>
