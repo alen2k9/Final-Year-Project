@@ -167,6 +167,7 @@ public class User {
                 dropDownMap.get(host.projectName).add(host.serverName);
             }
 
+            //initialise empty array
             dropDownMap.put("", new ArrayList<>());
 
             serverMap.put(host.serverName, new Server(host.datacenterId, host.floorId, host.rackId, host.hostId));

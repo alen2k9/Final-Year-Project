@@ -59,7 +59,9 @@ public class MainController implements Initializable {
         borderPane.setCenter(loader.load());
         switch (tab) {
             case HOME:
-                //TODO : Setup Home
+                // Setup Home
+                HomeController homeController = loader.getController();
+                homeController.setUser(currentUser);
                 break;
             case DASHBOARD:
                 DashboardController controller = loader.getController();
@@ -69,8 +71,7 @@ public class MainController implements Initializable {
                 // TODO: Setup Settings
                 break;
             case PROFILE:
-                ProfileController profileController = loader.getController();
-                profileController.setUser(currentUser);
+                // TODO: Setup Profile
                 break;
         }
     }
@@ -80,16 +81,21 @@ public class MainController implements Initializable {
         this.currentUser = user;
         this.currentUser.setUpUser();
         userLabel.textProperty().setValue(currentUser.name);
-
-    }
-
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
         try {
             loadUI(HOME);
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+    }
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+       /* try {
+            loadUI(HOME);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }*/
     }
 
     // Exit application

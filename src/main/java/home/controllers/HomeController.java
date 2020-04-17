@@ -16,7 +16,7 @@ import java.util.ResourceBundle;
  *
  */
 
-public class ProfileController implements Initializable {
+public class HomeController implements Initializable {
 
     // Fxml Objects
     public TableView<ServerNames> serverTable;
@@ -36,6 +36,7 @@ public class ProfileController implements Initializable {
 
     // Add values to table
     private void setUpTable() {
+
         MYSQL mysql = new MYSQL();
         serverTable.setItems(mysql.getTable(currentUser.userId));
     }

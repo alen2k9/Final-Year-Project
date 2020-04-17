@@ -60,13 +60,12 @@ public class DashboardController implements Initializable {
             String startDateValue = getStartDate();
             String endDateValue = getEndDate();
 
-            // TODO check if the values have been chosen by drop down and is valid
+            // check if the values have been chosen by drop down and is valid
             // If graph empty dont do add to graph  as it would give error
 
             if(Long.parseLong(startDateValue) >= Long.parseLong(endDateValue)) {
                 emptyData.setText("start date is after end date");
                 emptyData.setOpacity(1.0);
-                //TODO Error
                 System.out.println("Epoch start time = " + startDateValue);
             }else{
                 Map<String, Double> powerGraph = currentUser.getPowerData(startDateValue, endDateValue ,currentUser.serverMap.get(choice4.getValue()));
@@ -123,8 +122,7 @@ public class DashboardController implements Initializable {
         return Long.toString(dps);
     }
 
-    // Functionality for button pressed
-    // TODO : Check items in drop down box and get Information
+    // Check items in drop down box and get Information
     public void dashboardClicked(MouseEvent mouseEvent) {
 
         // setup Line Chart
