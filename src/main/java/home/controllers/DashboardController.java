@@ -80,6 +80,10 @@ public class DashboardController implements Initializable {
                     XYChart.Series energyUsed = new XYChart.Series();
                     energyUsed.setName("Current Data");
 
+                    // TODO: Do budget chart based off -> month or annual
+                    XYChart.Series energyUsedAnnualBudget = new XYChart.Series();
+                    energyUsedAnnualBudget.setName("Budget");
+
                     XYChart.Series carbonValues = new XYChart.Series();
                     carbonValues.setName("Carbon Data, value changes per month");
                     List<String> months = new ArrayList<>();
