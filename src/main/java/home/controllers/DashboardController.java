@@ -212,4 +212,16 @@ public class DashboardController implements Initializable {
         }
         return s1.compareTo(s2);
     };
+
+    public static void main(String[] args){
+        Date date = new Date();
+        Calendar myCal = Calendar.getInstance();
+        myCal.setTime(date);
+        myCal.add(Calendar.MONTH, +1);
+        date = myCal.getTime();
+
+        SimpleDateFormat formatter = new SimpleDateFormat("MMM yyyy");
+        String strDate= formatter.format(date);
+        System.out.println(strDate);
+    }
 }
