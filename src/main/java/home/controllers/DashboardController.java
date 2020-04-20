@@ -81,18 +81,39 @@ public class DashboardController implements Initializable {
                     energyUsed.setName("Current Data");
 
                     XYChart.Series carbonValues = new XYChart.Series();
-                    carbonValues.setName("Carbon Data, value chnages per month");
+                    carbonValues.setName("Carbon Data, value changes per month");
                     List<String> months = new ArrayList<>();
+                    Map<String, Double> energyCostMap = new HashMap<>();
                     for (String month: powerGraph.keySet() ) {
                         months.add(month);
+                        try {
+                            Date date=new SimpleDateFormat("MMM yyyy").parse(month);
+                            String year = new SimpleDateFormat("yyyy").format(date);
+                            if(!energyCostMap.containsKey(year)){
+                                energyCostMap.put(year, 0.0);
+                            }
+                        } catch (ParseException e) {
+                            e.printStackTrace();
+                        }
                     }
 
                     Collections.sort(months, dateCompare);
 
                     for(String month:months){
                         double kilowatt = (powerGraph.get(month)*60)/1000;
-                        energyUsed.getData().add(new XYChart.Data(month, COSTPERKWH*kilowatt));
+
                         carbonValues.getData().add(new XYChart.Data(month, kilowatt*CARBONPERKWH));
+
+                        try {
+                            Date date=new SimpleDateFormat("MMM yyyy").parse(month);
+                            String year = new SimpleDateFormat("yyyy").format(date);
+
+                            energyUsed.getData().add(new XYChart.Data(month, COSTPERKWH*(energyCostMap.get(year) + kilowatt)));
+                        } catch (ParseException e) {
+                            e.printStackTrace();
+                        }
+
+
                     }
 
                     costChart.getData().setAll(energyUsed);
@@ -213,6 +234,7 @@ public class DashboardController implements Initializable {
         return s1.compareTo(s2);
     };
 
+    // TEST
     public static void main(String[] args){
         Date date = new Date();
         Calendar myCal = Calendar.getInstance();
@@ -222,6 +244,16 @@ public class DashboardController implements Initializable {
 
         SimpleDateFormat formatter = new SimpleDateFormat("MMM yyyy");
         String strDate= formatter.format(date);
-        System.out.println(strDate);
+
+        try {
+            Date date1=new SimpleDateFormat("MMM yyyy").parse(strDate);
+            String year = new SimpleDateFormat("yyyy").format(date1);
+            System.out.println(year);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+
+
     }
 }
