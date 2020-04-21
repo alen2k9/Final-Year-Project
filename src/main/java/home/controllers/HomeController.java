@@ -30,6 +30,7 @@ public class HomeController implements Initializable {
     public TableColumn<ServerNames, String> researchGroupColumn;
     public TableColumn<ServerNames, String> projectColumn;
     public TableColumn<ServerNames, String> serverNameColumn;
+    public TableColumn<ServerNames, String> annualBudgetColumn;
 
     // User who is logged in
     public User currentUser;
@@ -56,6 +57,10 @@ public class HomeController implements Initializable {
     private static final long TWELVEMONTHSEPOCH = 31556916;
     private static final double COSTPERKWH = 0.1611;
 
+    // Label for data
+    public Label noAvailableData;
+
+
     // User Setup method
     void setUser(User user){
         this.currentUser = user;
@@ -76,6 +81,7 @@ public class HomeController implements Initializable {
         researchGroupColumn.setCellValueFactory(new PropertyValueFactory<ServerNames, String>("researchGroup"));
         projectColumn.setCellValueFactory(new PropertyValueFactory<ServerNames, String>("project"));
         serverNameColumn.setCellValueFactory(new PropertyValueFactory<ServerNames, String>("serverName"));
+        annualBudgetColumn.setCellValueFactory(new PropertyValueFactory<ServerNames, String>("annualBudget"));
         usageGraph.getXAxis().setAnimated(false);
     }
 
@@ -109,7 +115,7 @@ public class HomeController implements Initializable {
 
     private void setGraph(Server server) {
         long now = System.currentTimeMillis()/MILLISECONDS;
-        long twelveMonthsAgo = now - 3*TWELVEMONTHSEPOCH;
+        long twelveMonthsAgo = now - TWELVEMONTHSEPOCH;
 
         try {
 
@@ -120,8 +126,12 @@ public class HomeController implements Initializable {
             if(usageGraphMap.isEmpty()){
                 // TODO
                 System.out.print("works and empty");
+                noAvailableData.setVisible(true);
             }
             else {
+
+                noAvailableData.setVisible(false);
+
                 List<String> months = new ArrayList<>(usageGraphMap.keySet());
 
                 months.sort(dateCompare);

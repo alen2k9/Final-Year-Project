@@ -7,12 +7,14 @@ public class ServerNames {
     private SimpleStringProperty researchGroup;
     private SimpleStringProperty project;
     private SimpleStringProperty serverName;
+    private SimpleStringProperty annualBudget;
 
-    public ServerNames(String school, String researchGroup, String project, String serverName){
+    public ServerNames(String school, String researchGroup, String project, String serverName, int annualBudegt){
         this.school = new SimpleStringProperty(school);
         this.researchGroup = new SimpleStringProperty(researchGroup);
         this.project = new SimpleStringProperty(project);
         this.serverName = new SimpleStringProperty(serverName);
+        this.annualBudget = new SimpleStringProperty(String.valueOf(annualBudegt));
     }
 
     public String getSchool() {
@@ -61,5 +63,17 @@ public class ServerNames {
 
     public void setServerName(String serverName) {
         this.serverName.set(serverName);
+    }
+
+    public String getAnnualBudget() {
+        return annualBudget.get();
+    }
+
+    public SimpleStringProperty annualBudgetProperty() {
+        return annualBudget;
+    }
+
+    public void setAnnualBudget(String annualBudget) {
+        this.annualBudget.set(annualBudget);
     }
 }
