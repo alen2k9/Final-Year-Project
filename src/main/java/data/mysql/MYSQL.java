@@ -15,7 +15,6 @@ public class MYSQL {
 
     public static void main(String[] args){
         MYSQL mysql = new MYSQL();
-        mysql.getServers(1);
     }
 
     public MYSQL (){
@@ -116,6 +115,24 @@ public class MYSQL {
         }
 
         return serverNames;
+    }
+
+    public static void setServerBudget(int serverId, int budget){
+        // TODO
+        try {
+            connection = DriverManager.getConnection(CONNECTIONURL, USERNAME, PASSWORD);
+            Statement statement = connection.createStatement();
+            statement.executeUpdate("UPDATE servers SET annualBudget = " + budget +
+                    " WHERE serverid = "+serverId+";");
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    public void addServer(){
+        // TODO
     }
 
 }

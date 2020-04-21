@@ -1,5 +1,6 @@
 package home.controllers;
 
+import data.mysql.MYSQL;
 import data.mysql.User;
 import javafx.fxml.Initializable;
 import javafx.scene.chart.LineChart;
@@ -240,24 +241,6 @@ public class DashboardController implements Initializable {
 
     // TEST
     public static void main(String[] args){
-        Date date = new Date();
-        Calendar myCal = Calendar.getInstance();
-        myCal.setTime(date);
-        myCal.add(Calendar.MONTH, +1);
-        date = myCal.getTime();
-
-        SimpleDateFormat formatter = new SimpleDateFormat("MMM yyyy");
-        String strDate= formatter.format(date);
-
-        try {
-            Date date1=new SimpleDateFormat("MMM yyyy").parse(strDate);
-            String year = new SimpleDateFormat("yyyy").format(date1);
-            System.out.println(year);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-
-
-
+        MYSQL.setServerBudget(1, 30);
     }
 }

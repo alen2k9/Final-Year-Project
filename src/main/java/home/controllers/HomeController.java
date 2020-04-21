@@ -60,7 +60,8 @@ public class HomeController implements Initializable {
     // Label for data
     public Label noAvailableData;
 
-
+    // Current Host
+    private Host currentHost;
     // User Setup method
     void setUser(User user){
         this.currentUser = user;
@@ -91,6 +92,19 @@ public class HomeController implements Initializable {
 
     // TODO
     public void setBudget(MouseEvent mouseEvent) {
+        if(currentHost == null){
+
+        }
+        else if(annualBudgetField.getText().isEmpty() || !isNumeric(annualBudgetField.getText())){
+
+        }
+        else{
+            MYSQL.setServerBudget(currentHost.serverId, Integer.parseInt(annualBudgetField.getText()));
+
+            setUpTable();
+        }
+
+
     }
 
     public void rowSelected(MouseEvent mouseEvent) {
@@ -107,6 +121,8 @@ public class HomeController implements Initializable {
                 floorIdField.setText(String.valueOf(host.floorId));
                 hostIdField.setText(String.valueOf(host.hostId));
 
+                currentHost = host;
+                annualBudgetField.setText(String.valueOf(host.annualBudget));
                 setGraph(new Server(host.datacenterId, host.floorId, host.rackId, host.hostId));
                 break;
             }
@@ -168,4 +184,13 @@ public class HomeController implements Initializable {
         }
         return s1.compareTo(s2);
     };
+
+    public static boolean isNumeric(String str) {
+        try {
+            Double.parseDouble(str);
+            return true;
+        } catch(NumberFormatException e){
+            return false;
+        }
+    }
 }
