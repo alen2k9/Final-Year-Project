@@ -440,12 +440,12 @@
                         <Insets top="20.0" />
                      </VBox.margin>
                   </HBox>
-                  <AreaChart fx:id="usageGraph" title="Server Usage - Last 6 months">
+                  <AreaChart fx:id="usageGraph" title="Server Usage - Last 12 months">
                     <xAxis>
                       <CategoryAxis label="Month" side="BOTTOM" />
                     </xAxis>
                     <yAxis>
-                      <NumberAxis label="Usage" side="LEFT" />
+                      <NumberAxis label="Cost €" side="LEFT" />
                     </yAxis>
                   </AreaChart>
                   <Label alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="Set Budget" textAlignment="CENTER">
