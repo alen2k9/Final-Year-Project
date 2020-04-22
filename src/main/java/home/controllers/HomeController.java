@@ -1,7 +1,6 @@
 package home.controllers;
 
 import data.mysql.*;
-import javafx.collections.ObservableList;
 import javafx.fxml.Initializable;
 import javafx.scene.chart.AreaChart;
 import javafx.scene.chart.XYChart;
@@ -13,8 +12,6 @@ import java.io.IOException;
 import java.net.URL;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.Instant;
-import java.time.LocalDate;
 import java.util.*;
 
 /**
@@ -65,6 +62,7 @@ public class HomeController implements Initializable {
     // User Setup method
     void setUser(User user){
         this.currentUser = user;
+        this.currentUser.setUpUser();
         setUpTable();
     }
 
@@ -93,18 +91,16 @@ public class HomeController implements Initializable {
     // TODO
     public void setBudget(MouseEvent mouseEvent) {
         if(currentHost == null){
-
+        // TODO
         }
         else if(annualBudgetField.getText().isEmpty() || !isNumeric(annualBudgetField.getText())){
-
+        // TODO
         }
         else{
             MYSQL.setServerBudget(currentHost.serverId, Integer.parseInt(annualBudgetField.getText()));
 
             setUpTable();
         }
-
-
     }
 
     public void rowSelected(MouseEvent mouseEvent) {
@@ -123,7 +119,7 @@ public class HomeController implements Initializable {
 
                 currentHost = host;
                 annualBudgetField.setText(String.valueOf(host.annualBudget));
-                setGraph(new Server(host.datacenterId, host.floorId, host.rackId, host.hostId));
+                setGraph(new Server(host.datacenterId, host.floorId, host.rackId, host.hostId, host.annualBudget));
                 break;
             }
         }
