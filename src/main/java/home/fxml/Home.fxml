@@ -56,6 +56,11 @@
                               <Font name="System Bold" size="25.0" />
                            </font>
                         </Label>
+                        <Label fx:id="addServerField" text="Please fill all fields" textFill="#ff1e00" visible="false">
+                           <font>
+                              <Font name="System Bold" size="15.0" />
+                           </font>
+                        </Label>
                         <HBox>
                            <children>
                               <VBox minWidth="-Infinity" spacing="20.0">

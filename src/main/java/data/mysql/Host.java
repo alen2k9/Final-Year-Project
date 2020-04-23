@@ -29,4 +29,15 @@ public class Host {
         this.hostId = hostId;
     }
 
+    public Host(String school, String researchGroup, String projectName, String serverName, int datacenterId, int floorId, int rackId, int hostId) {
+        this.school = school;
+        this.researchGroup = researchGroup;
+        this.projectName = projectName;
+        this.serverName = serverName;
+        this.datacenterId = datacenterId;
+        this.floorId = floorId;
+        this.rackId = rackId;
+        this.hostId = hostId;
+    }
+
 }

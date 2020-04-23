@@ -34,17 +34,8 @@ public class User {
 
 
     // database information
-    public String datacenterId;
-    public String floorId;
-    public String rackId;
-    public String hostId;
     public static final String RESTSERVICE = "http://192.168.67.4:8080/papillonserver/rest/";
 
-    // constructor
-    /*public User(List<String> firstDropDownChoices, Map<String, List<String>> dropDownMap) {
-        this.firstDropDownChoices = firstDropDownChoices;
-        this.dropDownMap = dropDownMap;
-    }*/
 
     public User(int userId, String userName, String password, String name){
         this.userId = userId;
@@ -54,14 +45,6 @@ public class User {
         this.firstDropDownChoices = new ArrayList<>();
         this.dropDownMap = new HashMap<>();
     }
-
-    /*public User( String userName, String password, String name){
-        this.userName = userName;
-        this.password = password;
-        this.name = name;
-        this.firstDropDownChoices = new ArrayList<>();
-        this.dropDownMap = new HashMap<>();
-    }*/
 
     public User() {
 

@@ -57,6 +57,9 @@ public class HomeController implements Initializable {
     // Label for data
     public Label noAvailableData;
 
+    // Empty Field Notification
+    public Label addServerField;
+
     // Current Host
     private Host currentHost;
     // User Setup method
@@ -86,6 +89,24 @@ public class HomeController implements Initializable {
 
     // TODO
     public void addServer(MouseEvent mouseEvent) {
+        if(schoolNameField.getText().isEmpty() || researchGroupField.getText().isEmpty() || projectGroupField.getText().isEmpty()
+                || serverNameField.getText().isEmpty() || datacenterIdField.getText().isEmpty() || floorIdField.getText().isEmpty()
+                || rackIdField.getText().isEmpty() || hostIdField.getText().isEmpty()){
+
+            addServerField.setText("Please Fill All Fields Below!");
+            addServerField.setVisible(true);
+        }
+        else if(!isNumeric(datacenterIdField.getText()) || !isNumeric(floorIdField.getText()) || !isNumeric(rackIdField.getText()) || !isNumeric(hostIdField.getText())){
+            addServerField.setText("Please use numeric values for Datacenter, Floor, Rack and Host IDs");
+            addServerField.setVisible(true);
+        }
+        else if(currentUser.serverMap.containsKey(serverNameField.getText())){
+            addServerField.setText("Server with Same name already in User Database");
+            addServerField.setVisible(true);
+        }
+        else{
+            MYSQL.addServer(new Host(schoolNameField.getText(), researchGroupField.getText(), projectGroupField.getText(), serverNameField.getText(), Integer.parseInt(datacenterIdField.getText()), Integer.parseInt(floorIdField.getText()), Integer.parseInt(rackIdField.getText()), Integer.parseInt(hostIdField.getText())));
+        }
     }
 
     // TODO

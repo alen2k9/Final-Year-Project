@@ -131,7 +131,7 @@ public class MYSQL {
 
     }
 
-    public void addServer(){
+    public static void addServer(Host host){
         // TODO
 
     }
