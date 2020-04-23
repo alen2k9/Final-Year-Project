@@ -143,7 +143,15 @@ public class MYSQL {
         for(Host eachHost:hosts){
             if(eachHost.serverName.equals(newHost.serverName) && eachHost.datacenterId == newHost.datacenterId && eachHost.floorId == newHost.floorId && eachHost.rackId == newHost.rackId && eachHost.hostId == newHost.hostId){
                 // Add User id to serveruser
+                try {
 
+                    connection = DriverManager.getConnection(CONNECTIONURL, USERNAME, PASSWORD);
+                    Statement statement = connection.createStatement();
+                    statement.executeUpdate("insert into user.userserver(userid, serverid) values ('"+userId+"', '"+eachHost.serverId+"');");
+
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
                 serverAdded = true;
             }
         }
@@ -162,6 +170,19 @@ public class MYSQL {
             hosts.add(newHost);
         }
         System.out.println("It works");
+    }
+
+    public static void main(String[] args){
+        try {
+
+            connection = DriverManager.getConnection(CONNECTIONURL, USERNAME, PASSWORD);
+            Statement statement = connection.createStatement();
+            statement.executeUpdate("insert into user.userserver(userid, serverid) values ('"+1+"', '"+4+"');");
+
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
 }

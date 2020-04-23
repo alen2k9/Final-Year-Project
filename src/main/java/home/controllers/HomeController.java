@@ -119,7 +119,10 @@ public class HomeController implements Initializable {
         else{
             addServerField.setVisible(false);
             MYSQL.addServer(currentUser.userId,new Host(addServerSchoolNameField.getText(), addServerResearchGroupField.getText(), addServerProjectGroupField.getText(), addServerServerNameGroupField.getText(), Integer.parseInt(addServerDatacenterIdField.getText()), Integer.parseInt(addServerFloorIdField.getText()), Integer.parseInt(addServerRackIdField.getText()), Integer.parseInt(addServerHostIdField.getText())));
+            setUpTable();
         }
+
+
     }
 
     // TODO
