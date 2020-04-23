@@ -119,7 +119,8 @@ public class HomeController implements Initializable {
 
                 currentHost = host;
                 annualBudgetField.setText(String.valueOf(host.annualBudget));
-                setGraph(new Server(host.datacenterId, host.floorId, host.rackId, host.hostId, host.annualBudget));
+                // TODO:
+                // setGraph(new Server(host.datacenterId, host.floorId, host.rackId, host.hostId, host.annualBudget));
                 break;
             }
         }
