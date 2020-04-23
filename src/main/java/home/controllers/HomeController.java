@@ -43,6 +43,16 @@ public class HomeController implements Initializable {
     public Label rackIdField;
     public Label hostIdField;
 
+    // Add Server Details
+    public TextField addServerSchoolNameField;
+    public TextField addServerResearchGroupField;
+    public TextField addServerProjectGroupField;
+    public TextField addServerServerNameGroupField;
+    public TextField addServerDatacenterIdField;
+    public TextField addServerFloorIdField;
+    public TextField addServerRackIdField;
+    public TextField addServerHostIdField;
+
     // Budget Field
     public TextField annualBudgetField;
 
@@ -59,6 +69,7 @@ public class HomeController implements Initializable {
 
     // Empty Field Notification
     public Label addServerField;
+
 
     // Current Host
     private Host currentHost;
@@ -89,23 +100,25 @@ public class HomeController implements Initializable {
 
     // TODO
     public void addServer(MouseEvent mouseEvent) {
-        if(schoolNameField.getText().isEmpty() || researchGroupField.getText().isEmpty() || projectGroupField.getText().isEmpty()
-                || serverNameField.getText().isEmpty() || datacenterIdField.getText().isEmpty() || floorIdField.getText().isEmpty()
-                || rackIdField.getText().isEmpty() || hostIdField.getText().isEmpty()){
+        addServerField.setVisible(false);
+        if(addServerSchoolNameField.getText().isEmpty() || addServerResearchGroupField.getText().isEmpty() || addServerProjectGroupField.getText().isEmpty()
+                || addServerServerNameGroupField.getText().isEmpty() || addServerDatacenterIdField.getText().isEmpty() || addServerFloorIdField.getText().isEmpty()
+                || addServerRackIdField.getText().isEmpty() || addServerHostIdField.getText().isEmpty()){
 
             addServerField.setText("Please Fill All Fields Below!");
             addServerField.setVisible(true);
         }
-        else if(!isNumeric(datacenterIdField.getText()) || !isNumeric(floorIdField.getText()) || !isNumeric(rackIdField.getText()) || !isNumeric(hostIdField.getText())){
+        else if(!isNumeric(addServerDatacenterIdField.getText()) || !isNumeric(addServerFloorIdField.getText()) || !isNumeric(addServerRackIdField.getText()) || !isNumeric(addServerHostIdField.getText())){
             addServerField.setText("Please use numeric values for Datacenter, Floor, Rack and Host IDs");
             addServerField.setVisible(true);
         }
-        else if(currentUser.serverMap.containsKey(serverNameField.getText())){
+        else if(currentUser.serverMap.containsKey(addServerServerNameGroupField.getText())){
             addServerField.setText("Server with Same name already in User Database");
             addServerField.setVisible(true);
         }
         else{
-            MYSQL.addServer(new Host(schoolNameField.getText(), researchGroupField.getText(), projectGroupField.getText(), serverNameField.getText(), Integer.parseInt(datacenterIdField.getText()), Integer.parseInt(floorIdField.getText()), Integer.parseInt(rackIdField.getText()), Integer.parseInt(hostIdField.getText())));
+            addServerField.setVisible(false);
+            MYSQL.addServer(new Host(addServerSchoolNameField.getText(), addServerResearchGroupField.getText(), addServerProjectGroupField.getText(), addServerServerNameGroupField.getText(), Integer.parseInt(addServerDatacenterIdField.getText()), Integer.parseInt(addServerFloorIdField.getText()), Integer.parseInt(addServerRackIdField.getText()), Integer.parseInt(addServerHostIdField.getText())));
         }
     }
 
