@@ -40,4 +40,7 @@ public class Host {
         this.hostId = hostId;
     }
 
+    public Host() {
+
+    }
 }

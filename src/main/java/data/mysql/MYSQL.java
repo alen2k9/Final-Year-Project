@@ -13,10 +13,6 @@ public class MYSQL {
     private static final String CONNECTIONURL = "jdbc:mysql://localhost:3306/user";
     public static Connection connection;
 
-    public static void main(String[] args){
-        MYSQL mysql = new MYSQL();
-    }
-
     public MYSQL (){
 
     }
@@ -81,12 +77,7 @@ public class MYSQL {
             ResultSet resultSet = statement.executeQuery("select userserver.serverid, school, researchgroup, project, server,annualBudget, datacenterid, floorid, rackid, host from userserver , (select serverid, school, researchgroup, project, server,annualBudget, datacenterid, floorid, rackid, host from servers left join hosts h on servers.hostid = h.hostid) as `as`" +
                     "where userserver.serverid = as.serverid and userid ="+ userId+";");
 
-            while (resultSet.next()){
-                Host host = new Host(resultSet.getInt(1),  resultSet.getString(2), resultSet.getString(3), resultSet.getString(4), resultSet.getString(5), resultSet.getInt(6), resultSet.getInt(7), resultSet.getInt(8), resultSet.getInt(9) , resultSet.getInt(10));
-                System.out.println(resultSet.getInt(1) + " \t" +   resultSet.getString(2) + " \t" +  resultSet.getString(3) + " \t" +  resultSet.getString(4)+ " \t" +  resultSet.getString(5)+ " \t" +  resultSet.getInt(6)+ " \t" +  resultSet.getInt(7)+ " \t" +  resultSet.getInt(8)+ " \t" +  resultSet.getInt(9) + " \t" +  resultSet.getInt(10));
-                hosts.add(host);
-            }
-            System.out.println("It works");
+            getHosts(hosts, resultSet);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -131,10 +122,46 @@ public class MYSQL {
 
     }
 
-    public static void addServer(Host host){
+    public static void addServer(int userId, Host newHost){
         // TODO Logic for if the server is there already -> add tag to user to that server
         // TODO if not there create new
+        List<Host> hosts = new ArrayList<>();
 
+        boolean serverAdded = false;
+
+        try {
+            connection = DriverManager.getConnection(CONNECTIONURL, USERNAME, PASSWORD);
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery("select userserver.serverid, school, researchgroup, project, server,annualBudget, datacenterid, floorid, rackid, host from userserver , (select serverid, school, researchgroup, project, server,annualBudget, datacenterid, floorid, rackid, host from servers left join hosts h on servers.hostid = h.hostid) as `as`" +
+                    "where userserver.serverid = as.serverid; ");
+
+            getHosts(hosts, resultSet);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        for(Host eachHost:hosts){
+            if(eachHost.serverName.equals(newHost.serverName) && eachHost.datacenterId == newHost.datacenterId && eachHost.floorId == newHost.floorId && eachHost.rackId == newHost.rackId && eachHost.hostId == newHost.hostId){
+                // Add User id to serveruser
+
+                serverAdded = true;
+            }
+        }
+
+        if(!serverAdded){
+            // Add server to database
+        }
+
+
+    }
+
+    private static void getHosts(List<Host> hosts, ResultSet resultSet) throws SQLException {
+        while (resultSet.next()){
+            Host newHost = new Host(resultSet.getInt(1),  resultSet.getString(2), resultSet.getString(3), resultSet.getString(4), resultSet.getString(5), resultSet.getInt(6), resultSet.getInt(7), resultSet.getInt(8), resultSet.getInt(9) , resultSet.getInt(10));
+            System.out.println(resultSet.getInt(1) + " \t" +   resultSet.getString(2) + " \t" +  resultSet.getString(3) + " \t" +  resultSet.getString(4)+ " \t" +  resultSet.getString(5)+ " \t" +  resultSet.getInt(6)+ " \t" +  resultSet.getInt(7)+ " \t" +  resultSet.getInt(8)+ " \t" +  resultSet.getInt(9) + " \t" +  resultSet.getInt(10));
+            hosts.add(newHost);
+        }
+        System.out.println("It works");
     }
 
 }
