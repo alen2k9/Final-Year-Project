@@ -132,7 +132,8 @@ public class MYSQL {
     }
 
     public static void addServer(Host host){
-        // TODO
+        // TODO Logic for if the server is there already -> add tag to user to that server
+        // TODO if not there create new
 
     }
 
