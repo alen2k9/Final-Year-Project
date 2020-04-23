@@ -157,9 +157,62 @@ public class MYSQL {
         }
 
         if(!serverAdded){
-            // Add server to database
-        }
+            try {
+                connection = DriverManager.getConnection(CONNECTIONURL, USERNAME, PASSWORD);
+                Statement statement = connection.createStatement();
+                statement.executeUpdate("insert into user.hosts(floorid, rackid, datacenterid, host) values ('"+newHost.floorId+"', '"+newHost.rackId+"', '"+ newHost.datacenterId+"', '"+newHost.hostId+"');");
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
 
+            int hostid = 0;
+
+            try {
+                connection = DriverManager.getConnection(CONNECTIONURL, USERNAME, PASSWORD);
+                Statement statement = connection.createStatement();
+                ResultSet resultSet = statement.executeQuery("select hosts.hostid from hosts" +
+                        " where datacenterid = "+newHost.datacenterId+" and floorid = "+newHost.floorId+" and rackid = "+newHost.rackId+" and host = "+newHost.hostId+";");
+
+                while (resultSet.next()) {
+                    hostid = resultSet.getInt(1);
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+
+            try {
+                connection = DriverManager.getConnection(CONNECTIONURL, USERNAME, PASSWORD);
+                Statement statement = connection.createStatement();
+                statement.executeUpdate("insert into user.servers(school, researchgroup, project, server, hostid) values ('"+newHost.school+"', '"+newHost.researchGroup+"', '"+ newHost.projectName+"', '"+newHost.serverName+"', '"+hostid+"');");
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+
+            int serverId = 0;
+
+            try {
+                connection = DriverManager.getConnection(CONNECTIONURL, USERNAME, PASSWORD);
+                Statement statement = connection.createStatement();
+                ResultSet resultSet = statement.executeQuery("select servers.serverid from servers" +
+                        " where school = '"+newHost.school+"' and researchgroup = '"+newHost.researchGroup+"' and project = '"+newHost.projectName+"' and server = '"+newHost.serverName+"' and hostid = '"+ hostid +"';");
+
+                while (resultSet.next()) {
+                    serverId = resultSet.getInt(1);
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+
+            try {
+
+                connection = DriverManager.getConnection(CONNECTIONURL, USERNAME, PASSWORD);
+                Statement statement = connection.createStatement();
+                statement.executeUpdate("insert into user.userserver(userid, serverid) values ('"+userId+"', '"+serverId+"');");
+
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
 
     }
 
