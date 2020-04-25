@@ -74,7 +74,7 @@ public class MYSQL {
         try {
             connection = DriverManager.getConnection(CONNECTIONURL, USERNAME, PASSWORD);
             Statement statement = connection.createStatement();
-            ResultSet resultSet = statement.executeQuery("select userserver.serverid, school, researchgroup, project, server,annualBudget, datacenterid, floorid, rackid, host from userserver , (select serverid, school, researchgroup, project, server,annualBudget, datacenterid, floorid, rackid, host from servers left join hosts h on servers.hostid = h.hostid) as `as`" +
+            ResultSet resultSet = statement.executeQuery("select userserver.serverid, school, researchgroup, project, server,annualBudget,carbonBudget, datacenterid, floorid, rackid, host from userserver , (select serverid, school, researchgroup, project, server,annualBudget, carbonBudget, datacenterid, floorid, rackid, host from servers left join hosts h on servers.hostid = h.hostid) as `as`" +
                     "where userserver.serverid = as.serverid and userid ="+ userId+";");
 
             getHosts(hosts, resultSet);
@@ -91,12 +91,12 @@ public class MYSQL {
         try {
             connection = DriverManager.getConnection(CONNECTIONURL, USERNAME, PASSWORD);
             Statement statement = connection.createStatement();
-            ResultSet resultSet = statement.executeQuery("select school, researchgroup, project, server, annualBudget from user.userserver join (select serverid, school, researchgroup, project, server, annualBudget, floorid, rackid, datacenterid, host " +
+            ResultSet resultSet = statement.executeQuery("select school, researchgroup, project, server, annualBudget, carbonBudget from user.userserver join (select serverid, school, researchgroup, project, server, annualBudget,carbonBudget, floorid, rackid, datacenterid, host " +
                     "    from user.servers join user.hosts on servers.hostid = hosts.hostid) as `serverhost` on serverhost.serverid = userserver.serverid " +
                     "where userserver.userid = " + userId + ";");
 
             while (resultSet.next()) {
-                ServerNames user = new ServerNames(resultSet.getString(1), resultSet.getString(2), resultSet.getString(3), resultSet.getString(4),  resultSet.getInt(5));
+                ServerNames user = new ServerNames(resultSet.getString(1), resultSet.getString(2), resultSet.getString(3), resultSet.getString(4),  resultSet.getInt(5),  resultSet.getInt(5));
                 System.out.println(resultSet.getString(1) + " \t\t" + resultSet.getString(2) + " \t" + resultSet.getString(3) + " \t" + resultSet.getString(4));
                 serverNames.add(user);
             }
@@ -132,7 +132,7 @@ public class MYSQL {
         try {
             connection = DriverManager.getConnection(CONNECTIONURL, USERNAME, PASSWORD);
             Statement statement = connection.createStatement();
-            ResultSet resultSet = statement.executeQuery("select userserver.serverid, school, researchgroup, project, server,annualBudget, datacenterid, floorid, rackid, host from userserver , (select serverid, school, researchgroup, project, server,annualBudget, datacenterid, floorid, rackid, host from servers left join hosts h on servers.hostid = h.hostid) as `as`" +
+            ResultSet resultSet = statement.executeQuery("select userserver.serverid, school, researchgroup, project, server,annualBudget, carbonBudget, datacenterid, floorid, rackid, host from userserver , (select serverid, school, researchgroup, project, server,annualBudget,carbonBudget, datacenterid, floorid, rackid, host from servers left join hosts h on servers.hostid = h.hostid) as `as`" +
                     "where userserver.serverid = as.serverid; ");
 
             getHosts(hosts, resultSet);
@@ -218,8 +218,8 @@ public class MYSQL {
 
     private static void getHosts(List<Host> hosts, ResultSet resultSet) throws SQLException {
         while (resultSet.next()){
-            Host newHost = new Host(resultSet.getInt(1),  resultSet.getString(2), resultSet.getString(3), resultSet.getString(4), resultSet.getString(5), resultSet.getInt(6), resultSet.getInt(7), resultSet.getInt(8), resultSet.getInt(9) , resultSet.getInt(10));
-            System.out.println(resultSet.getInt(1) + " \t" +   resultSet.getString(2) + " \t" +  resultSet.getString(3) + " \t" +  resultSet.getString(4)+ " \t" +  resultSet.getString(5)+ " \t" +  resultSet.getInt(6)+ " \t" +  resultSet.getInt(7)+ " \t" +  resultSet.getInt(8)+ " \t" +  resultSet.getInt(9) + " \t" +  resultSet.getInt(10));
+            Host newHost = new Host(resultSet.getInt(1),  resultSet.getString(2), resultSet.getString(3), resultSet.getString(4), resultSet.getString(5), resultSet.getInt(6), resultSet.getInt(7), resultSet.getInt(8), resultSet.getInt(9) , resultSet.getInt(10), resultSet.getInt(11));
+            System.out.println(resultSet.getInt(1) + " \t" +   resultSet.getString(2) + " \t" +  resultSet.getString(3) + " \t" +  resultSet.getString(4)+ " \t" +  resultSet.getString(5)+ " \t" +  resultSet.getInt(6)+ " \t" +  resultSet.getInt(7)+ " \t" +  resultSet.getInt(8)+ " \t" +  resultSet.getInt(9) + " \t" +  resultSet.getInt(10) + " \t" +  resultSet.getInt(11));
             hosts.add(newHost);
         }
         System.out.println("It works");

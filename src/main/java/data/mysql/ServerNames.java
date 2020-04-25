@@ -8,13 +8,15 @@ public class ServerNames {
     private SimpleStringProperty project;
     private SimpleStringProperty serverName;
     private SimpleStringProperty annualBudget;
+    private SimpleStringProperty carbonBudget;
 
-    public ServerNames(String school, String researchGroup, String project, String serverName, int annualBudegt){
+    public ServerNames(String school, String researchGroup, String project, String serverName, int annualBudegt, int carbonBudget){
         this.school = new SimpleStringProperty(school);
         this.researchGroup = new SimpleStringProperty(researchGroup);
         this.project = new SimpleStringProperty(project);
         this.serverName = new SimpleStringProperty(serverName);
         this.annualBudget = new SimpleStringProperty(String.valueOf(annualBudegt));
+        this.carbonBudget = new SimpleStringProperty(String.valueOf(carbonBudget));
     }
 
     public String getSchool() {
@@ -75,5 +77,17 @@ public class ServerNames {
 
     public void setAnnualBudget(String annualBudget) {
         this.annualBudget.set(annualBudget);
+    }
+
+    public String getCarbonBudget() {
+        return carbonBudget.get();
+    }
+
+    public SimpleStringProperty carbonBudgetProperty() {
+        return carbonBudget;
+    }
+
+    public void setCarbonBudget(String carbonBudget) {
+        this.carbonBudget.set(carbonBudget);
     }
 }

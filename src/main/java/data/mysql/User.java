@@ -153,7 +153,7 @@ public class User {
             //initialise empty array
             dropDownMap.put("", new ArrayList<>());
 
-            serverMap.put(host.serverName, new Server(host.datacenterId, host.floorId, host.rackId, host.hostId, host.annualBudget));
+            serverMap.put(host.serverName, new Server(host.datacenterId, host.floorId, host.rackId, host.hostId, host.annualBudget, host.carbonBudget));
         }
 
     }

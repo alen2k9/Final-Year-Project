@@ -28,6 +28,7 @@ public class HomeController implements Initializable {
     public TableColumn<ServerNames, String> projectColumn;
     public TableColumn<ServerNames, String> serverNameColumn;
     public TableColumn<ServerNames, String> annualBudgetColumn;
+    public TableColumn<ServerNames, String> carbonBudgetColumn;
 
     // User who is logged in
     public User currentUser;
@@ -71,6 +72,7 @@ public class HomeController implements Initializable {
     public Label addServerField;
 
 
+
     // Current Host
     private Host currentHost;
     // User Setup method
@@ -95,6 +97,7 @@ public class HomeController implements Initializable {
         projectColumn.setCellValueFactory(new PropertyValueFactory<ServerNames, String>("project"));
         serverNameColumn.setCellValueFactory(new PropertyValueFactory<ServerNames, String>("serverName"));
         annualBudgetColumn.setCellValueFactory(new PropertyValueFactory<ServerNames, String>("annualBudget"));
+        carbonBudgetColumn.setCellValueFactory(new PropertyValueFactory<ServerNames, String>("carbonBudget"));
         usageGraph.getXAxis().setAnimated(false);
     }
 

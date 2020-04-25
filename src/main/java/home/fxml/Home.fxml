@@ -35,6 +35,7 @@
                         <TableColumn fx:id="projectColumn" minWidth="-1.0" prefWidth="-1.0" text="Project Group" />
                         <TableColumn fx:id="serverNameColumn" minWidth="-1.0" prefWidth="-1.0" text="Server Name" />
                         <TableColumn fx:id="annualBudgetColumn" prefWidth="75.0" text="Annual Budget €" />
+                        <TableColumn fx:id="carbonBudgetColumn" prefWidth="75.0" text="Carbon Budget Kg" />
                     </columns>
                      <padding>
                         <Insets bottom="20.0" />
