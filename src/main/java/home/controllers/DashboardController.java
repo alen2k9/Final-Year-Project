@@ -128,7 +128,12 @@ public class DashboardController implements Initializable {
                             Date date=new SimpleDateFormat("MMM yyyy").parse(month);
                             String year = new SimpleDateFormat("yyyy").format(date);
 
-                            energyUsed.getData().add(new XYChart.Data(month, COSTPERKWH*(energyCostMap.get(year) + kilowatt)));
+                            // data variable for value to add to chart
+                            XYChart.Data<String, Double> energyUsedData = new XYChart.Data<>(month, COSTPERKWH * (energyCostMap.get(year) + kilowatt));
+                            energyUsed.getData().add(energyUsedData);
+
+                            // Set Node Listener
+                            energyUsedData.getNode().setOnMouseClicked(event -> setCostBarChart((String) energyUsedData.getXValue()));
 
                             energyCostMap.put(year, energyCostMap.get(year) + kilowatt);
 
@@ -145,13 +150,16 @@ public class DashboardController implements Initializable {
                             e.printStackTrace();
                         }
                     }
-
                     costChart.getData().setAll(energyUsed, costAnnualBudget);
                     carbonChart.getData().setAll(carbonValues, carbonAnnualBudget);
                 }
 
             }
         }
+    }
+
+    private void setCostBarChart(String month) {
+
     }
 
     private String getStartDate() {
@@ -266,6 +274,14 @@ public class DashboardController implements Initializable {
 
     // TEST
     public static void main(String[] args){
-        //MYSQL.setServerBudget(1, 30);
+        SimpleDateFormat df = new SimpleDateFormat("MMM yyyy");
+        Date date = null;
+        try {
+            date = df.parse("Apr 2020");
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        long epoch = date.getTime()/1000;
+        System.out.println(epoch);
     }
 }
