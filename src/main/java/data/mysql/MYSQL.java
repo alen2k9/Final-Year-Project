@@ -96,7 +96,7 @@ public class MYSQL {
                     "where userserver.userid = " + userId + ";");
 
             while (resultSet.next()) {
-                ServerNames user = new ServerNames(resultSet.getString(1), resultSet.getString(2), resultSet.getString(3), resultSet.getString(4),  resultSet.getInt(5),  resultSet.getInt(5));
+                ServerNames user = new ServerNames(resultSet.getString(1), resultSet.getString(2), resultSet.getString(3), resultSet.getString(4),  resultSet.getInt(5),  resultSet.getInt(6));
                 System.out.println(resultSet.getString(1) + " \t\t" + resultSet.getString(2) + " \t" + resultSet.getString(3) + " \t" + resultSet.getString(4));
                 serverNames.add(user);
             }
@@ -108,12 +108,12 @@ public class MYSQL {
         return serverNames;
     }
 
-    public static void setServerBudget(int serverId, int budget){
+    public static void setServerBudget(int serverId, int annualBudget, int carbonBudget){
         // TODO
         try {
             connection = DriverManager.getConnection(CONNECTIONURL, USERNAME, PASSWORD);
             Statement statement = connection.createStatement();
-            statement.executeUpdate("UPDATE servers SET annualBudget = " + budget +
+            statement.executeUpdate("UPDATE servers SET annualBudget = " + annualBudget + ", carbonBudget = "+carbonBudget+
                     " WHERE serverid = "+serverId+";");
 
         } catch (SQLException e) {

@@ -56,6 +56,7 @@ public class HomeController implements Initializable {
 
     // Budget Field
     public TextField annualBudgetField;
+    public TextField carbonBudgetField;
 
     // Graph data
     public AreaChart usageGraph;
@@ -133,11 +134,11 @@ public class HomeController implements Initializable {
         if(currentHost == null){
         // TODO
         }
-        else if(annualBudgetField.getText().isEmpty() || !isNumeric(annualBudgetField.getText())){
+        else if(annualBudgetField.getText().isEmpty() || !isNumeric(annualBudgetField.getText()) || carbonBudgetField.getText().isEmpty() || !isNumeric(carbonBudgetField.getText())){
         // TODO
         }
         else{
-            MYSQL.setServerBudget(currentHost.serverId, Integer.parseInt(annualBudgetField.getText()));
+            MYSQL.setServerBudget(currentHost.serverId, Integer.parseInt(annualBudgetField.getText()), Integer.parseInt(carbonBudgetField.getText()));
 
             setUpTable();
         }
@@ -159,6 +160,7 @@ public class HomeController implements Initializable {
 
                 currentHost = host;
                 annualBudgetField.setText(String.valueOf(host.annualBudget));
+                carbonBudgetField.setText(String.valueOf(host.carbonBudget));
                 // TODO:
                 // setGraph(new Server(host.datacenterId, host.floorId, host.rackId, host.hostId, host.annualBudget));
                 break;
