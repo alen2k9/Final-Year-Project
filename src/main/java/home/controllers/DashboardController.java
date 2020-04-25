@@ -144,8 +144,6 @@ public class DashboardController implements Initializable {
                         } catch (ParseException e) {
                             e.printStackTrace();
                         }
-
-
                     }
 
                     costChart.getData().setAll(energyUsed, costAnnualBudget);
