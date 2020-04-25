@@ -70,7 +70,8 @@ public class DashboardController implements Initializable {
                 System.out.println("Epoch start time = " + startDateValue);
             }else{
                 Map<String, Double> powerGraph = currentUser.getPowerData(startDateValue, endDateValue ,currentUser.serverMap.get(choice4.getValue()));
-                int budget = currentUser.serverMap.get(choice4.getValue()).annualBudget;
+                int costBudget = currentUser.serverMap.get(choice4.getValue()).annualBudget;
+                int carbonBudget = currentUser.serverMap.get(choice4.getValue()).carbonBudget;
                 if(powerGraph.isEmpty()){
                     emptyData.setText("No available Data");
                     emptyData.setOpacity(1.0);
@@ -82,15 +83,21 @@ public class DashboardController implements Initializable {
                     energyUsed.setName("Current Data");
 
                     // TODO: Do budget chart based off -> month or annual
-                    XYChart.Series energyUsedAnnualBudget = new XYChart.Series();
-                    energyUsedAnnualBudget.setName("Budget");
+                    XYChart.Series costAnnualBudget = new XYChart.Series();
+                    costAnnualBudget.setName("Cost Budget");
+
+                    XYChart.Series carbonAnnualBudget = new XYChart.Series();
+                    costAnnualBudget.setName("Carbon Budget");
+
+
 
                     XYChart.Series carbonValues = new XYChart.Series();
                     carbonValues.setName("Carbon Data, value changes per month");
 
                     List<String> months = new ArrayList<>();
                     Map<String, Double> energyCostMap = new HashMap<>();
-                    Map<String, Integer> yearBudgetMap = new HashMap<>();
+                    Map<String, Integer> yearCostBudgetMap = new HashMap<>();
+                    Map<String, Integer> yearCarbonBudgetMap = new HashMap<>();
 
                     for (String month: powerGraph.keySet() ) {
                         months.add(month);
@@ -100,8 +107,9 @@ public class DashboardController implements Initializable {
                             if(!energyCostMap.containsKey(year)){
                                 energyCostMap.put(year, 0.0);
                             }
-                            if(!yearBudgetMap.containsKey(year)){
-                                yearBudgetMap.put(year, 0);
+                            if(!yearCostBudgetMap.containsKey(year)){
+                                yearCostBudgetMap.put(year, 0);
+                                yearCarbonBudgetMap.put(year, 0);
                             }
 
                         } catch (ParseException e) {
@@ -124,10 +132,15 @@ public class DashboardController implements Initializable {
 
                             energyCostMap.put(year, energyCostMap.get(year) + kilowatt);
 
-                            int monthlyBudget = budget/12;
-                            yearBudgetMap.put(year, yearBudgetMap.get(year) + monthlyBudget);
+                            int monthlyCostBudget = costBudget/12;
+                            int monthlyCarbonBudget = costBudget/12;
 
-                            energyUsedAnnualBudget.getData().add(new XYChart.Data<>(month, yearBudgetMap.get(year)));
+                            yearCostBudgetMap.put(year, yearCostBudgetMap.get(year) + monthlyCostBudget);
+                            yearCarbonBudgetMap.put(year, yearCarbonBudgetMap.get(year) + monthlyCarbonBudget);
+
+                            costAnnualBudget.getData().add(new XYChart.Data<>(month, yearCostBudgetMap.get(year)));
+                            carbonAnnualBudget.getData().add(new XYChart.Data<>(month, yearCarbonBudgetMap.get(year)));
+
                         } catch (ParseException e) {
                             e.printStackTrace();
                         }
@@ -135,9 +148,8 @@ public class DashboardController implements Initializable {
 
                     }
 
-                    costChart.getData().setAll(energyUsed, energyUsedAnnualBudget);
-
-                    carbonChart.getData().setAll(carbonValues);
+                    costChart.getData().setAll(energyUsed, costAnnualBudget);
+                    carbonChart.getData().setAll(carbonValues, carbonAnnualBudget);
                 }
 
             }
@@ -256,6 +268,6 @@ public class DashboardController implements Initializable {
 
     // TEST
     public static void main(String[] args){
-        MYSQL.setServerBudget(1, 30);
+        //MYSQL.setServerBudget(1, 30);
     }
 }
