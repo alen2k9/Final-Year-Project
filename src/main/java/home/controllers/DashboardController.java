@@ -3,6 +3,7 @@ package home.controllers;
 import data.mysql.MYSQL;
 import data.mysql.User;
 import javafx.fxml.Initializable;
+import javafx.scene.chart.BarChart;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.Button;
@@ -39,6 +40,10 @@ public class DashboardController implements Initializable {
     public Label emptyData;
     public Button displayDataButton;
 
+    //Bar Chart
+    public BarChart costBarChart;
+    public BarChart carbonBarChart;
+
     // current User
     private User currentUser;
 
@@ -47,6 +52,9 @@ public class DashboardController implements Initializable {
 
     // Cost Calculator
     private static final double COSTPERKWH = 0.1611;
+
+    // Month value
+    private static final long MONTH = 2629743;
 
     // Graph Setup
     private void setupLinechart() throws IOException {
@@ -170,11 +178,59 @@ public class DashboardController implements Initializable {
     }
 
     private void setCarbonBarChart(String month) {
-        System.out.println(month);
+        SimpleDateFormat df = new SimpleDateFormat("MMM yyyy");
+        Date date = null;
+        try {
+            date = df.parse(month);
+            long epoch = date.getTime()/1000;
+
+            Map<String, Double> powerGraph = currentUser.getPowerDataDay(String.valueOf(epoch), String.valueOf(epoch+MONTH)  ,currentUser.serverMap.get(choice4.getValue()));
+
+            List<String> days = new ArrayList<>(powerGraph.keySet());
+
+            Collections.sort(days);
+
+            XYChart.Series carbonLine = new XYChart.Series();
+
+            carbonLine.setName("Daily Carbon Usage");
+            for(String day:days){
+                double kilowatt = (powerGraph.get(day)*60)/1000;
+                carbonLine.getData().add(new XYChart.Data<>(day, CARBONPERKWH*kilowatt));
+            }
+
+            carbonBarChart.getData().setAll(carbonLine);
+
+        } catch (ParseException | IOException e) {
+            e.printStackTrace();
+        }
     }
 
     private void setCostBarChart(String month) {
-        System.out.println(month);
+        SimpleDateFormat df = new SimpleDateFormat("MMM yyyy");
+        Date date = null;
+        try {
+            date = df.parse(month);
+            long epoch = date.getTime()/1000;
+
+            Map<String, Double> powerGraph = currentUser.getPowerDataDay(String.valueOf(epoch), String.valueOf(epoch+MONTH)  ,currentUser.serverMap.get(choice4.getValue()));
+
+            List<String> days = new ArrayList<>(powerGraph.keySet());
+
+            Collections.sort(days);
+
+            XYChart.Series costLine = new XYChart.Series();
+
+            costLine.setName("Daily Usage Cost");
+            for(String day:days){
+                double kilowatt = (powerGraph.get(day)*60)/1000;
+                costLine.getData().add(new XYChart.Data<>(day, COSTPERKWH*kilowatt));
+            }
+
+            costBarChart.getData().setAll(costLine);
+
+        } catch (ParseException | IOException e) {
+            e.printStackTrace();
+        }
     }
 
     private String getStartDate() {
@@ -271,6 +327,7 @@ public class DashboardController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         carbonChart.getXAxis().setAnimated(false);
         costChart.getXAxis().setAnimated(false);
+        costBarChart.getXAxis().setAnimated(false);
     }
 
     private final Comparator<String> dateCompare = (o1, o2) -> {

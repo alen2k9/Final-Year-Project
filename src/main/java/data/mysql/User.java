@@ -50,7 +50,7 @@ public class User {
 
     }
 
-    private Map<String, Double> doMapping(MainPower mainPower) {
+    private Map<String, Double> doMappingMonth(MainPower mainPower) {
         Map<String, Double> powerMap = new TreeMap<>();
         for (Power power : mainPower.getPower()) {
             // Europe/Dublin
@@ -64,6 +64,26 @@ public class User {
                 powerMap.computeIfPresent(month, (key, val) -> val = val + powerValue);
             } else {
                 powerMap.put(month, powerValue);
+            }
+
+        }
+        return powerMap;
+    }
+
+    private Map<String, Double> doMappingDay(MainPower mainPower) {
+        Map<String, Double> powerMap = new TreeMap<>();
+        for (Power power : mainPower.getPower()) {
+            // Europe/Dublin
+            long secondsSinceEpoch = Long.parseLong(power.getTimeStamp());
+            Instant instant = Instant.ofEpochSecond(secondsSinceEpoch);
+            LocalDateTime ldt = LocalDateTime.ofInstant(instant, ZoneId.of("Europe/Dublin"));
+            String day = ldt.getDayOfMonth() + " " +ldt.getMonth().toString() + " " + ldt.getYear();
+
+            Double powerValue = Double.valueOf(power.getPower());
+            if (powerMap.containsKey(day)) {
+                powerMap.computeIfPresent(day, (key, val) -> val = val + powerValue);
+            } else {
+                powerMap.put(day, powerValue);
             }
 
         }
@@ -95,7 +115,39 @@ public class User {
         if(mainPower == null){
             return new HashMap<String, Double>();
         }else{
-            Map<String, Double> powerGraph = doMapping(mainPower);
+            Map<String, Double> powerGraph = doMappingMonth(mainPower);
+
+            System.out.println("Output from Server .... \n");
+            return powerGraph;
+        }
+    }
+
+    public Map<String, Double> getPowerDataDay(String start, String end, Server server) throws IOException {
+
+        URL url = new URL(RESTSERVICE + "datacenters/"+ server.datacenterId+"/floors/"+ server.floorId+"/racks/"+ server.rackId+"/hosts/"+ server.hostId+"/power?starttime="+start+"&endtime="+end);
+        // URL url = new URL("http://192.168.67.4:8080/papillonserver/rest/datacenters/266/floors/290/racks/293/hosts/286/power?starttime=0&endtime=1585427363");
+        //http://192.168.67.4:8080/papillonserver/rest/datacenters/266/floors/290/racks/293/hosts/286/power?starttime=1585785600&endtime=1587081600
+        System.out.println(url.toString());
+        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+        connection.setRequestMethod("GET");
+        connection.setRequestProperty("Accept", "application/json");
+
+        //        if (connection.getResponseCode() != 200) {
+        //            throw new RuntimeException("Failed : HTTP error code : "
+        //                    + connection.getResponseCode());
+        //        }
+
+        BufferedReader br = new BufferedReader(new InputStreamReader(
+                (connection.getInputStream())));
+
+        String output = br.readLine();
+
+        MainPower mainPower = new Gson().fromJson(output, MainPower.class);
+
+        if(mainPower == null){
+            return new HashMap<String, Double>();
+        }else{
+            Map<String, Double> powerGraph = doMappingDay(mainPower);
 
             System.out.println("Output from Server .... \n");
             return powerGraph;
