@@ -95,10 +95,10 @@ public class DashboardController implements Initializable {
                     costAnnualBudget.setName("Cost Budget");
 
                     XYChart.Series carbonAnnualBudget = new XYChart.Series();
-                    costAnnualBudget.setName("Carbon Budget");
+                    carbonAnnualBudget.setName("Carbon Budget");
 
                     XYChart.Series carbonValues = new XYChart.Series();
-                    carbonValues.setName("Carbon Data, value changes per month");
+                    carbonValues.setName("Carbon Emission");
 
                     List<String> months = new ArrayList<>();
                     Map<String, Double> energyCostMap = new HashMap<>();
@@ -126,6 +126,7 @@ public class DashboardController implements Initializable {
                     }
 
                     costChart.getData().setAll(energyCostUsed, costAnnualBudget);
+
                     carbonChart.getData().setAll(carbonValues, carbonAnnualBudget);
 
                     Collections.sort(months, dateCompare);
