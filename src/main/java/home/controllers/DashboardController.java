@@ -97,13 +97,12 @@ public class DashboardController implements Initializable {
                     XYChart.Series carbonAnnualBudget = new XYChart.Series();
                     costAnnualBudget.setName("Carbon Budget");
 
-
-
                     XYChart.Series carbonValues = new XYChart.Series();
                     carbonValues.setName("Carbon Data, value changes per month");
 
                     List<String> months = new ArrayList<>();
                     Map<String, Double> energyCostMap = new HashMap<>();
+                    Map<String, Double> carbonMap = new HashMap<>();
                     Map<String, Integer> yearCostBudgetMap = new HashMap<>();
                     Map<String, Integer> yearCarbonBudgetMap = new HashMap<>();
 
@@ -114,6 +113,7 @@ public class DashboardController implements Initializable {
                             String year = new SimpleDateFormat("yyyy").format(date);
                             if(!energyCostMap.containsKey(year)){
                                 energyCostMap.put(year, 0.0);
+                                carbonMap.put(year, 0.0);
                             }
                             if(!yearCostBudgetMap.containsKey(year)){
                                 yearCostBudgetMap.put(year, 0);
@@ -133,14 +133,7 @@ public class DashboardController implements Initializable {
                     for(String month:months){
                         double kilowatt = (powerGraph.get(month)*60)/1000;
 
-                        // data variable for carbon value to add to chart
-                        XYChart.Data<String, Double> carbonUsedData = new XYChart.Data<>(month, kilowatt*CARBONPERKWH);
-                        carbonValues.getData().add(carbonUsedData);
 
-                        // Set Node Listener for Cost
-                        carbonUsedData.getNode().setOnMouseClicked(event -> setCarbonBarChart((String) carbonUsedData.getXValue()));
-                        carbonUsedData.getNode().setOnMouseEntered(event -> carbonUsedData.getNode().setOpacity(0.5));
-                        carbonUsedData.getNode().setOnMouseExited(event -> carbonUsedData.getNode().setOpacity(1));
 
                         try {
                             Date date=new SimpleDateFormat("MMM yyyy").parse(month);
@@ -155,10 +148,24 @@ public class DashboardController implements Initializable {
                             energyUsedData.getNode().setOnMouseEntered(event -> energyUsedData.getNode().setOpacity(0.5));
                             energyUsedData.getNode().setOnMouseExited(event -> energyUsedData.getNode().setOpacity(1));
 
+                            // Add cost for year up
                             energyCostMap.put(year, energyCostMap.get(year) + kilowatt);
 
+
+                            // data variable for carbon value to add to chart
+                            XYChart.Data<String, Double> carbonUsedData = new XYChart.Data<>(month, kilowatt*(CARBONPERKWH + carbonMap.get(year) ));
+                            carbonValues.getData().add(carbonUsedData);
+
+                            // Set Node Listener for Cost
+                            carbonUsedData.getNode().setOnMouseClicked(event -> setCarbonBarChart((String) carbonUsedData.getXValue()));
+                            carbonUsedData.getNode().setOnMouseEntered(event -> carbonUsedData.getNode().setOpacity(0.5));
+                            carbonUsedData.getNode().setOnMouseExited(event -> carbonUsedData.getNode().setOpacity(1));
+
+                            // Add carbon values for year up
+                            carbonMap.put(year, carbonMap.get(year) + kilowatt);
+
                             int monthlyCostBudget = costBudget/12;
-                            int monthlyCarbonBudget = costBudget/12;
+                            int monthlyCarbonBudget = carbonBudget/12;
 
                             yearCostBudgetMap.put(year, yearCostBudgetMap.get(year) + monthlyCostBudget);
                             yearCarbonBudgetMap.put(year, yearCarbonBudgetMap.get(year) + monthlyCarbonBudget);
