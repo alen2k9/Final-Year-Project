@@ -54,6 +54,7 @@ public class MainController implements Initializable {
     // Load UI function, takes which tab to change to and loads that fxml in
     private void loadUI(String tab) throws Exception{
 
+        currentUser.setUpUser();
         FXMLLoader loader = null;
         loader = new FXMLLoader(getClass().getResource("../fxml/"+tab+".fxml"));
         borderPane.setCenter(loader.load());

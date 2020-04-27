@@ -153,7 +153,7 @@ public class DashboardController implements Initializable {
 
 
                             // data variable for carbon value to add to chart
-                            XYChart.Data<String, Double> carbonUsedData = new XYChart.Data<>(month, kilowatt*(CARBONPERKWH + carbonMap.get(year) ));
+                            XYChart.Data<String, Double> carbonUsedData = new XYChart.Data<>(month, CARBONPERKWH *(kilowatt + carbonMap.get(year) ));
                             carbonValues.getData().add(carbonUsedData);
 
                             // Set Node Listener for Cost
@@ -195,14 +195,16 @@ public class DashboardController implements Initializable {
 
             List<String> days = new ArrayList<>(powerGraph.keySet());
 
-            Collections.sort(days);
+            Collections.sort(days, dayCompare);
 
             XYChart.Series carbonLine = new XYChart.Series();
 
             carbonLine.setName("Daily Carbon Usage");
             for(String day:days){
-                double kilowatt = (powerGraph.get(day)*60)/1000;
-                carbonLine.getData().add(new XYChart.Data<>(day, CARBONPERKWH*kilowatt));
+                if(day.contains(month)){
+                    double kilowatt = (powerGraph.get(day)*60)/1000;
+                    carbonLine.getData().add(new XYChart.Data<>(day, CARBONPERKWH*kilowatt));
+                }
             }
 
             carbonBarChart.getData().setAll(carbonLine);
@@ -223,14 +225,16 @@ public class DashboardController implements Initializable {
 
             List<String> days = new ArrayList<>(powerGraph.keySet());
 
-            Collections.sort(days);
+            Collections.sort(days, dayCompare);
 
             XYChart.Series costLine = new XYChart.Series();
 
             costLine.setName("Daily Usage Cost");
             for(String day:days){
-                double kilowatt = (powerGraph.get(day)*60)/1000;
-                costLine.getData().add(new XYChart.Data<>(day, COSTPERKWH*kilowatt));
+                if(day.contains(month)) {
+                    double kilowatt = (powerGraph.get(day) * 60) / 1000;
+                    costLine.getData().add(new XYChart.Data<>(day, COSTPERKWH * kilowatt));
+                }
             }
 
             costBarChart.getData().setAll(costLine);
@@ -341,6 +345,20 @@ public class DashboardController implements Initializable {
     private final Comparator<String> dateCompare = (o1, o2) -> {
 
         SimpleDateFormat s = new SimpleDateFormat("MMM yyyy");
+        Date s1 = null;
+        Date s2 = null;
+        try {
+            s1 = s.parse(o1);
+            s2 = s.parse(o2);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return s1.compareTo(s2);
+    };
+
+    private final Comparator<String> dayCompare = (o1, o2) -> {
+
+        SimpleDateFormat s = new SimpleDateFormat("dd MMM yyyy");
         Date s1 = null;
         Date s2 = null;
         try {
