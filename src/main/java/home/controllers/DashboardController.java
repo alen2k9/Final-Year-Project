@@ -79,8 +79,8 @@ public class DashboardController implements Initializable {
                 else{
 
                     // electricity
-                    XYChart.Series energyUsed = new XYChart.Series();
-                    energyUsed.setName("Current Data");
+                    XYChart.Series energyCostUsed = new XYChart.Series();
+                    energyCostUsed.setName("Current Data");
 
                     // TODO: Do budget chart based off -> month or annual
                     XYChart.Series costAnnualBudget = new XYChart.Series();
@@ -117,12 +117,22 @@ public class DashboardController implements Initializable {
                         }
                     }
 
+                    costChart.getData().setAll(energyCostUsed, costAnnualBudget);
+                    carbonChart.getData().setAll(carbonValues, carbonAnnualBudget);
+
                     Collections.sort(months, dateCompare);
 
                     for(String month:months){
                         double kilowatt = (powerGraph.get(month)*60)/1000;
 
-                        carbonValues.getData().add(new XYChart.Data(month, kilowatt*CARBONPERKWH));
+                        // data variable for carbon value to add to chart
+                        XYChart.Data<String, Double> carbonUsedData = new XYChart.Data<>(month, kilowatt*CARBONPERKWH);
+                        carbonValues.getData().add(carbonUsedData);
+
+                        // Set Node Listener for Cost
+                        carbonUsedData.getNode().setOnMouseClicked(event -> setCarbonBarChart((String) carbonUsedData.getXValue()));
+                        carbonUsedData.getNode().setOnMouseEntered(event -> carbonUsedData.getNode().setOpacity(0.5));
+                        carbonUsedData.getNode().setOnMouseExited(event -> carbonUsedData.getNode().setOpacity(1));
 
                         try {
                             Date date=new SimpleDateFormat("MMM yyyy").parse(month);
@@ -130,10 +140,12 @@ public class DashboardController implements Initializable {
 
                             // data variable for value to add to chart
                             XYChart.Data<String, Double> energyUsedData = new XYChart.Data<>(month, COSTPERKWH * (energyCostMap.get(year) + kilowatt));
-                            energyUsed.getData().add(energyUsedData);
+                            energyCostUsed.getData().add(energyUsedData);
 
-                            // Set Node Listener
+                            // Set Node Listener for Cost
                             energyUsedData.getNode().setOnMouseClicked(event -> setCostBarChart((String) energyUsedData.getXValue()));
+                            energyUsedData.getNode().setOnMouseEntered(event -> energyUsedData.getNode().setOpacity(0.5));
+                            energyUsedData.getNode().setOnMouseExited(event -> energyUsedData.getNode().setOpacity(1));
 
                             energyCostMap.put(year, energyCostMap.get(year) + kilowatt);
 
@@ -150,16 +162,19 @@ public class DashboardController implements Initializable {
                             e.printStackTrace();
                         }
                     }
-                    costChart.getData().setAll(energyUsed, costAnnualBudget);
-                    carbonChart.getData().setAll(carbonValues, carbonAnnualBudget);
+
                 }
 
             }
         }
     }
 
-    private void setCostBarChart(String month) {
+    private void setCarbonBarChart(String month) {
+        System.out.println(month);
+    }
 
+    private void setCostBarChart(String month) {
+        System.out.println(month);
     }
 
     private String getStartDate() {
