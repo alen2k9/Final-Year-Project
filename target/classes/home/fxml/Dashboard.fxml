@@ -142,7 +142,7 @@
                         <Insets left="50.0" />
                      </HBox.margin>
                   </LineChart>
-                  <BarChart>
+                  <BarChart fx:id="carbonBarChart">
                     <xAxis>
                       <CategoryAxis side="BOTTOM" />
                     </xAxis>

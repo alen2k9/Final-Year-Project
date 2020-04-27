@@ -328,6 +328,7 @@ public class DashboardController implements Initializable {
         carbonChart.getXAxis().setAnimated(false);
         costChart.getXAxis().setAnimated(false);
         costBarChart.getXAxis().setAnimated(false);
+        carbonBarChart.getXAxis().setAnimated(false);
     }
 
     private final Comparator<String> dateCompare = (o1, o2) -> {
