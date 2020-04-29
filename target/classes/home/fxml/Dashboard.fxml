@@ -94,7 +94,7 @@
                         <Insets left="20.0" top="20.0" />
                      </padding>
                   </Label>
-                  <LineChart fx:id="costChart" maxWidth="1.7976931348623157E308" HBox.hgrow="ALWAYS">
+                  <LineChart fx:id="costChart" maxWidth="1.7976931348623157E308" styleClass="chart-series-line1" stylesheets="@../style/Linechart.css" HBox.hgrow="ALWAYS">
                      <xAxis>
                         <CategoryAxis label="Month" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" side="BOTTOM" snapToPixel="false" />
                      </xAxis>
@@ -105,7 +105,7 @@
                         <Insets left="50.0" />
                      </HBox.margin>
                   </LineChart>
-                  <BarChart fx:id="costBarChart" maxWidth="1.7976931348623157E308" HBox.hgrow="ALWAYS">
+                  <BarChart fx:id="costBarChart" maxWidth="1.7976931348623157E308" styleClass="chart-bar1" stylesheets="@../style/Linechart.css" HBox.hgrow="ALWAYS">
                     <xAxis>
                       <CategoryAxis label="Day" side="BOTTOM" />
                     </xAxis>
@@ -131,7 +131,7 @@
                         <Insets left="20.0" top="20.0" />
                      </padding>
                   </Label>
-                  <LineChart fx:id="carbonChart" maxWidth="1.7976931348623157E308" HBox.hgrow="ALWAYS">
+                  <LineChart fx:id="carbonChart" maxWidth="1.7976931348623157E308" styleClass="chart-series-line2" stylesheets="@../style/LineChart2.css" HBox.hgrow="ALWAYS">
                     <xAxis>
                       <CategoryAxis label="Month" side="BOTTOM" />
                     </xAxis>
@@ -142,7 +142,7 @@
                         <Insets left="50.0" />
                      </HBox.margin>
                   </LineChart>
-                  <BarChart fx:id="carbonBarChart" maxWidth="1.7976931348623157E308" HBox.hgrow="ALWAYS">
+                  <BarChart fx:id="carbonBarChart" maxWidth="1.7976931348623157E308" styleClass="chart-bar2" stylesheets="@../style/LineChart2.css" HBox.hgrow="ALWAYS">
                     <xAxis>
                       <CategoryAxis label="Day" side="BOTTOM" />
                     </xAxis>
