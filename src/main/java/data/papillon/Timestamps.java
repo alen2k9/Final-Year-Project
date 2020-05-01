@@ -1,4 +1,4 @@
-package data;
+package data.papillon;
 
 import java.util.Date;
 

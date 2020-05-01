@@ -1,4 +1,4 @@
-package data;
+package data.papillon;
 
 public class Application {
 

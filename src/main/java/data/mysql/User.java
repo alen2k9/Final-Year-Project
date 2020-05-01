@@ -27,6 +27,7 @@ public class User {
     public List<Host> hosts;
     public Map<String, Server> serverMap;
 
+    // User information
     public int userId;
     public String userName;
     public String password;

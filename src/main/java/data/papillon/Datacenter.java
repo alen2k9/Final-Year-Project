@@ -1,4 +1,4 @@
-package data;
+package data.papillon;
 
 public class Datacenter {
     private int id;

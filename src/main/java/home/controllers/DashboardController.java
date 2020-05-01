@@ -40,11 +40,11 @@ public class DashboardController implements Initializable {
     public Label emptyData;
     public Button displayDataButton;
 
-    //Bar Chart
+    //Bar Charts
     public BarChart costBarChart;
     public BarChart carbonBarChart;
 
-    // current User
+    // Current User
     private User currentUser;
 
     // Carbon value calculator
@@ -59,58 +59,79 @@ public class DashboardController implements Initializable {
     // Graph Setup
     private void setupLinechart() throws IOException {
 
+        // Set invisible
         emptyData.setOpacity(0);
 
+        // Check to see if user has chosen dates
         if(startDate.getValue() == null || endDate.getValue() == null){
             emptyData.setText("Correct Date/s not chosen");
             emptyData.setOpacity(1.0);
         }
         else{
+
+            // Get dates in valid format (In String from long as epoch)
             String startDateValue = getStartDate();
             String endDateValue = getEndDate();
 
             // check if the values have been chosen by drop down and is valid
             // If graph empty dont do add to graph  as it would give error
-
             if(Long.parseLong(startDateValue) >= Long.parseLong(endDateValue)) {
+
+                // Prompt User
                 emptyData.setText("start date is after end date");
                 emptyData.setOpacity(1.0);
-                System.out.println("Epoch start time = " + startDateValue);
+
             }else{
+
+                // Get HashMap of monthly power stats from JSON
                 Map<String, Double> powerGraph = currentUser.getPowerData(startDateValue, endDateValue ,currentUser.serverMap.get(choice4.getValue()));
+
+                // Budget Values of User
                 int costBudget = currentUser.serverMap.get(choice4.getValue()).annualBudget;
                 int carbonBudget = currentUser.serverMap.get(choice4.getValue()).carbonBudget;
+
+                // Check if the powerGraph was a valid call
                 if(powerGraph.isEmpty()){
                     emptyData.setText("No available Data");
                     emptyData.setOpacity(1.0);
                 }
                 else{
 
-                    // electricity
+                    // Data to store monthly cost
                     XYChart.Series energyCostUsed = new XYChart.Series();
                     energyCostUsed.setName("Current Data");
 
-                    // TODO: Do budget chart based off -> month or annual
+                    // Cost Budget
                     XYChart.Series costAnnualBudget = new XYChart.Series();
                     costAnnualBudget.setName("Cost Budget");
 
+                    // Carbon Budget
                     XYChart.Series carbonAnnualBudget = new XYChart.Series();
                     carbonAnnualBudget.setName("Carbon Budget");
 
+                    // Carbon Data
                     XYChart.Series carbonValues = new XYChart.Series();
                     carbonValues.setName("Carbon Emission");
 
+                    // List of month strings to do sorting by month
                     List<String> months = new ArrayList<>();
+
+                    // Map to store Cost and carbon values for each year to have an increasing graph
                     Map<String, Double> energyCostMap = new HashMap<>();
                     Map<String, Double> carbonMap = new HashMap<>();
+
+                    // Map to store cost and carbon budget yearly to increase linearly
                     Map<String, Integer> yearCostBudgetMap = new HashMap<>();
                     Map<String, Integer> yearCarbonBudgetMap = new HashMap<>();
 
+                    // Get each month in power Graph
                     for (String month: powerGraph.keySet() ) {
                         months.add(month);
                         try {
+                            // Get year and store into Hash map and set value to 0
                             Date date=new SimpleDateFormat("MMM yyyy").parse(month);
                             String year = new SimpleDateFormat("yyyy").format(date);
+
                             if(!energyCostMap.containsKey(year)){
                                 energyCostMap.put(year, 0.0);
                                 carbonMap.put(year, 0.0);
@@ -125,16 +146,17 @@ public class DashboardController implements Initializable {
                         }
                     }
 
+                    // Add XY values to the chart
                     costChart.getData().setAll(energyCostUsed, costAnnualBudget);
-
                     carbonChart.getData().setAll(carbonValues, carbonAnnualBudget);
 
-                    Collections.sort(months, dateCompare);
+                    // Sort the months uses comparator
+                    months.sort(dateCompare);
 
                     for(String month:months){
+
+                        // Calculate killowat
                         double kilowatt = (powerGraph.get(month)*60)/1000;
-
-
 
                         try {
                             Date date=new SimpleDateFormat("MMM yyyy").parse(month);
@@ -165,12 +187,15 @@ public class DashboardController implements Initializable {
                             // Add carbon values for year up
                             carbonMap.put(year, carbonMap.get(year) + kilowatt);
 
+                            // Get monthly budget value
                             int monthlyCostBudget = costBudget/12;
                             int monthlyCarbonBudget = carbonBudget/12;
 
+                            // Add incremented monthly value
                             yearCostBudgetMap.put(year, yearCostBudgetMap.get(year) + monthlyCostBudget);
                             yearCarbonBudgetMap.put(year, yearCarbonBudgetMap.get(year) + monthlyCarbonBudget);
 
+                            // Add data to XY chart
                             costAnnualBudget.getData().add(new XYChart.Data<>(month, yearCostBudgetMap.get(year)));
                             carbonAnnualBudget.getData().add(new XYChart.Data<>(month, yearCarbonBudgetMap.get(year)));
 
@@ -178,29 +203,33 @@ public class DashboardController implements Initializable {
                             e.printStackTrace();
                         }
                     }
-
                 }
-
             }
         }
     }
 
     private void setCarbonBarChart(String month) {
+
+        // Format Date Value
         SimpleDateFormat df = new SimpleDateFormat("MMM yyyy");
         Date date = null;
         try {
+            // Convert to required Date and get Epoch
             date = df.parse(month);
             long epoch = date.getTime()/1000;
 
+            // Get Daily power Graph
             Map<String, Double> powerGraph = currentUser.getPowerDataDay(String.valueOf(epoch), String.valueOf(epoch+MONTH)  ,currentUser.serverMap.get(choice4.getValue()));
 
+            // Convert to list and sort using comparator
             List<String> days = new ArrayList<>(powerGraph.keySet());
+            days.sort(dayCompare);
 
-            Collections.sort(days, dayCompare);
-
+            // Create budget Series
             XYChart.Series carbonLine = new XYChart.Series();
-
             carbonLine.setName("Daily Carbon Usage");
+
+            // For each day calculate kilowatt and add to Data series
             for(String day:days){
                 if(day.contains(month)){
                     double kilowatt = (powerGraph.get(day)*60)/1000;
@@ -208,29 +237,36 @@ public class DashboardController implements Initializable {
                 }
             }
 
+            // Add to bar chart
             carbonBarChart.getData().setAll(carbonLine);
-
         } catch (ParseException | IOException e) {
             e.printStackTrace();
         }
     }
 
     private void setCostBarChart(String month) {
+
+        // Format Date Value
         SimpleDateFormat df = new SimpleDateFormat("MMM yyyy");
         Date date = null;
+
         try {
+            // Convert to required Date and get Epoch
             date = df.parse(month);
             long epoch = date.getTime()/1000;
 
+            // Get daily power graph
             Map<String, Double> powerGraph = currentUser.getPowerDataDay(String.valueOf(epoch), String.valueOf(epoch+MONTH)  ,currentUser.serverMap.get(choice4.getValue()));
 
+            // Convert to list and sort using comparator
             List<String> days = new ArrayList<>(powerGraph.keySet());
+            days.sort(dayCompare);
 
-            Collections.sort(days, dayCompare);
-
+            // Create series
             XYChart.Series costLine = new XYChart.Series();
-
             costLine.setName("Daily Usage Cost");
+
+            // For each day calculate kilowatt and add to Data series
             for(String day:days){
                 if(day.contains(month)) {
                     double kilowatt = (powerGraph.get(day) * 60) / 1000;
@@ -238,6 +274,7 @@ public class DashboardController implements Initializable {
                 }
             }
 
+            // Add to bar chart
             costBarChart.getData().setAll(costLine);
 
         } catch (ParseException | IOException e) {
@@ -245,6 +282,7 @@ public class DashboardController implements Initializable {
         }
     }
 
+    /* Method to Calculate Epoch from date chosen */
     private String getStartDate() {
         long dps = LocalDate.of(startDate.getValue().getYear(), startDate.getValue().getMonth(),
                 startDate.getValue().getDayOfMonth())
@@ -254,6 +292,7 @@ public class DashboardController implements Initializable {
         return Long.toString(dps);
     }
 
+    /* Method to Calculate Epoch from date chosen */
     private String getEndDate() {
         long dps = LocalDate.of(endDate.getValue().getYear(), endDate.getValue().getMonth(),
                 endDate.getValue().getDayOfMonth())
@@ -266,25 +305,21 @@ public class DashboardController implements Initializable {
     // Check items in drop down box and get Information
     public void dashboardClicked(MouseEvent mouseEvent) {
 
-        // setup Line Chart
-        if(!choice1.getSelectionModel().isEmpty() && !choice2.getSelectionModel().isEmpty() && !choice3.getSelectionModel().isEmpty() && !choice4.getSelectionModel().isEmpty()){
-            System.out.println(choice1.getSelectionModel().getSelectedItem() + "->" + choice2.getSelectionModel().getSelectedItem() + "->" + choice3.getSelectionModel().getSelectedItem() + "->" + choice4.getSelectionModel().getSelectedItem());
+        // Check to see user hasn't chosen everything
+        if(!choice1.getSelectionModel().isEmpty() || !choice2.getSelectionModel().isEmpty() || !choice3.getSelectionModel().isEmpty() || !choice4.getSelectionModel().isEmpty()){
+            emptyData.setText("Please select all");
+            emptyData.setVisible(true);
         }
-        else if(!choice1.getSelectionModel().isEmpty() && !choice2.getSelectionModel().isEmpty() && !choice3.getSelectionModel().isEmpty()){
-            System.out.println(choice1.getSelectionModel().getSelectedItem() + "->" + choice2.getSelectionModel().getSelectedItem() + "->" + choice3.getSelectionModel().getSelectedItem());
-        }
-        else if(!choice1.getSelectionModel().isEmpty() && !choice2.getSelectionModel().isEmpty()){
-            System.out.println(choice1.getSelectionModel().getSelectedItem() + "->" + choice2.getSelectionModel().getSelectedItem());
-        }
-        else if(!choice1.getSelectionModel().isEmpty()){
-            System.out.println(choice1.getSelectionModel().getSelectedItem());
+        else{
+            emptyData.setVisible(false);
+            try {
+                setupLinechart();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
 
-        try {
-            setupLinechart();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+
     }
 
     // Method to get data from Current User who is logged in
@@ -337,14 +372,16 @@ public class DashboardController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+
+        // Reduce animation to enabling running it better
         carbonChart.getXAxis().setAnimated(false);
         costChart.getXAxis().setAnimated(false);
         costBarChart.getXAxis().setAnimated(false);
         carbonBarChart.getXAxis().setAnimated(false);
     }
 
+    /* Comparator for month and year format */
     private final Comparator<String> dateCompare = (o1, o2) -> {
-
         SimpleDateFormat s = new SimpleDateFormat("MMM yyyy");
         Date s1 = null;
         Date s2 = null;
@@ -357,8 +394,8 @@ public class DashboardController implements Initializable {
         return s1.compareTo(s2);
     };
 
+    /* Comparator for day month and year format*/
     private final Comparator<String> dayCompare = (o1, o2) -> {
-
         SimpleDateFormat s = new SimpleDateFormat("dd MMM yyyy");
         Date s1 = null;
         Date s2 = null;
@@ -372,7 +409,7 @@ public class DashboardController implements Initializable {
     };
 
     // TEST
-    public static void main(String[] args){
+/*   public static void main(String[] args){
         SimpleDateFormat df = new SimpleDateFormat("MMM yyyy");
         Date date = null;
         try {
@@ -383,4 +420,5 @@ public class DashboardController implements Initializable {
         long epoch = date.getTime()/1000;
         System.out.println(epoch);
     }
+*/
 }

@@ -205,10 +205,6 @@ public class HomeController implements Initializable {
         }
     }
 
-    public static void main(String[] args){
-        long epoch = System.currentTimeMillis()/1000 - (2629743*12);
-        System.out.print(epoch);
-    }
 
     private final Comparator<String> dateCompare = (o1, o2) -> {
 
