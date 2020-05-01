@@ -136,7 +136,7 @@ public class HomeController implements Initializable {
         }
     }
 
-    /* Check fro correct input */
+    /* Check for correct input and set Budget*/
     public void setBudget(MouseEvent mouseEvent) {
         if(currentHost == null){
             budgetLabel.setText(" No Host Selected To Set Budget ");
@@ -149,14 +149,19 @@ public class HomeController implements Initializable {
         else{
             budgetLabel.setVisible(false);
 
+            // Update SQL server
             MYSQL.setServerBudget(currentHost.serverId, Integer.parseInt(annualBudgetField.getText()), Integer.parseInt(carbonBudgetField.getText()));
             setUpTable();
         }
     }
 
+    /* Display data */
     public void rowSelected(MouseEvent mouseEvent) {
+
+        // Get chosen server data
         ServerNames server = serverTable.getSelectionModel().getSelectedItem();
 
+        // Find server and display information on it
         for(Host host:currentUser.hosts){
             if(host.school.equals(server.getSchool()) && host.researchGroup.equals(server.getResearchGroup()) && host.projectName.equals(server.getProject()) && host.serverName.equals(server.getServerName())){
                 schoolNameField.setText(host.school);
@@ -172,6 +177,7 @@ public class HomeController implements Initializable {
 
                 currentHost = host;
 
+                // Set the graph
                 setGraph(new Server(host.datacenterId, host.floorId, host.rackId, host.hostId, host.annualBudget, host.carbonBudget));
                 break;
             }
@@ -179,34 +185,41 @@ public class HomeController implements Initializable {
     }
 
     private void setGraph(Server server) {
+
+        // Get current epoch and epoch from 1 year ago
         long now = System.currentTimeMillis()/MILLISECONDS;
         long twelveMonthsAgo = now - TWELVEMONTHSEPOCH;
 
         try {
 
+            // Create series for data
             XYChart.Series usageGraphAxis = new XYChart.Series();
             usageGraphAxis.setName("Current Usage");
 
+            // Get monthly data in hashmap
             Map<String, Double> usageGraphMap = currentUser.getPowerData(Long.toString(twelveMonthsAgo), Long.toString(now) ,server);
+
             if(usageGraphMap.isEmpty()){
-                // TODO
-                System.out.print("works and empty");
+                noAvailableData.setText("No valid Data from the last 12 months");
                 noAvailableData.setVisible(true);
             }
             else {
-
                 noAvailableData.setVisible(false);
 
+                // Get months list and sort
                 List<String> months = new ArrayList<>(usageGraphMap.keySet());
-
                 months.sort(dateCompare);
 
                 double total = 0;
                 for(String month:months){
+
+                    // Calculate kilowatt and add to series
                     double kilowatt = (usageGraphMap.get(month)*60)/1000;
                     total += (kilowatt * COSTPERKWH);
                     usageGraphAxis.getData().add(new XYChart.Data(month, total));
                 }
+
+                // add dat to chart
                 usageGraph.getData().setAll(usageGraphAxis);
 
             }
@@ -215,9 +228,8 @@ public class HomeController implements Initializable {
         }
     }
 
-
+    // comparator for Month and Year
     private final Comparator<String> dateCompare = (o1, o2) -> {
-
         SimpleDateFormat s = new SimpleDateFormat("MMM yyyy");
         Date s1 = null;
         Date s2 = null;
@@ -230,6 +242,7 @@ public class HomeController implements Initializable {
         return s1.compareTo(s2);
     };
 
+    // Check to see if number is numeric
     public static boolean isNumeric(String str) {
         try {
             Double.parseDouble(str);
