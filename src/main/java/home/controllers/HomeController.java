@@ -71,11 +71,12 @@ public class HomeController implements Initializable {
 
     // Empty Field Notification
     public Label addServerField;
-
-
+    public Label budgetLabel;
 
     // Current Host
     private Host currentHost;
+
+
     // User Setup method
     void setUser(User user){
         this.currentUser = user;
@@ -89,22 +90,30 @@ public class HomeController implements Initializable {
         serverTable.setItems(mysql.getTable(currentUser.userId));
     }
 
-
-
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        schoolColumn.setCellValueFactory(new PropertyValueFactory<ServerNames, String>("school"));
-        researchGroupColumn.setCellValueFactory(new PropertyValueFactory<ServerNames, String>("researchGroup"));
-        projectColumn.setCellValueFactory(new PropertyValueFactory<ServerNames, String>("project"));
-        serverNameColumn.setCellValueFactory(new PropertyValueFactory<ServerNames, String>("serverName"));
-        annualBudgetColumn.setCellValueFactory(new PropertyValueFactory<ServerNames, String>("annualBudget"));
-        carbonBudgetColumn.setCellValueFactory(new PropertyValueFactory<ServerNames, String>("carbonBudget"));
+
+        // Set values of Table
+        schoolColumn.setCellValueFactory(new PropertyValueFactory<>("school"));
+        researchGroupColumn.setCellValueFactory(new PropertyValueFactory<>("researchGroup"));
+        projectColumn.setCellValueFactory(new PropertyValueFactory<>("project"));
+        serverNameColumn.setCellValueFactory(new PropertyValueFactory<>("serverName"));
+        annualBudgetColumn.setCellValueFactory(new PropertyValueFactory<>("annualBudget"));
+        carbonBudgetColumn.setCellValueFactory(new PropertyValueFactory<>("carbonBudget"));
+
+        // Stop animation
         usageGraph.getXAxis().setAnimated(false);
     }
 
-    // TODO
+    /**
+     *  Check to see if user has left values empty -> prompt user
+     *  Check if values are valid types (numeric) -> prompt
+     *  Check for repetition -> prompt
+     **/
     public void addServer(MouseEvent mouseEvent) {
+
         addServerField.setVisible(false);
+
         if(addServerSchoolNameField.getText().isEmpty() || addServerResearchGroupField.getText().isEmpty() || addServerProjectGroupField.getText().isEmpty()
                 || addServerServerNameGroupField.getText().isEmpty() || addServerDatacenterIdField.getText().isEmpty() || addServerFloorIdField.getText().isEmpty()
                 || addServerRackIdField.getText().isEmpty() || addServerHostIdField.getText().isEmpty()){
@@ -125,21 +134,22 @@ public class HomeController implements Initializable {
             MYSQL.addServer(currentUser.userId,new Host(addServerSchoolNameField.getText(), addServerResearchGroupField.getText(), addServerProjectGroupField.getText(), addServerServerNameGroupField.getText(), Integer.parseInt(addServerDatacenterIdField.getText()), Integer.parseInt(addServerFloorIdField.getText()), Integer.parseInt(addServerRackIdField.getText()), Integer.parseInt(addServerHostIdField.getText())));
             setUpTable();
         }
-
-
     }
 
-    // TODO
+    /* Check fro correct input */
     public void setBudget(MouseEvent mouseEvent) {
         if(currentHost == null){
-        // TODO
+            budgetLabel.setText(" No Host Selected To Set Budget ");
+            budgetLabel.setVisible(true);
         }
         else if(annualBudgetField.getText().isEmpty() || !isNumeric(annualBudgetField.getText()) || carbonBudgetField.getText().isEmpty() || !isNumeric(carbonBudgetField.getText())){
-        // TODO
+            budgetLabel.setText(" Please input valid values (Numeric)");
+            budgetLabel.setVisible(true);
         }
         else{
-            MYSQL.setServerBudget(currentHost.serverId, Integer.parseInt(annualBudgetField.getText()), Integer.parseInt(carbonBudgetField.getText()));
+            budgetLabel.setVisible(false);
 
+            MYSQL.setServerBudget(currentHost.serverId, Integer.parseInt(annualBudgetField.getText()), Integer.parseInt(carbonBudgetField.getText()));
             setUpTable();
         }
     }
@@ -157,12 +167,12 @@ public class HomeController implements Initializable {
                 rackIdField.setText(String.valueOf(host.rackId));
                 floorIdField.setText(String.valueOf(host.floorId));
                 hostIdField.setText(String.valueOf(host.hostId));
-
-                currentHost = host;
                 annualBudgetField.setText(String.valueOf(host.annualBudget));
                 carbonBudgetField.setText(String.valueOf(host.carbonBudget));
-                // TODO:
-                // setGraph(new Server(host.datacenterId, host.floorId, host.rackId, host.hostId, host.annualBudget));
+
+                currentHost = host;
+
+                setGraph(new Server(host.datacenterId, host.floorId, host.rackId, host.hostId, host.annualBudget, host.carbonBudget));
                 break;
             }
         }

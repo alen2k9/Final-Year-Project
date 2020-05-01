@@ -3,22 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="cdb932d9-7e58-4d94-93a9-e7b232ef17da" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/data/Activity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/data/papillon/Activity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/data/Application.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/data/papillon/Application.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/data/Category.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/data/papillon/Category.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/data/Datacenter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/data/papillon/Datacenter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/data/Floor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/data/papillon/Floor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/data/Host.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/data/papillon/Host.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/data/PowerModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/data/papillon/PowerModel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/data/PowerModelGroup.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/data/papillon/PowerModelGroup.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/data/PowerModelStatistics.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/data/papillon/PowerModelStatistics.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/data/Rack.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/data/papillon/Rack.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/data/Timestamps.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/data/papillon/Timestamps.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/data/mysql/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/data/mysql/User.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/data/sql class" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/data/sql class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/home/controllers/DashboardController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/home/controllers/DashboardController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/home/controllers/HomeController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/home/controllers/HomeController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/home/fxml/Dashboard.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/home/fxml/Dashboard.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -400,7 +385,7 @@
       <workItem from="1588192080897" duration="739000" />
       <workItem from="1588282127006" duration="675000" />
       <workItem from="1588326182633" duration="2083000" />
-      <workItem from="1588359750290" duration="2307000" />
+      <workItem from="1588359750290" duration="2988000" />
     </task>
     <servers />
   </component>

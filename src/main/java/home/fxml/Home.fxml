@@ -468,6 +468,11 @@
                         <Insets />
                      </VBox.margin>
                   </Label>
+                  <Label fx:id="budgetLabel" text="No Host Selected to budget" textFill="#ff1e00" visible="false">
+                     <font>
+                        <Font name="System Bold" size="15.0" />
+                     </font>
+                  </Label>
                   <HBox alignment="CENTER" spacing="20.0">
                      <children>
                         <Label prefWidth="165.0" text="Annual Budget €">
