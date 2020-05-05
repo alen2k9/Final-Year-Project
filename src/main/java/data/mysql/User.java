@@ -15,7 +15,7 @@ import java.time.ZoneId;
 import java.util.*;
 
 /**
- * Class to pass values for drop down box
+ * Class to setup users
  *
  * */
 
@@ -27,16 +27,13 @@ public class User {
     public List<Host> hosts;
     public Map<String, Server> serverMap;
 
-    // User information
+    // User information from database
     public int userId;
     public String userName;
     public String password;
     public String name;
 
-
-    // database information
     public static final String RESTSERVICE = "http://192.168.67.4:8080/papillonserver/rest/";
-
 
     public User(int userId, String userName, String password, String name){
         this.userId = userId;
@@ -94,17 +91,10 @@ public class User {
     public Map<String, Double> getPowerData(String start, String end, Server server) throws IOException {
 
         URL url = new URL(RESTSERVICE + "datacenters/"+ server.datacenterId+"/floors/"+ server.floorId+"/racks/"+ server.rackId+"/hosts/"+ server.hostId+"/power?starttime="+start+"&endtime="+end);
-       // URL url = new URL("http://192.168.67.4:8080/papillonserver/rest/datacenters/266/floors/290/racks/293/hosts/286/power?starttime=0&endtime=1585427363");
-                            //http://192.168.67.4:8080/papillonserver/rest/datacenters/266/floors/290/racks/293/hosts/286/power?starttime=1585785600&endtime=1587081600
         System.out.println(url.toString());
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
         connection.setRequestMethod("GET");
         connection.setRequestProperty("Accept", "application/json");
-
-        //        if (connection.getResponseCode() != 200) {
-        //            throw new RuntimeException("Failed : HTTP error code : "
-        //                    + connection.getResponseCode());
-        //        }
 
         BufferedReader br = new BufferedReader(new InputStreamReader(
                 (connection.getInputStream())));
@@ -114,7 +104,7 @@ public class User {
         MainPower mainPower = new Gson().fromJson(output, MainPower.class);
 
         if(mainPower == null){
-            return new HashMap<String, Double>();
+            return new HashMap<>();
         }else{
             Map<String, Double> powerGraph = doMappingMonth(mainPower);
 
@@ -126,17 +116,10 @@ public class User {
     public Map<String, Double> getPowerDataDay(String start, String end, Server server) throws IOException {
 
         URL url = new URL(RESTSERVICE + "datacenters/"+ server.datacenterId+"/floors/"+ server.floorId+"/racks/"+ server.rackId+"/hosts/"+ server.hostId+"/power?starttime="+start+"&endtime="+end);
-        // URL url = new URL("http://192.168.67.4:8080/papillonserver/rest/datacenters/266/floors/290/racks/293/hosts/286/power?starttime=0&endtime=1585427363");
-        //http://192.168.67.4:8080/papillonserver/rest/datacenters/266/floors/290/racks/293/hosts/286/power?starttime=1585785600&endtime=1587081600
         System.out.println(url.toString());
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
         connection.setRequestMethod("GET");
         connection.setRequestProperty("Accept", "application/json");
-
-        //        if (connection.getResponseCode() != 200) {
-        //            throw new RuntimeException("Failed : HTTP error code : "
-        //                    + connection.getResponseCode());
-        //        }
 
         BufferedReader br = new BufferedReader(new InputStreamReader(
                 (connection.getInputStream())));
@@ -146,7 +129,7 @@ public class User {
         MainPower mainPower = new Gson().fromJson(output, MainPower.class);
 
         if(mainPower == null){
-            return new HashMap<String, Double>();
+            return new HashMap<>();
         }else{
             Map<String, Double> powerGraph = doMappingDay(mainPower);
 

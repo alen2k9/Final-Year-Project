@@ -221,7 +221,6 @@ public class HomeController implements Initializable {
 
                 // add dat to chart
                 usageGraph.getData().setAll(usageGraphAxis);
-
             }
         } catch (IOException e) {
             e.printStackTrace();

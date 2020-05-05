@@ -140,21 +140,7 @@ public class MYSQL {
             e.printStackTrace();
         }
 
-        for(Host eachHost:hosts){
-            if(eachHost.serverName.equals(newHost.serverName) && eachHost.datacenterId == newHost.datacenterId && eachHost.floorId == newHost.floorId && eachHost.rackId == newHost.rackId && eachHost.hostId == newHost.hostId){
-                // Add User id to serveruser
-                try {
-
-                    connection = DriverManager.getConnection(CONNECTIONURL, USERNAME, PASSWORD);
-                    Statement statement = connection.createStatement();
-                    statement.executeUpdate("insert into user.userserver(userid, serverid) values ('"+userId+"', '"+eachHost.serverId+"');");
-
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-                serverAdded = true;
-            }
-        }
+        serverAdded = isServerAdded(userId, newHost, hosts, serverAdded);
 
         if(!serverAdded){
             try {
@@ -214,6 +200,25 @@ public class MYSQL {
             }
         }
 
+    }
+
+    private static boolean isServerAdded(int userId, Host newHost, List<Host> hosts, boolean serverAdded) {
+        for(Host eachHost:hosts){
+            if(eachHost.serverName.equals(newHost.serverName) && eachHost.datacenterId == newHost.datacenterId && eachHost.floorId == newHost.floorId && eachHost.rackId == newHost.rackId && eachHost.hostId == newHost.hostId){
+                // Add User id to serveruser
+                try {
+
+                    connection = DriverManager.getConnection(CONNECTIONURL, USERNAME, PASSWORD);
+                    Statement statement = connection.createStatement();
+                    statement.executeUpdate("insert into user.userserver(userid, serverid) values ('"+userId+"', '"+eachHost.serverId+"');");
+
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+                serverAdded = true;
+            }
+        }
+        return serverAdded;
     }
 
     private static void getHosts(List<Host> hosts, ResultSet resultSet) throws SQLException {
