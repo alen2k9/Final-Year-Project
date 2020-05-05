@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MYSQL {
+    // MySQL Server access settings
     private static final String USERNAME = "root";
     private static final String PASSWORD = "password";
     private static final String CONNECTIONURL = "jdbc:mysql://localhost:3306/user";
@@ -236,7 +237,6 @@ public class MYSQL {
             connection = DriverManager.getConnection(CONNECTIONURL, USERNAME, PASSWORD);
             Statement statement = connection.createStatement();
             statement.executeUpdate("insert into user.userserver(userid, serverid) values ('"+1+"', '"+4+"');");
-
 
         } catch (SQLException e) {
             e.printStackTrace();
