@@ -306,7 +306,7 @@ public class DashboardController implements Initializable {
     public void dashboardClicked(MouseEvent mouseEvent) {
 
         // Check to see user hasn't chosen everything
-        if(!choice1.getSelectionModel().isEmpty() || !choice2.getSelectionModel().isEmpty() || !choice3.getSelectionModel().isEmpty() || !choice4.getSelectionModel().isEmpty()){
+        if(choice1.getSelectionModel().isEmpty() || choice2.getSelectionModel().isEmpty() || choice3.getSelectionModel().isEmpty() || choice4.getSelectionModel().isEmpty()){
             emptyData.setText("Please select all");
             emptyData.setVisible(true);
         }
