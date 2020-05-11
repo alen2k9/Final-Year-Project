@@ -1,5 +1,5 @@
-package data.papillon;
 
+package data.papillon;
 public class PowerModelGroup {
 
     private int id;
@@ -30,3 +30,4 @@ public class PowerModelGroup {
         this.description = description;
     }
 }
+
