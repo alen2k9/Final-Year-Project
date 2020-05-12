@@ -26,7 +26,7 @@ public class MYSQL {
         try {
             connection = DriverManager.getConnection(CONNECTIONURL, USERNAME, PASSWORD);
             Statement statement = connection.createStatement();
-            ResultSet resultSet = statement.executeQuery("select * from users");
+            ResultSet resultSet = statement.executeQuery("select * from user.users");
 
             while (resultSet.next()){
                 User user = new User(resultSet.getInt(1),  resultSet.getString(2), resultSet.getString(3), resultSet.getString(4));
@@ -40,8 +40,8 @@ public class MYSQL {
 
         return users;
     }
-
     public User createNewUser(String userName, String password, String name){
+
         User user = new User();
 
         try {
@@ -75,7 +75,7 @@ public class MYSQL {
         try {
             connection = DriverManager.getConnection(CONNECTIONURL, USERNAME, PASSWORD);
             Statement statement = connection.createStatement();
-            ResultSet resultSet = statement.executeQuery("select userserver.serverid, school, researchgroup, project, server,annualBudget,carbonBudget, datacenterid, floorid, rackid, host from userserver , (select serverid, school, researchgroup, project, server,annualBudget, carbonBudget, datacenterid, floorid, rackid, host from servers left join hosts h on servers.hostid = h.hostid) as `as`" +
+            ResultSet resultSet = statement.executeQuery("select userserver.serverid, school, researchgroup, project, server,annualBudget,carbonBudget, datacenterid, floorid, rackid, host from user.userserver , (select serverid, school, researchgroup, project, server,annualBudget, carbonBudget, datacenterid, floorid, rackid, host from user.servers left join user.hosts h on servers.hostid = h.hostid) as `as`" +
                     "where userserver.serverid = as.serverid and userid ="+ userId+";");
 
             getHosts(hosts, resultSet);
@@ -114,7 +114,7 @@ public class MYSQL {
         try {
             connection = DriverManager.getConnection(CONNECTIONURL, USERNAME, PASSWORD);
             Statement statement = connection.createStatement();
-            statement.executeUpdate("UPDATE servers SET annualBudget = " + annualBudget + ", carbonBudget = "+carbonBudget+
+            statement.executeUpdate("UPDATE user.servers SET annualBudget = " + annualBudget + ", carbonBudget = "+carbonBudget+
                     " WHERE serverid = "+serverId+";");
 
         } catch (SQLException e) {
@@ -133,7 +133,7 @@ public class MYSQL {
         try {
             connection = DriverManager.getConnection(CONNECTIONURL, USERNAME, PASSWORD);
             Statement statement = connection.createStatement();
-            ResultSet resultSet = statement.executeQuery("select userserver.serverid, school, researchgroup, project, server,annualBudget, carbonBudget, datacenterid, floorid, rackid, host from userserver , (select serverid, school, researchgroup, project, server,annualBudget,carbonBudget, datacenterid, floorid, rackid, host from servers left join hosts h on servers.hostid = h.hostid) as `as`" +
+            ResultSet resultSet = statement.executeQuery("select userserver.serverid, school, researchgroup, project, server,annualBudget, carbonBudget, datacenterid, floorid, rackid, host from user.userserver , (select serverid, school, researchgroup, project, server,annualBudget,carbonBudget, datacenterid, floorid, rackid, host from user.servers left join user.hosts h on servers.hostid = h.hostid) as `as`" +
                     "where userserver.serverid = as.serverid; ");
 
             getHosts(hosts, resultSet);
@@ -157,7 +157,7 @@ public class MYSQL {
             try {
                 connection = DriverManager.getConnection(CONNECTIONURL, USERNAME, PASSWORD);
                 Statement statement = connection.createStatement();
-                ResultSet resultSet = statement.executeQuery("select hosts.hostid from hosts" +
+                ResultSet resultSet = statement.executeQuery("select hosts.hostid from user.hosts" +
                         " where datacenterid = "+newHost.datacenterId+" and floorid = "+newHost.floorId+" and rackid = "+newHost.rackId+" and host = "+newHost.hostId+";");
 
                 while (resultSet.next()) {
@@ -180,7 +180,7 @@ public class MYSQL {
             try {
                 connection = DriverManager.getConnection(CONNECTIONURL, USERNAME, PASSWORD);
                 Statement statement = connection.createStatement();
-                ResultSet resultSet = statement.executeQuery("select servers.serverid from servers" +
+                ResultSet resultSet = statement.executeQuery("select servers.serverid from user.servers" +
                         " where school = '"+newHost.school+"' and researchgroup = '"+newHost.researchGroup+"' and project = '"+newHost.projectName+"' and server = '"+newHost.serverName+"' and hostid = '"+ hostid +"';");
 
                 while (resultSet.next()) {
