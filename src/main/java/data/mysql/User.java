@@ -33,6 +33,7 @@ public class User {
     public String password;
     public String name;
 
+    // REST Service
     private static final String RESTSERVICE = "http://192.168.67.4:8080/papillonserver/rest/";
 
     public User(int userId, String userName, String password, String name){
